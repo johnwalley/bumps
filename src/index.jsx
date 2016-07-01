@@ -83,7 +83,7 @@ export default class BumpsChartApp extends React.Component {
   constructor(props) {
     super(props);
 
-    let set = 'May Bumps';
+    let set = 'Town Bumps';
 
     if (this.props.params.eventId !== undefined) {
       const paramSet = this.props.params.eventId.toLowerCase();

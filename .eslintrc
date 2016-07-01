@@ -1,0 +1,8 @@
+{
+    "extends": "airbnb",
+    "rules": {
+        "max-len": 0,
+        "no-undef": 0,
+        "quote-props": ["error", "consistent-as-needed"]
+    }
+}

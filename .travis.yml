@@ -1,0 +1,10 @@
+language: node_js
+
+node_js:
+- stable
+
+script: bash ./deploy.sh
+env:
+  global:
+  - ENCRYPTION_LABEL: "319322b5741f"
+  - COMMIT_AUTHOR_EMAIL: "john@walley.org.uk"

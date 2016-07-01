@@ -1,0 +1,59 @@
+{
+  "name": "d3-bumps",
+  "version": "0.0.1",
+  "description": "Draw bumps results",
+  "keywords": [
+    "d3",
+    "bumps"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "build/d3-bumps.js",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/johnwalley/d3-bumps",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnwalley/d3-bumps.git"
+  },
+  "scripts": {
+    "publish": "babel-node results/generate_results.js && webpack -p --progress",
+    "start": "webpack-dev-server --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
+    "test": "babel-tape-runner test/**/*-test.js | faucet"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-tape-runner": "^2.0.1",
+    "copy-webpack-plugin": "^3.0.1",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.11.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.2.3",
+    "eslint-plugin-react": "^5.1.1",
+    "html-webpack-plugin": "^2.21.0",
+    "json-loader": "^0.5.4",
+    "json2module": "0.0",
+    "material-ui": "^0.15.0",
+    "style-loader": "^0.13.1",
+    "tape": "4",
+    "uglify-js": "2",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.5.0",
+    "d3": "^4.0.0-alpha.50",
+    "d3-array": "^0.7.1",
+    "d3-dsv": "^0.3.2",
+    "lodash": "^4.11.2",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-hammerjs": "^0.4.6",
+    "react-router": "^2.4.1",
+    "react-share": "^1.7.0",
+    "react-tap-event-plugin": "^1.0.0"
+  }
+}

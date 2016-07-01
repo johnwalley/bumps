@@ -36,9 +36,6 @@ ls -l
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 
-git diff
-
-
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
 git add --all
@@ -49,12 +46,6 @@ ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
 ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
 ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-
-echo "-------------------"
-echo $ENCRYPTED_IV
-echo $ENCRYPTION_LABEL
-echo $ENCRYPTED_IV_VAR
-echo "-------------------"
 
 openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in ../deploy_key.enc -out deploy_key -d
 chmod 600 deploy_key

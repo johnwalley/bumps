@@ -6,5 +6,5 @@ node_js:
 script: bash ./deploy.sh
 env:
   global:
-  - ENCRYPTION_LABEL: "319322b5741f"
+  - ENCRYPTION_LABEL: "9d9c1739fbd3"
   - COMMIT_AUTHOR_EMAIL: "john@walley.org.uk"

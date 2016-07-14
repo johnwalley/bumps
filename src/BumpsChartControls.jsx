@@ -27,8 +27,8 @@ const styles = {
   },
 };
 
-const facebookShareUrl = 'http://www.cambridgebumps.com/';
-const twitterShareUrl = 'http://www.cambridgebumps.com/';
+const facebookShareUrl = window.location;
+const twitterShareUrl = window.location;
 
 const title = 'Share these results';
 const twitterTitle = 'Check out these Cambridge Bumps results!';

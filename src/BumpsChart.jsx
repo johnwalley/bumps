@@ -5,46 +5,54 @@ const bumps = require('./bumps.js');
 
 function crewColor(name) {
   const collegeColor = {
-  'A': '#0000ff',
-  'AR': '#ffff00',
-  'Ca': '#afe9c6',
-  'CC': '#800000',
-  'CH': '#ffff00',
-  'Cl': '#ffff00',
-  'Cr': '#000080',
-  'CT': '##ffff00',
-  'Cu': '#ff55dd',
-  'D': '#d400aa',
-  'Dw': '#000080',
-  'E': '#eeaaff',
-  'F': '#808080',
-  'G': '#005500',
-  'H': '#000000',
-  'HH': '#0096ff',
-  'HHL': '#0044aa',
-  'J': '#8b0000',
-  'K': '#5a2ca0',
-  'L': '#ff0000',
-  'LC': '#0044aa',
-  'M': '#672178',
-  'ME': '#000000',
-  'N': '#010040',
-  'NH': '#000000',
-  'Pb': '#afe9dd',
-  'Ph': '#003380',
-  'Q': '#008001',
-  'QM': '#808080',
-  'R': '#007fff',
-  'S': '#f9cc00',
-  'SC': '#9d0064',
-  'SE': '#0300fd',
-  'SS': '#000080',
-  'T': '#000080',
-  'TC': '#000000',
-  'TH': '#000000',
-  'VS': '#000000',
-  'W': '#5599ff',
-};
+    'A': '#0000ff',
+    'AR': '#ffff00',
+    'Ca': '#afe9c6',
+    'CC': '#800000',
+    'CH': '#ffff00',
+    'Cl': '#ffff00',
+    'Cr': '#000080',
+    'CT': '##ffff00',
+    'Cu': '#ff55dd',
+    'D': '#d400aa',
+    'Dw': '#000080',
+    'E': '#eeaaff',
+    'F': '#808080',
+    'G': '#005500',
+    'H': '#000000',
+    'HH': '#0096ff',
+    'HHL': '#0044aa',
+    'J': '#8b0000',
+    'K': '#5a2ca0',
+    'L': '#ff0000',
+    'LC': '#0044aa',
+    'M': '#672178',
+    'ME': '#000000',
+    'N': '#010040',
+    'NH': '#000000',
+    'Pb': '#afe9dd',
+    'Ph': '#003380',
+    'Q': '#008001',
+    'QM': '#808080',
+    'R': '#007fff',
+    'S': '#f9cc00',
+    'SC': '#9d0064',
+    'SE': '#0300fd',
+    'SS': '#000080',
+    'T': '#000080',
+    'TC': '#000000',
+    'TH': '#000000',
+    'VS': '#000000',
+    'W': '#5599ff',
+  };
+
+  const townColor = {
+    'City': '#f44336',
+    'Champs': '#ffa500',
+    'Rob Roy': '#8b0000',
+    'Cantabs': '#00008b',
+    '99': 'aqua'
+  };
 
   const sh = name.replace(/[0-9]/, '');
 
@@ -52,7 +60,13 @@ function crewColor(name) {
     return collegeColor[sh];
   }
 
-  return '#F44336';
+  const club = name.substring(0, name.length - 2).trim();
+
+  if (townColor.hasOwnProperty(club)) {
+    return townColor[club];
+  }
+
+  return '#f44336';
 }
 
 export default class BumpsChart extends React.Component {

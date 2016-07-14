@@ -16,7 +16,7 @@
   },
   "scripts": {
     "publish": "babel-node results/generate_results.js && webpack -p --progress",
-    "start": "webpack-dev-server --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
+    "start": "webpack-dev-server -d --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
     "test": "babel-tape-runner test/**/*-test.js | faucet"
   },
   "devDependencies": {

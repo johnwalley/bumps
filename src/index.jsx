@@ -103,12 +103,26 @@ export default class BumpsChartApp extends React.Component {
       }
     }
 
+    let selectedCrews = new Set();
+
+    if (this.props.params.crewId !== undefined) {
+      selectedCrews = new Set(this.props.params.crewId.split(',').map(crew => crew.replace(/_/g,' ')));
+    }
+
     this.state = {
-      year: null, set: set, gender: gender, events: results, windowWidth: window.innerWidth, open: false,
+      year: null,
+      set: set,
+      gender: gender,
+      selectedCrews: selectedCrews,
+      events: results,
+      windowWidth: window.innerWidth,
+      open: false,
     };
 
     this.incrementYear = this.incrementYear.bind(this);
     this.decrementYear = this.decrementYear.bind(this);
+    this.addSelectedCrew = this.addSelectedCrew.bind(this);
+    this.removeSelectedCrew = this.removeSelectedCrew.bind(this);
     this.updateGender = this.updateGender.bind(this);
     this.updateSet = this.updateSet.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
@@ -181,6 +195,30 @@ export default class BumpsChartApp extends React.Component {
     }
   }
 
+  addSelectedCrew(crewName) {
+    const selectedCrews = this.state.selectedCrews.add(crewName);
+    this.setState({ selectedCrews: selectedCrews });
+
+    if (selectedCrews.size > 0) {
+      browserHistory.push(`/${setMapInverse[this.state.set]}/${this.state.gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
+    } else {
+      browserHistory.push(`/${setMapInverse[this.state.set]}/${this.state.gender.toLowerCase()}`);
+    }
+  }
+
+  removeSelectedCrew(crewName) {
+    const selectedCrews = this.state.selectedCrews;
+    selectedCrews.delete(crewName);
+
+    this.setState({ selectedCrews: selectedCrews });
+
+    if (selectedCrews.size > 0) {
+      browserHistory.push(`/${setMapInverse[this.state.set]}/${this.state.gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
+    } else {
+      browserHistory.push(`/${setMapInverse[this.state.set]}/${this.state.gender.toLowerCase()}`);
+    }
+  }
+
   updateGender(event, index, gender) {
     ga('send', {
       hitType: 'event',
@@ -189,15 +227,22 @@ export default class BumpsChartApp extends React.Component {
       eventLabel: gender,
     });
 
-    this.setState({ gender: gender });
-    const data = pickEvents(this.state.events, gender, this.state.set);
+    const selectedCrews = this.state.selectedCrews;
 
+    if (gender !== this.state.gender) {
+      selectedCrews.clear();
+    }
+
+    const data = pickEvents(this.state.events, gender, this.state.set);
     const yearRange = bumps.calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
 
-    this.setState({ data: data });
-    this.setState({ year: yearRange });
+    this.setState({ gender: gender, selectedCrews: selectedCrews, data: data, year: yearRange });
 
-    browserHistory.push(`/${setMapInverse[this.state.set]}/${gender.toLowerCase()}`);
+    if (selectedCrews.size > 0) {
+      browserHistory.push(`/${setMapInverse[this.state.set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
+    } else {
+      browserHistory.push(`/${setMapInverse[this.state.set]}/${gender.toLowerCase()}`);
+    }
   }
 
   updateSet(event, index, set) {
@@ -208,15 +253,23 @@ export default class BumpsChartApp extends React.Component {
       eventLabel: set,
     });
 
-    this.setState({ set: set });
+    const selectedCrews = this.state.selectedCrews;
+
+    if (set !== this.state.set) {
+      selectedCrews.clear();
+    }
+
     const data = pickEvents(this.state.events, this.state.gender, set);
 
     const yearRange = bumps.calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
 
-    this.setState({ data: data });
-    this.setState({ year: yearRange });
+    this.setState({ set: set, selectedCrews: selectedCrews, data: data, year: yearRange });
 
-    browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}`);
+    if (selectedCrews.size > 0) {
+      browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
+    } else {
+      browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}`);
+    }
   }
 
   handleSwipe(event) {
@@ -292,6 +345,9 @@ export default class BumpsChartApp extends React.Component {
             <BumpsChart
               data={this.state.data}
               year={this.state.year}
+              selectedCrews={this.state.selectedCrews}
+              addSelectedCrew={this.addSelectedCrew}
+              removeSelectedCrew={this.removeSelectedCrew}
               windowWidth={this.state.windowWidth}
             />
           </Hammer>
@@ -308,6 +364,7 @@ ReactDOM.render((
     <Route path="/" component={BumpsChartApp} />
     <Route path=":eventId" component={BumpsChartApp} />
     <Route path=":eventId/:genderId" component={BumpsChartApp} />
+    <Route path=":eventId/:genderId/:crewId" component={BumpsChartApp} />
   </Router>
 ), document.getElementById('content')
 );

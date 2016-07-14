@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 
 const bumps = require('./bumps.js');
 
-
 function crewColor(name) {
   const collegeColor = {
   'A': '#0000ff',
@@ -81,6 +80,9 @@ export default class BumpsChart extends React.Component {
   update() {
     const data = this.props.data;
     const year = this.props.year;
+    const selectedCrews = this.props.selectedCrews;
+    const addSelectedCrew = this.props.addSelectedCrew;
+    const removeSelectedCrew = this.props.removeSelectedCrew;
 
     // Do we have any data to show?
     if (data === undefined || year === null) {
@@ -102,6 +104,8 @@ export default class BumpsChart extends React.Component {
     const xRangeMax = widthOfOneYear;
     const numYearsToView = year.end - year.start + 1;
     const yMarginTop = 10;
+    
+    crews.forEach(crew => crew.highlighted = (selectedCrews.has(crew.name) ? true : false));
 
     const x = d3.scaleLinear();
     const y = d3.scaleLinear();
@@ -235,7 +239,10 @@ export default class BumpsChart extends React.Component {
     const crewEnter = crew.enter()
             .append('g')
             .attr('class', d => `line ${d.name}`)
-            .attr('transform', `translate(${x(-dayShift)},0)`);
+            .attr('transform', `translate(${x(-dayShift)},0)`)
+            .classed('highlighted', d => d.highlighted)
+            .classed('background', d => d.background)
+            .style('stroke', d => (d.highlighted || d.hover ? crewColor(d.name) : '#000000'));
 
     crew.classed('highlighted', d => d.highlighted)
             .classed('background', d => d.background)
@@ -287,7 +294,13 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-              crews[index].highlighted = !crews[index].highlighted;
+                
+              if (crews[index].highlighted === true) {
+                removeSelectedCrew(d.name);
+              } else {
+                addSelectedCrew(d.name);
+              }
+
               this.update();
             })
             .on('mouseover', d => {
@@ -346,7 +359,13 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-              crews[index].highlighted = !crews[index].highlighted;
+                
+              if (crews[index].highlighted === true) {
+                removeSelectedCrew(d.name);
+              } else {
+                addSelectedCrew(d.name);
+              }
+
               this.update();
             })
             .on('mouseover', d => {
@@ -374,6 +393,7 @@ export default class BumpsChart extends React.Component {
               this.update();
             })
             .classed('label finish-label', true)
+            .classed('highlighted', d => d.highlighted)
             .datum(d => ({ name: d.name, set: d.set, gender: d.gender, value: d.values[d.values.length === finishLabelIndex ? finishLabelIndex - 1 : finishLabelIndex] }))
             .attr('x', 10)
             .attr('dy', '.35em')
@@ -410,7 +430,13 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-              crews[index].highlighted = !crews[index].highlighted;
+                
+              if (crews[index].highlighted === true) {
+                removeSelectedCrew(d.name);
+              } else {
+                addSelectedCrew(d.name);
+              }
+              
               this.update();
             })
             .on('mouseover', d => {
@@ -438,6 +464,7 @@ export default class BumpsChart extends React.Component {
               this.update();
             })
             .classed('label start-label', true)
+            .classed('highlighted', d => d.highlighted)
             .datum(d => ({ name: d.name, set: d.set, gender: d.gender, value: d.values[startLabelIndex] }))
             .attr('x', -10)
             .attr('dy', '.35em')

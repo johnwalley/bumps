@@ -48,6 +48,7 @@ var config = {
     new CopyWebpackPlugin([
             { from: 'CNAME' },
             { from: '404.html' },
+            { from: 'images/facebook4.png', to: 'images/facebook4.png' }
     ]),
   ],
 };

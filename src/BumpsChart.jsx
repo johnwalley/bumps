@@ -104,37 +104,37 @@ export default class BumpsChart extends React.Component {
 
     var defs = this.svg.append('defs');
 
-    var filter = defs.append('filter')
+    var blurFilter = defs.append('filter')
       .attr('id', 'glow');
 
-    filter.append('feGaussianBlur')
+    blurFilter.append('feGaussianBlur')
       .attr('stdDeviation', '2')
       .attr('result', 'coloredBlur');
 
-    var feMerge = filter.append('feMerge');
+    var blurMerge = blurFilter.append('feMerge');
 
-    feMerge.append('feMergeNode')
+    blurMerge.append('feMergeNode')
       .attr('in', 'coloredBlur');
 
-    feMerge.append('feMergeNode')
+    blurMerge.append('feMergeNode')
       .attr('in', 'SourceGraphic');
 
-    var filter2 = defs.append('filter')
+    var dropShadowFilter = defs.append('filter')
       .attr('id', 'dropShadow');
 
-    filter2.append('feGaussianBlur')
+    dropShadowFilter.append('feGaussianBlur')
       .attr('stdDeviation', 0)
       .attr('in', 'SourceAlpha');
 
-    filter2.append('feOffset')
+    dropShadowFilter.append('feOffset')
       .attr('dx', 0)
       .attr('dy', 2);
 
-    var feMerge2 = filter2.append('feMerge');
+    var dropShadowMerge = dropShadowFilter.append('feMerge');
 
-    feMerge2.append('feMergeNode');
+    dropShadowMerge.append('feMergeNode');
 
-    feMerge2.append('feMergeNode')
+    dropShadowMerge.append('feMergeNode')
       .attr('in', 'SourceGraphic');
   }
 

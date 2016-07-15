@@ -51,7 +51,19 @@ function crewColor(name) {
     'Champs': '#f57400',
     'Rob Roy': '#8b0000',
     'Cantabs': '#00008b',
-    '99': '#5197ff'
+    '99': '#5197ff',
+    'Chesterton': '#ffff00',
+    'Simoco': '#ffff00',
+    'St Neots': '#b9dcff',
+    'X-Press': '#000000',
+    'Camb Blue': '#000000',
+    'Free Press': '#000000',
+    'St Radegund': '#ffff00',
+    'Camb Veterans': '#91b9a4',
+    'Isle of Ely': '#9ed5b8',
+    'Max Entropy': '#f44336',
+    'St Ives': '#e90000',
+    'Sharks': '#e90000'
   };
 
   const sh = name.replace(/[0-9]/, '');
@@ -89,6 +101,41 @@ export default class BumpsChart extends React.Component {
     this.svg.append('g').attr('class', 'years').attr('clip-path', 'url(#clip)');
     this.svg.append('g').attr('class', 'labels');
     this.svg.append('g').attr('class', 'lines').attr('clip-path', 'url(#clip)');
+
+    var defs = this.svg.append('defs');
+
+    var filter = defs.append('filter')
+      .attr('id', 'glow');
+
+    filter.append('feGaussianBlur')
+      .attr('stdDeviation', '2')
+      .attr('result', 'coloredBlur');
+
+    var feMerge = filter.append('feMerge');
+
+    feMerge.append('feMergeNode')
+      .attr('in', 'coloredBlur');
+
+    feMerge.append('feMergeNode')
+      .attr('in', 'SourceGraphic');
+
+    var filter2 = defs.append('filter')
+      .attr('id', 'dropShadow');
+
+    filter2.append('feGaussianBlur')
+      .attr('stdDeviation', 0)
+      .attr('in', 'SourceAlpha');
+
+    filter2.append('feOffset')
+      .attr('dx', 0)
+      .attr('dy', 2);
+
+    var feMerge2 = filter2.append('feMerge');
+
+    feMerge2.append('feMergeNode');
+
+    feMerge2.append('feMergeNode')
+      .attr('in', 'SourceGraphic');
   }
 
   update() {
@@ -256,10 +303,12 @@ export default class BumpsChart extends React.Component {
             .attr('transform', `translate(${x(-dayShift)},0)`)
             .classed('highlighted', d => d.highlighted)
             .classed('background', d => d.background)
+            .style("filter", d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
             .style('stroke', d => (d.highlighted || d.hover ? crewColor(d.name) : '#000000'));
 
     crew.classed('highlighted', d => d.highlighted)
             .classed('background', d => d.background)
+            .style("filter", d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
             .style('stroke', d => (d.highlighted || d.hover ? crewColor(d.name) : '#000000'))
             .transition()
             .duration(transitionLength)

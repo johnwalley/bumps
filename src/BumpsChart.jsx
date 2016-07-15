@@ -48,10 +48,10 @@ function crewColor(name) {
 
   const townColor = {
     'City': '#f44336',
-    'Champs': '#ffa500',
+    'Champs': '#f57400',
     'Rob Roy': '#8b0000',
     'Cantabs': '#00008b',
-    '99': 'aqua'
+    '99': '#5197ff'
   };
 
   const sh = name.replace(/[0-9]/, '');

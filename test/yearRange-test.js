@@ -1,5 +1,5 @@
 var tape = require("tape");
-var bumps = require("../");
+var bumps = require('../src/bumps');
 
 tape("Calculate correct year range.", function(test) { 
   var expected = { start: 2012, end: 2014 };

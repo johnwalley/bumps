@@ -1,5 +1,5 @@
 var tape = require("tape");
-var bumps = require("../");
+var bumps = require('../src/bumps');
 
 tape("Expand college abbreviation.", function(test) { 
   var name = 'Ca';

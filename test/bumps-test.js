@@ -1,5 +1,5 @@
 var tape = require('tape');
-var bumps = require('../');
+var bumps = require('../src/bumps');
 
 tape('read_flat() returns a correct intermediate object.', function (test) {
   var data = 'Year,Club,Sex,Day,Crew,Start position,Position,Division\n\

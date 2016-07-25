@@ -1,5 +1,5 @@
 var tape = require("tape");
-var bumps = require("../");
+var bumps = require('../src/bumps');
 
 tape("Transform data correctly.", function (test) {
     var data = {

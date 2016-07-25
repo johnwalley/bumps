@@ -1,5 +1,5 @@
 var tape = require("tape");
-var bumps = require("../");
+var bumps = require('../src/bumps');
 
 tape("Up one every day.", function(test) { 
   var positions = [5, 4, 3, 2, 1];

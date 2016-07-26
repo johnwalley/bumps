@@ -54,6 +54,7 @@ function crewColor(name) {
     '99': '#5197ff',
     'Chesterton': '#ffff00',
     'Simoco': '#ffff00',
+    'Pye': '#ffff00',
     'St Neots': '#b9dcff',
     'X-Press': '#000000',
     'Camb Blue': '#000000',

@@ -122,17 +122,21 @@ export function joinEvents(events, set, gender) {
     });
   });
 
+  const startYear = d3_array.min(years);
+  const endYear = d3_array.max(years);
+
   const uniqueCrewNames = _.uniq(crewNames);
 
   const maxCrews = d3_array.max(events.map(e => e.crews.length));
 
   uniqueCrewNames.forEach(crewName => {
     const newCrew = { name: crewName, set: set, gender: gender, values: [], valuesSplit: [] };
-    let day = 0;
+    const numDays = 4;
 
     events.forEach(event => {
       const match = event.crews.filter(c => c.name === crewName);
-      const numDays = event.crews[0].values.length - 1;
+
+      const day = (event.year - startYear) * (numDays + 1);
 
       if (match.length > 0) {
         const values = match[0].values.map(v => ({ day: v.day + day, pos: v.pos }));
@@ -154,8 +158,6 @@ export function joinEvents(events, set, gender) {
 
         newCrew.values = newCrew.values.concat(emptyValues);
       }
-
-      day += numDays + 1;
     });
 
     data.push(newCrew);
@@ -163,8 +165,8 @@ export function joinEvents(events, set, gender) {
 
   return {
     crews: data,
-    startYear: d3_array.min(years),
-    endYear: d3_array.max(years),
+    startYear: startYear,
+    endYear: endYear,
     maxCrews: maxCrews,
     divisions: divisions,
   };

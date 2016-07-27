@@ -10,7 +10,7 @@ Division,A,T3,VS,SE,S2,Pb3,N3,NH3,R2,Cr2,Ca3,Q3,F2,K2,J4,E3,Cl3
 Division,G3,J5,N4,E4,CT3,TH3,Pb4,CC2,Pb5
 
 Results
-rruro3ut uo3uro3uuuut   rurrruuuurut  rrrruurrrruuut ruururrurrrrut
-rurruut  o3uuurrrruuut  uuruuuro3ut   rrruuurruut    uuruuurut
-urruut   rruruurrrrurut rrrruuuurruut rruurruuuuut   rrrruuurut
-rrruuut  rrrruuurruo3ut rrruuuuurrut  rrrrruuuurrut  ruuurrruut
+rruro3ut uo3uro3uuuut rurrruuuurut rrrruurrrruuut ruururrurrrrut
+rurruut o3uuurrrruuut uuruuuro3ut rrruuurruut uuruuurut
+urruut rruruurrrrurut rrrruuuurruut rruurruuuuut rrrruuurut
+rrruuut rrrruuurruo3ut rrruuuuurrut rrrrruuuurrut ruuurrruut

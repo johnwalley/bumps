@@ -103,24 +103,9 @@ export default class BumpsChart extends React.Component {
     this.svg.append('g').attr('class', 'labels');
     this.svg.append('g').attr('class', 'lines').attr('clip-path', 'url(#clip)');
 
-    var defs = this.svg.append('defs');
+    const defs = this.svg.append('defs');
 
-    var blurFilter = defs.append('filter')
-      .attr('id', 'glow');
-
-    blurFilter.append('feGaussianBlur')
-      .attr('stdDeviation', '2')
-      .attr('result', 'coloredBlur');
-
-    var blurMerge = blurFilter.append('feMerge');
-
-    blurMerge.append('feMergeNode')
-      .attr('in', 'coloredBlur');
-
-    blurMerge.append('feMergeNode')
-      .attr('in', 'SourceGraphic');
-
-    var dropShadowFilter = defs.append('filter')
+    const dropShadowFilter = defs.append('filter')
       .attr('id', 'dropShadow');
 
     dropShadowFilter.append('feGaussianBlur')
@@ -131,7 +116,7 @@ export default class BumpsChart extends React.Component {
       .attr('dx', 0)
       .attr('dy', 2);
 
-    var dropShadowMerge = dropShadowFilter.append('feMerge');
+    const dropShadowMerge = dropShadowFilter.append('feMerge');
 
     dropShadowMerge.append('feMergeNode');
 
@@ -166,7 +151,7 @@ export default class BumpsChart extends React.Component {
     const xRangeMax = widthOfOneYear;
     const numYearsToView = year.end - year.start + 1;
     const yMarginTop = 10;
-    
+
     crews.forEach(crew => crew.highlighted = (selectedCrews.has(crew.name) ? true : false));
 
     const x = d3.scaleLinear();
@@ -618,4 +603,7 @@ export default class BumpsChart extends React.Component {
 BumpsChart.propTypes = {
   data: React.PropTypes.object,
   year: React.PropTypes.object,
+  selectedCrews: React.PropTypes.set,
+  addSelectedCrew: React.PropTypes.func,
+  removeSelectedCrew: React.PropTypes.func,
 };

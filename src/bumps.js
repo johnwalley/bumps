@@ -663,19 +663,21 @@ export function read_tg(input) {
 
       for (let j = 1; j < m.length; j++) {
         if (m[j].indexOf('#') !== 0) {
-          event.results += m[j];
+          event.results.push(m[j]);
         }
       }
     } else {
       for (let j = 0; j < m.length; j++) {
         if (inresults === 1 && m[j].indexOf('#') !== 0) {
-          event.results += m[j];
+          event.results.push(m[j]);
         } else if (indivision === 1) {
           addcrew(curdiv, m[j]);
         }
       }
     }
   }
+
+  event.results = event.results.filter(r => r !== '').map(r => r.trim()).join('\n');
 
   if (curdiv.length > 0) {
     event.divisions.push(curdiv);

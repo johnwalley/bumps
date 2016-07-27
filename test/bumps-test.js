@@ -58,9 +58,9 @@ Division,Cantabs 2,City 2\n\
 Division,Champs 1\n\
 \n\
 Results\n\
-r ur rrrrr\n\
-r ur ro3u\n\
-r ru urrr\n';
+ r ur rrrrr\n\
+ r ur ro3u\n\
+ r ru urrr\n';
 
   var expected = {
     completed: [[true, true, true], [true, true, true], [true, true, true]],
@@ -70,8 +70,8 @@ r ru urrr\n';
     gender: 'M',
     move: [[[0, 0, 0, 0], [0, -1], [1]], [[-3, -1, 1, 3], [0, -1], [1]], [[0, 0, 0, -1], [-1, 2], [0]]],
     result: '',
-    results: 'r ur rrrrr\
-r ur ro3u\
+    results: 'r ur rrrrr\n\
+r ur ro3u\n\
 r ru urrr',
     set: 'Town Bumps',
     small: 'Short',
@@ -171,18 +171,19 @@ tape('round-trip flat format.', function (test) {
 });
 
 tape('round-trip tg format.', function (test) {
-  var data = 'Set,Town Bumps\n\
-Short,Short\n\
-Gender,Men\n\
-Year,2013\n\
-Days,2\n\n\
-Division,Cantabs 1,City 1\n\
-Division,Cantabs 2,City 2\n\
-Division,Champs 1\n\
-\n\
-Results\n\
-r ur rrr\
-r rrr rrr';
+  var data = `Set,Town Bumps
+Short,Short
+Gender,Men
+Year,2013
+Days,2
+
+Division,Cantabs 1,City 1
+Division,Cantabs 2,City 2
+Division,Champs 1
+
+Results
+r ur rrr
+r rrr rrr`;
 
   var expected = data;
   var actual = bumps.write_tg(bumps.read_tg(data));

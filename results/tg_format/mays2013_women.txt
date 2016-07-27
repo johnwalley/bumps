@@ -10,7 +10,7 @@ Division,F2,SE,Ph2,J3,K2,HHL2,Q3,ME3,S3,Cl3,R2,Cl4,K3,E4,J4,Q4,E5
 Division,Cu2,G3,ME4,F3
 
 Results
-rut uuo3uururut  uuurururrut     uruuruuut     ruruurrurut
-ut  rururururuut rrurrue4ure-4ut rururuurrut   rruruuuruut
-rut uuurrruuruut rurruurrrurrut  ururuuurrrrut ururrruruuut
-rut rro3uuuuruut uuuuuruuut      rrruuuururrut rururruuurrut
+rut uuo3uururut uuurururrut uruuruuut ruruurrurut
+ut rururururuut rrurrue4ure-4ut rururuurrut rruruuuruut
+rut uuurrruuruut rurruurrrurrut ururuuurrrrut ururrruruuut
+rut rro3uuuuruut uuuuuruuut rrruuuururrut rururruuurrut

@@ -451,7 +451,7 @@ export default class BumpsChart extends React.Component {
               `translate(${x(finishLabelPosition + 5 * (numYearsToView - 1))},${y(d.value.pos)})`)
             .style('cursor', 'pointer');
 
-    finishLabel.classed('highlighted', d => d.highlighted)
+    finishLabel.classed('highlighted', d => d.highlighted || d.hover)
             .filter(d =>
               d.values[d.values.length === finishLabelIndex ? finishLabelIndex - 1 : finishLabelIndex].pos > -1)
             .transition()
@@ -523,7 +523,7 @@ export default class BumpsChart extends React.Component {
             .style('cursor', 'pointer');
 
 
-    startLabel.classed('highlighted', d => d.highlighted)
+    startLabel.classed('highlighted', d => d.highlighted || d.hover)
             .filter(d => d.values[startLabelIndex].pos > -1)
             .transition()
             .duration(transitionLength)

@@ -2,14 +2,14 @@ const _ = require('lodash');
 const d3_dsv = require('d3-dsv');
 const d3_array = require('d3-array');
 
-const abbrevCollege = {
-  'A': "Addenbrooke's",
+const abbrevCamCollege = {
+  'A': 'Addenbrooke\'s',
   'AR': 'Anglia Ruskin',
   'Ca': 'Caius',
   'CC': 'Corpus Christi',
   'CH': 'Clare Hall',
   'Cl': 'Clare',
-  'Cr': "Christ's",
+  'Cr': 'Christ\'s',
   'CT': 'CCAT',
   'Cu': 'Churchill',
   'D': 'Downing',
@@ -21,7 +21,7 @@ const abbrevCollege = {
   'HH': 'Hughes Hall',
   'HHL': 'Hughes/Lucy',
   'J': 'Jesus',
-  'K': "King's",
+  'K': 'King\'s',
   'L': 'LMBC',
   'LC': 'Lucy Cavendish',
   'M': 'Magdalene',
@@ -30,18 +30,114 @@ const abbrevCollege = {
   'NH': 'New Hall',
   'Pb': 'Pembroke',
   'Ph': 'Peterhouse',
-  'Q': "Queens'",
+  'Q': 'Queens\'',
   'QM': 'QMABC',
   'R': 'Robinson',
   'S': 'Selwyn',
-  'SC': "St Catharine's",
-  'SE': "St Edmund's",
+  'SC': 'St Catharine\'s',
+  'SE': 'St Edmund\'s',
   'SS': 'Sidney Sussex',
   'T': '1st and 3rd',
   'TC': 'Theological Colleges',
   'TH': 'Trinity Hall',
   'VS': 'Vet School',
   'W': 'Wolfson',
+};
+
+const abbrevOxCollege = {
+  'B': 'Balliol',
+  'Br': 'Brasenose',
+  'Ch': 'Christ Church',
+  'Co': 'Corpus Christi',
+  'E': 'Exeter',
+  'H': 'Hertford',
+  'J': 'Jesus',
+  'K': 'Keble',
+  'L': 'Linacre',
+  'Lc': 'Lincoln',
+  'LM': 'L.M.H.',
+  'Mg': 'Magdalen',
+  'Mf': 'Mansfield',
+  'Mt': 'Merton',
+  'N': 'New College',
+  'O': 'Oriel',
+  'OG': 'Osler-Green',
+  'P': 'Pembroke',
+  'Q': 'Queen\'s',
+  'R': 'Regent\'s Park',
+  'SE': 'S.E.H.',
+  'S': 'Somerville',
+  'SAn': 'St. Anne\'s',
+  'SAt': 'St. Antony\'s',
+  'SB': 'St. Benet\'s Hall',
+  'SC': 'St. Catherine\'s',
+  'SHi': 'St. Hilda\'s',
+  'SHu': 'St. Hugh\'s',
+  'SJ': 'St. John\'s',
+  'SP': 'St. Peter\'s',
+  'T': 'Trinity',
+  'U': 'University',
+  'Wh': 'Wadham',
+  'Wf': 'Wolfson',
+  'Wt': 'Worcester',
+};
+
+const abbrevCamTown = {
+  'A': 'Addenbrooke\'s',
+  'CB': 'Camb Blue',
+  'CV': 'Camb Veterans',
+  'Ct': 'Cantabs',
+  'Cy': 'City',
+  'Ca': 'Caius',
+  'CT': 'CCAT',
+  'Cr': 'Christ\'s',
+  'Cu': 'Churchill',
+  'CH': 'Clare Hall',
+  'Cl': 'Clare',
+  'CC': 'Corpus Christi',
+  'COT': 'Champion of Thames',
+  'Dn': 'Domino',
+  'Dw': 'Darwin',
+  'D': 'Downing',
+  'E': 'Emmanuel',
+  'F': 'Fitzwilliam',
+  'FP': 'Free Press',
+  'G': 'Girton',
+  'H': 'Homerton',
+  'HH': 'Hughes Hall',
+  'Hn': 'Hornets',
+  'I': 'Ionica',
+  'IOE': 'Isle of Ely',
+  'J': 'Jesus',
+  'K': 'King\'s',
+  'L': 'LMBC',
+  'LC': 'Lucy Cavendish',
+  'M': 'Magdalene',
+  'ME': 'Maximum Entropy',
+  'MM': 'Mott MacDonald',
+  'NH': 'New Hall',
+  'N': 'Newnham',
+  'NN': '99',
+  'Pb': 'Pembroke',
+  'Ph': 'Peterhouse',
+  'QM': 'QMABC',
+  'Q': 'Queens\'',
+  'RR': 'Rob Roy',
+  'R': 'Robinson',
+  'Sm': 'Simoco',
+  'SI': 'St. Ives',
+  'SN': 'St. Neots',
+  'SR': 'St. Radegund',
+  'S': 'Selwyn',
+  'SS': 'Sidney Sussex',
+  'SC': 'St. Catharine\'s',
+  'SE': 'St. Edmund\'s',
+  'T': '1st & 3rd',
+  'TC': 'Theological Colleges',
+  'TH': 'Trinity Hall',
+  'VS': 'Vet School',
+  'W': 'Wolfson',
+  'X': 'X-Press',
 };
 
 const clubColor = {
@@ -63,9 +159,9 @@ export function renderName(name) {
   // College crews are stored as an abbrevation and we replace the number with Roman numerals
   const sh = name.replace(/[0-9]/, '');
 
-  if (abbrevCollege.hasOwnProperty(sh)) {
+  if (abbrevCamCollege.hasOwnProperty(sh)) {
     const num = name.substring(sh.length);
-    name = abbrevCollege[sh];
+    name = abbrevCamCollege[sh];
 
     if (num.length > 0) {
       name = name + ' ' + roman[+num - 1];
@@ -663,19 +759,21 @@ export function read_tg(input) {
 
       for (let j = 1; j < m.length; j++) {
         if (m[j].indexOf('#') !== 0) {
-          event.results += m[j];
+          event.results.push(m[j]);
         }
       }
     } else {
       for (let j = 0; j < m.length; j++) {
         if (inresults === 1 && m[j].indexOf('#') !== 0) {
-          event.results += m[j];
+          event.results.push(m[j]);
         } else if (indivision === 1) {
           addcrew(curdiv, m[j]);
         }
       }
     }
   }
+
+  event.results = event.results.filter(r => r !== '').map(r => r.trim()).join('\n');
 
   if (curdiv.length > 0) {
     event.divisions.push(curdiv);

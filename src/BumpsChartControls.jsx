@@ -33,9 +33,9 @@ const twitterShareUrl = window.location;
 const title = 'Share these results';
 const twitterTitle = 'Check out these Cambridge Bumps results!';
 
-const BumpsChartControls = (props) =>
+const BumpsChartControls = ({incrementYear, decrementYear}) =>
   <div className="bumpsControls" style={styles.customButtons}>
-    <IconButton onClick={props.decrementYear}>
+    <IconButton onClick={decrementYear}>
       <AVFastRewind color="#91B9A4" />
     </IconButton>
     <div className="share">
@@ -60,7 +60,7 @@ const BumpsChartControls = (props) =>
         />
       </TwitterShareButton>
     </div>
-    <IconButton onClick={props.incrementYear}>
+    <IconButton onClick={incrementYear}>
       <AVFastForward color="#91B9A4" />
     </IconButton>
   </div>;

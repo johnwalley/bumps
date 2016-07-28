@@ -64,7 +64,7 @@ function crewColor(name) {
     'Isle of Ely': '#9ed5b8',
     'Max Entropy': '#f44336',
     'St Ives': '#e90000',
-    'Sharks': '#e90000'
+    'Sharks': '#e90000',
   };
 
   const sh = name.replace(/[0-9]/, '');
@@ -131,7 +131,6 @@ export default class BumpsChart extends React.Component {
     const addSelectedCrew = this.props.addSelectedCrew;
     const removeSelectedCrew = this.props.removeSelectedCrew;
 
-    // Do we have any data to show?
     if (data === undefined || year === null) {
       return;
     }
@@ -152,7 +151,7 @@ export default class BumpsChart extends React.Component {
     const numYearsToView = year.end - year.start + 1;
     const yMarginTop = 10;
 
-    crews.forEach(crew => crew.highlighted = (selectedCrews.has(crew.name) ? true : false));
+    crews.forEach(crew => crew.highlighted = selectedCrews.has(crew.name));
 
     const x = d3.scaleLinear();
     const y = d3.scaleLinear();
@@ -289,12 +288,12 @@ export default class BumpsChart extends React.Component {
             .attr('transform', `translate(${x(-dayShift)},0)`)
             .classed('highlighted', d => d.highlighted)
             .classed('background', d => d.background)
-            .style("filter", d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
+            .style('filter', d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
             .style('stroke', d => (d.highlighted || d.hover ? crewColor(d.name) : '#000000'));
 
     crew.classed('highlighted', d => d.highlighted)
             .classed('background', d => d.background)
-            .style("filter", d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
+            .style('filter', d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
             .style('stroke', d => (d.highlighted || d.hover ? crewColor(d.name) : '#000000'))
             .transition()
             .duration(transitionLength)
@@ -343,7 +342,7 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-                
+
               if (crews[index].highlighted === true) {
                 removeSelectedCrew(d.name);
               } else {
@@ -408,7 +407,7 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-                
+
               if (crews[index].highlighted === true) {
                 removeSelectedCrew(d.name);
               } else {
@@ -479,13 +478,13 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-                
+
               if (crews[index].highlighted === true) {
                 removeSelectedCrew(d.name);
               } else {
                 addSelectedCrew(d.name);
               }
-              
+
               this.update();
             })
             .on('mouseover', d => {

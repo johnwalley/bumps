@@ -64,7 +64,7 @@ function crewColor(name) {
     'Isle of Ely': '#9ed5b8',
     'Max Entropy': '#f44336',
     'St Ives': '#e90000',
-    'Sharks': '#e90000'
+    'Sharks': '#e90000',
   };
 
   const sh = name.replace(/[0-9]/, '');
@@ -103,24 +103,9 @@ export default class BumpsChart extends React.Component {
     this.svg.append('g').attr('class', 'labels');
     this.svg.append('g').attr('class', 'lines').attr('clip-path', 'url(#clip)');
 
-    var defs = this.svg.append('defs');
+    const defs = this.svg.append('defs');
 
-    var blurFilter = defs.append('filter')
-      .attr('id', 'glow');
-
-    blurFilter.append('feGaussianBlur')
-      .attr('stdDeviation', '2')
-      .attr('result', 'coloredBlur');
-
-    var blurMerge = blurFilter.append('feMerge');
-
-    blurMerge.append('feMergeNode')
-      .attr('in', 'coloredBlur');
-
-    blurMerge.append('feMergeNode')
-      .attr('in', 'SourceGraphic');
-
-    var dropShadowFilter = defs.append('filter')
+    const dropShadowFilter = defs.append('filter')
       .attr('id', 'dropShadow');
 
     dropShadowFilter.append('feGaussianBlur')
@@ -131,7 +116,7 @@ export default class BumpsChart extends React.Component {
       .attr('dx', 0)
       .attr('dy', 2);
 
-    var dropShadowMerge = dropShadowFilter.append('feMerge');
+    const dropShadowMerge = dropShadowFilter.append('feMerge');
 
     dropShadowMerge.append('feMergeNode');
 
@@ -146,7 +131,6 @@ export default class BumpsChart extends React.Component {
     const addSelectedCrew = this.props.addSelectedCrew;
     const removeSelectedCrew = this.props.removeSelectedCrew;
 
-    // Do we have any data to show?
     if (data === undefined || year === null) {
       return;
     }
@@ -166,8 +150,8 @@ export default class BumpsChart extends React.Component {
     const xRangeMax = widthOfOneYear;
     const numYearsToView = year.end - year.start + 1;
     const yMarginTop = 10;
-    
-    crews.forEach(crew => crew.highlighted = (selectedCrews.has(crew.name) ? true : false));
+
+    crews.forEach(crew => crew.highlighted = selectedCrews.has(crew.name));
 
     const x = d3.scaleLinear();
     const y = d3.scaleLinear();
@@ -304,12 +288,12 @@ export default class BumpsChart extends React.Component {
             .attr('transform', `translate(${x(-dayShift)},0)`)
             .classed('highlighted', d => d.highlighted)
             .classed('background', d => d.background)
-            .style("filter", d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
+            .style('filter', d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
             .style('stroke', d => (d.highlighted || d.hover ? crewColor(d.name) : '#000000'));
 
     crew.classed('highlighted', d => d.highlighted)
             .classed('background', d => d.background)
-            .style("filter", d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
+            .style('filter', d => (d.highlighted || d.hover ? 'url(#dropShadow)' : ''))
             .style('stroke', d => (d.highlighted || d.hover ? crewColor(d.name) : '#000000'))
             .transition()
             .duration(transitionLength)
@@ -358,7 +342,7 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-                
+
               if (crews[index].highlighted === true) {
                 removeSelectedCrew(d.name);
               } else {
@@ -423,7 +407,7 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-                
+
               if (crews[index].highlighted === true) {
                 removeSelectedCrew(d.name);
               } else {
@@ -494,13 +478,13 @@ export default class BumpsChart extends React.Component {
               });
 
               const index = crews.map(c => c.name).indexOf(d.name);
-                
+
               if (crews[index].highlighted === true) {
                 removeSelectedCrew(d.name);
               } else {
                 addSelectedCrew(d.name);
               }
-              
+
               this.update();
             })
             .on('mouseover', d => {
@@ -618,4 +602,7 @@ export default class BumpsChart extends React.Component {
 BumpsChart.propTypes = {
   data: React.PropTypes.object,
   year: React.PropTypes.object,
+  selectedCrews: React.PropTypes.set,
+  addSelectedCrew: React.PropTypes.func,
+  removeSelectedCrew: React.PropTypes.func,
 };

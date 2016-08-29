@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
 
 const bumps = require('./bumps.js');
@@ -93,15 +94,20 @@ export default class BumpsChart extends React.Component {
   }
 
   setup() {
-    this.svg = d3.select('.bumpsChart').select('svg');
+    this.svg = d3.select(ReactDOM.findDOMNode(this)).select('svg');
 
-    this.svg.append('clipPath').attr('id', 'clip').append('rect')
+    const clipPathId = 'clip' + Math.random(100000); // TODO: Require a unique id
+
+    this.svg.append('clipPath').attr('id', clipPathId).append('rect')
       .attr('width', 80)
       .attr('height', 800);
-    this.svg.append('g').attr('class', 'divisions').attr('clip-path', 'url(#clip)');
-    this.svg.append('g').attr('class', 'years').attr('clip-path', 'url(#clip)');
+
+    const clipPathUrl = 'url(#' + clipPathId + ')'; 
+
+    this.svg.append('g').attr('class', 'divisions').attr('clip-path', clipPathUrl);
+    this.svg.append('g').attr('class', 'years').attr('clip-path', clipPathUrl);
     this.svg.append('g').attr('class', 'labels');
-    this.svg.append('g').attr('class', 'lines').attr('clip-path', 'url(#clip)');
+    this.svg.append('g').attr('class', 'lines').attr('clip-path', clipPathUrl);
 
     const defs = this.svg.append('defs');
 
@@ -130,6 +136,9 @@ export default class BumpsChart extends React.Component {
     const selectedCrews = this.props.selectedCrews;
     const addSelectedCrew = this.props.addSelectedCrew;
     const removeSelectedCrew = this.props.removeSelectedCrew;
+    const windowWidth = this.props.windowWidth;
+
+    const focus = this.props.focus;
 
     if (data === undefined || year === null) {
       return;
@@ -167,7 +176,9 @@ export default class BumpsChart extends React.Component {
     const viewBoxWidth = (widthWithoutLines + widthOfOneYear * 5 / 4 * numYearsToView);
     const viewBoxHeight = yDomainMax * heightOfOneCrew;
 
-    svg.attr('height', viewBoxHeight / viewBoxWidth * window.innerWidth)
+    const width = focus ? windowWidth : window.innerWidth;
+
+    svg.attr('height', viewBoxHeight / viewBoxWidth * width)
       .attr('viewBox', `${initialViewBoxX}, ${initialViewBoxY}, ${viewBoxWidth}, ${viewBoxHeight}`);
 
     const divisionsGroup = svg.select('.divisions');
@@ -334,13 +345,6 @@ export default class BumpsChart extends React.Component {
     crewBackground.enter()
             .append('path')
             .on('click', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'click',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
 
               if (crews[index].highlighted === true) {
@@ -352,25 +356,11 @@ export default class BumpsChart extends React.Component {
               this.update();
             })
             .on('mouseover', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'mouseover',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
               crews[index].hover = true;
               this.update();
             })
             .on('mouseout', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'mouseout',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
               crews[index].hover = false;
               this.update();
@@ -399,13 +389,6 @@ export default class BumpsChart extends React.Component {
               d.values[d.values.length === finishLabelIndex ? finishLabelIndex - 1 : finishLabelIndex].pos > -1)
             .append('text')
             .on('click', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'click',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
 
               if (crews[index].highlighted === true) {
@@ -417,25 +400,11 @@ export default class BumpsChart extends React.Component {
               this.update();
             })
             .on('mouseover', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'mouseover',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
               crews[index].hover = true;
               this.update();
             })
             .on('mouseout', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'mouseout',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
               crews[index].hover = false;
               this.update();
@@ -470,13 +439,6 @@ export default class BumpsChart extends React.Component {
             .filter(d => d.values[startLabelIndex].pos > -1)
             .append('text')
             .on('click', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'click',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
 
               if (crews[index].highlighted === true) {
@@ -488,25 +450,11 @@ export default class BumpsChart extends React.Component {
               this.update();
             })
             .on('mouseover', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'mouseover',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
               crews[index].hover = true;
               this.update();
             })
             .on('mouseout', d => {
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Interaction',
-                eventAction: 'mouseout',
-                eventLabel: bumps.renderName(d.name),
-              });
-
               const index = crews.map(c => c.name).indexOf(d.name);
               crews[index].hover = false;
               this.update();
@@ -590,19 +538,31 @@ export default class BumpsChart extends React.Component {
   }
 
   render() {
+    const divStyle = {
+      width: this.props.windowWidth,
+      height: this.props.maxHeight > 0 ? this.props.maxHeight : '100%',
+      border: this.props.border ? '1px solid rgba(15,70,100,.12)' : '',
+      overflowY: 'auto',
+    };
+
     return (
-      <div className="bumpsChart">
+      <div className="bumpsChart" style={divStyle}>
         <svg width="100%" preserveAspectRatio="xMidYMin">
         </svg>
       </div>
-      );
+    );
   }
 }
 
 BumpsChart.propTypes = {
   data: React.PropTypes.object,
   year: React.PropTypes.object,
-  selectedCrews: React.PropTypes.set,
+  selectedCrews: React.PropTypes.object,
   addSelectedCrew: React.PropTypes.func,
   removeSelectedCrew: React.PropTypes.func,
+  maxWidth: React.PropTypes.number,
+  maxHeight: React.PropTypes.number,
+  border: React.PropTypes.bool,
+  focus: React.PropTypes.bool,
+  windowWidth: React.PropTypes.number,
 };

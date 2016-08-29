@@ -349,6 +349,7 @@ export default class BumpsChartApp extends React.Component {
               addSelectedCrew={this.addSelectedCrew}
               removeSelectedCrew={this.removeSelectedCrew}
               windowWidth={this.state.windowWidth}
+              focus={false}
             />
           </Hammer>
         </div >

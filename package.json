@@ -1,6 +1,6 @@
 {
-  "name": "d3-bumps",
-  "version": "0.0.1",
+  "name": "bumps",
+  "version": "0.0.2",
   "description": "Draw bumps results",
   "keywords": [
     "d3",
@@ -9,10 +9,10 @@
   "license": "BSD-3-Clause",
   "main": "build/d3-bumps.js",
   "jsnext:main": "index",
-  "homepage": "https://github.com/johnwalley/d3-bumps",
+  "homepage": "https://github.com/johnwalley/bumps",
   "repository": {
     "type": "git",
-    "url": "https://github.com/johnwalley/d3-bumps.git"
+    "url": "https://github.com/johnwalley/bumps.git"
   },
   "scripts": {
     "publish": "babel-node results/generate_results.js && webpack -p --progress",

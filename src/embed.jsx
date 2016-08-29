@@ -1,0 +1,160 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import BumpsChart from './BumpsChart.jsx';
+import results from '../results/generated.json';
+
+require('./bumps.css');
+const bumps = require('./bumps.js');
+
+injectTapEventPlugin();
+
+function calculateNumYearsToview(width, focus) {
+  const widthOfOneYear = 90;
+  const widthWithoutLines = 310;
+
+  return focus ? 0 : Math.max(0, Math.ceil((width - widthWithoutLines) / widthOfOneYear));
+}
+
+function pickEvents(events, gender, set) {
+  const transformedEvents = events
+    .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
+    .filter(e => e.set === set)
+    .sort((a, b) => a.year - b.year)
+    .map(event => bumps.transformData(event));
+
+  return bumps.joinEvents(transformedEvents, set, gender);
+}
+
+export default class BumpsChartWidget extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const focus = true;
+
+    this.state = {
+      year: null,
+      set: null,
+      gender: null,
+      selectedCrews: new Set(),
+      events: results,
+      windowWidth: 0,
+      focus,
+      container: '',
+    };
+
+    this.addSelectedCrew = this.addSelectedCrew.bind(this);
+    this.removeSelectedCrew = this.removeSelectedCrew.bind(this);
+  }
+
+  componentDidMount() {
+    const el = ReactDOM.findDOMNode(this).parentNode;
+
+    const year = { start: el.getAttribute('data-year'), end: el.getAttribute('data-year') };
+    const crews = el.getAttribute('data-crew');
+    const selectedCrews = new Set(crews ? crews.split(',') : '');
+    const gender = el.getAttribute('data-gender');
+    const set = el.getAttribute('data-set');
+    const maxWidth = +el.getAttribute('data-width');
+    const maxHeight = +el.getAttribute('data-height');
+
+    const chrome = el.getAttribute('data-chrome') ? el.getAttribute('data-chrome') : '';
+
+    const chromeValues = chrome.split(' ');
+
+    let border = false;
+    let header = true;
+    let footer = true;
+
+    if (chromeValues.indexOf('noborder') === -1) {
+      border = true;
+    }
+
+    if (chromeValues.indexOf('noheader') !== -1) {
+      header = false;
+    }
+
+    if (chromeValues.indexOf('nofooter') !== -1) {
+      footer = false;
+    }
+
+    this.setState({
+      container: ReactDOM.findDOMNode(this).parentNode,
+      year,
+      set,
+      gender,
+      selectedCrews,
+      maxWidth,
+      maxHeight,
+      border,
+      header,
+      footer,
+      windowWidth: Math.min(maxWidth, el.scrollWidth),
+    });
+
+    const data = pickEvents(this.state.events, gender, set);
+
+    const yearRange = bumps.calculateYearRange(year,
+    { start: data.startYear, end: data.endYear },
+    calculateNumYearsToview(el.scrollWidth, this.state.focus));
+
+    this.setState({ set, selectedCrews, data, year: yearRange });
+  }
+
+  addSelectedCrew(crewName) {
+    const selectedCrews = this.state.selectedCrews.add(crewName);
+    this.setState({ selectedCrews });
+  }
+
+  removeSelectedCrew(crewName) {
+    const selectedCrews = this.state.selectedCrews;
+    selectedCrews.delete(crewName);
+
+    this.setState({ selectedCrews });
+  }
+
+  render() {
+    const setMapInverse = {
+      'May Bumps': 'mays',
+      'Lent Bumps': 'lents',
+      'Town Bumps': 'town',
+    };
+
+    const linkStyle = {
+      color: 'darkslategray',
+      fontSize: 12,
+    };
+
+    const header = this.state.header ? <p>City M2</p> : null;
+    const footer = this.state.footer ? (
+  <a className="widget" href={'http://www.cambridgebumps.com/' + setMapInverse[this.state.set] + '/' + this.state.gender + '/' + [...this.state.selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')} style={linkStyle}>
+    View on cambridgebumps.com
+  </a>
+    ) : null;
+
+    return (
+      <div className="bumpsContainer">
+        {header}
+        <BumpsChart
+          data={this.state.data}
+          year={this.state.year}
+          selectedCrews={this.state.selectedCrews}
+          addSelectedCrew={this.addSelectedCrew}
+          removeSelectedCrew={this.removeSelectedCrew}
+          maxWidth={this.state.maxWidth}
+          maxHeight={this.state.maxHeight}
+          border={this.state.border}
+          windowWidth={this.state.windowWidth}
+          focus
+        />
+        {footer}
+      </div >
+    );
+  }
+}
+
+const elements = document.getElementsByClassName('bumps-chart');
+
+Array.prototype.map.call(elements, el => ReactDOM.render((
+  <BumpsChartWidget />
+), el));

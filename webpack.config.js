@@ -7,12 +7,15 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var BUILD_DIR = path.resolve(__dirname, 'out');
 var APP_DIR = path.resolve(__dirname, 'src');
 
-var config = {
-  entry: APP_DIR + '/index.jsx',
+var config = {  
+  entry: {
+    main: APP_DIR + '/index.jsx',
+    embed: APP_DIR + '/embed.jsx',
+  },
   output: {
     path: BUILD_DIR,
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
   module: {
     loaders: [
@@ -32,18 +35,20 @@ var config = {
     ],
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify('development'),
       },
     }),
     new HtmlWebpackPlugin({
+      filename: 'index.html',
+      chunks: ['main'],
       template: 'index.ejs',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'embed.html',
+      chunks: ['embed'],
+      template: 'embed.ejs',
     }),
     new CopyWebpackPlugin([
             { from: 'CNAME' },

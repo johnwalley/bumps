@@ -124,8 +124,10 @@ export function update(props, svg) {
   const data = props.data;
   const year = props.year;
   const selectedCrews = props.selectedCrews;
+  const highlightedCrew = props.highlightedCrew;
   const addSelectedCrew = props.addSelectedCrew;
   const removeSelectedCrew = props.removeSelectedCrew;
+  const highlightCrew = props.highlightCrew;
   const windowWidth = props.windowWidth;
 
   const focus = props.focus;
@@ -150,6 +152,7 @@ export function update(props, svg) {
   const yMarginTop = 10;
 
   crews.forEach(crew => crew.highlighted = selectedCrews.has(crew.name));
+  crews.forEach(crew => crew.hover = highlightedCrew === crew.name);
 
   const x = d3.scaleLinear();
   const y = d3.scaleLinear();
@@ -341,18 +344,14 @@ export function update(props, svg) {
             } else {
               addSelectedCrew(d.name);
             }
-
-            update(props, svg);
           })
           .on('mouseover', d => {
             const index = crews.map(c => c.name).indexOf(d.name);
-            crews[index].hover = true;
-            update(props, svg);
+            highlightCrew(d.name);
           })
           .on('mouseout', d => {
             const index = crews.map(c => c.name).indexOf(d.name);
-            crews[index].hover = false;
-            update(props, svg);
+            highlightCrew(null);
           })
           .attr('d', d => line(d.values))
           .attr('class', 'background')
@@ -385,18 +384,14 @@ export function update(props, svg) {
             } else {
               addSelectedCrew(d.name);
             }
-
-            update(props, svg);
           })
           .on('mouseover', d => {
             const index = crews.map(c => c.name).indexOf(d.name);
-            crews[index].hover = true;
-            update(props, svg);
+            highlightCrew(d.name);
           })
           .on('mouseout', d => {
             const index = crews.map(c => c.name).indexOf(d.name);
-            crews[index].hover = false;
-            update(props, svg);
+            highlightCrew(null);
           })
           .classed('label finish-label', true)
           .classed('highlighted', d => d.highlighted)
@@ -435,18 +430,14 @@ export function update(props, svg) {
             } else {
               addSelectedCrew(d.name);
             }
-
-            update(props, svg);
           })
           .on('mouseover', d => {
             const index = crews.map(c => c.name).indexOf(d.name);
-            crews[index].hover = true;
-            update(props, svg);
+            highlightCrew(d.name);
           })
           .on('mouseout', d => {
             const index = crews.map(c => c.name).indexOf(d.name);
-            crews[index].hover = false;
-            update(props, svg);
+            highlightCrew(null);
           })
           .classed('label start-label', true)
           .classed('highlighted', d => d.highlighted)

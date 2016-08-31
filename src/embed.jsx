@@ -50,7 +50,7 @@ export default class BumpsChartWidget extends React.Component {
   }
 
   componentDidMount() {
-    const el = ReactDOM.findDOMNode(this).parentNode;
+    const el = this.refs.bumpsContainer.parentNode;
 
     const year = { start: el.getAttribute('data-year'), end: el.getAttribute('data-year') };
     const crews = el.getAttribute('data-crew');
@@ -139,7 +139,7 @@ export default class BumpsChartWidget extends React.Component {
     ) : null;
 
     return (
-      <div className="bumpsContainer">
+      <div className="bumpsContainer" ref="bumpsContainer">
         {header}
         <BumpsChart
           data={this.state.data}

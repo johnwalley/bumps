@@ -5,7 +5,7 @@ const bumpsChart = require('./bumpsChart.js');
 
 export default class BumpsChart extends React.Component {
   componentDidMount() {
-    this.svg = bumpsChart.setup(ReactDOM.findDOMNode(this));
+    this.svg = bumpsChart.setup(this.refs.bumpsChart);
     bumpsChart.update(this.props, this.svg);
   }
 
@@ -22,7 +22,7 @@ export default class BumpsChart extends React.Component {
     };
 
     return (
-      <div className="bumpsChart" style={divStyle}>
+      <div className="bumpsChart" ref="bumpsChart" style={divStyle}>
         <svg width="100%" preserveAspectRatio="xMidYMin">
         </svg>
       </div>

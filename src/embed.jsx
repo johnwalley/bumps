@@ -37,6 +37,7 @@ export default class BumpsChartWidget extends React.Component {
       set: null,
       gender: null,
       selectedCrews: new Set(),
+      highlightedCrew: null,
       events: results,
       windowWidth: 0,
       focus,
@@ -45,6 +46,7 @@ export default class BumpsChartWidget extends React.Component {
 
     this.addSelectedCrew = this.addSelectedCrew.bind(this);
     this.removeSelectedCrew = this.removeSelectedCrew.bind(this);
+    this.highlightCrew = this.highlightCrew.bind(this);
   }
 
   componentDidMount() {
@@ -113,6 +115,10 @@ export default class BumpsChartWidget extends React.Component {
     this.setState({ selectedCrews });
   }
 
+  highlightCrew(crewName) {
+    this.setState({ highlightedCrew: crewName });
+  }
+
   render() {
     const setMapInverse = {
       'May Bumps': 'mays',
@@ -139,8 +145,10 @@ export default class BumpsChartWidget extends React.Component {
           data={this.state.data}
           year={this.state.year}
           selectedCrews={this.state.selectedCrews}
+          highlightedCrew={this.state.highlightedCrew}
           addSelectedCrew={this.addSelectedCrew}
           removeSelectedCrew={this.removeSelectedCrew}
+          highlightCrew={this.highlightCrew}
           maxWidth={this.state.maxWidth}
           maxHeight={this.state.maxHeight}
           border={this.state.border}

@@ -354,8 +354,8 @@ export default class BumpsChartApp extends React.Component {
               selectedCrews={this.state.selectedCrews}
               highlightedCrew={this.state.highlightedCrew}
               addSelectedCrew={this.addSelectedCrew}
-              highlightCrew={this.highlightCrew}
               removeSelectedCrew={this.removeSelectedCrew}
+              highlightCrew={this.highlightCrew}
               windowWidth={this.state.windowWidth}
               focus={false}
             />

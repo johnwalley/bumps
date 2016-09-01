@@ -3,9 +3,9 @@ import IconButton from 'material-ui/IconButton';
 import AVFastForward from 'material-ui/svg-icons/av/fast-forward';
 import AVFastRewind from 'material-ui/svg-icons/av/fast-rewind';
 
-import {ShareButtons, generateShareIcon} from 'react-share';
+import { ShareButtons, generateShareIcon } from 'react-share';
 
-const {FacebookShareButton, TwitterShareButton} = ShareButtons;
+const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
@@ -21,13 +21,13 @@ const styles = {
   },
 };
 
-const facebookShareUrl = window.location;
-const twitterShareUrl = window.location;
+const facebookShareUrl = window.location.toString();
+const twitterShareUrl = window.location.toString();
 
 const facebookTitle = 'Share these results';
 const twitterTitle = 'Check out these Cambridge Bumps results!';
 
-const BumpsChartControls = ({incrementYear, decrementYear}) =>
+const BumpsChartControls = ({ incrementYear, decrementYear }) =>
   <div className="bumpsControls" style={styles.customButtons}>
     <IconButton onClick={decrementYear}>
       <AVFastRewind color="#91B9A4" />

@@ -113,7 +113,8 @@ export default class BumpsChartApp extends React.Component {
       year: null,
       set: set,
       gender: gender,
-      selectedCrews: selectedCrews,
+      selectedCrews,
+      highlightedCrew: null,
       events: results,
       windowWidth: window.innerWidth,
       open: false,
@@ -123,6 +124,7 @@ export default class BumpsChartApp extends React.Component {
     this.decrementYear = this.decrementYear.bind(this);
     this.addSelectedCrew = this.addSelectedCrew.bind(this);
     this.removeSelectedCrew = this.removeSelectedCrew.bind(this);
+    this.highlightCrew = this.highlightCrew.bind(this);
     this.updateGender = this.updateGender.bind(this);
     this.updateSet = this.updateSet.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
@@ -217,6 +219,10 @@ export default class BumpsChartApp extends React.Component {
     } else {
       browserHistory.push(`/${setMapInverse[this.state.set]}/${this.state.gender.toLowerCase()}`);
     }
+  }
+
+  highlightCrew(crewName) {
+    this.setState({ highlightedCrew: crewName });
   }
 
   updateGender(event, index, gender) {
@@ -346,9 +352,12 @@ export default class BumpsChartApp extends React.Component {
               data={this.state.data}
               year={this.state.year}
               selectedCrews={this.state.selectedCrews}
+              highlightedCrew={this.state.highlightedCrew}
               addSelectedCrew={this.addSelectedCrew}
               removeSelectedCrew={this.removeSelectedCrew}
+              highlightCrew={this.highlightCrew}
               windowWidth={this.state.windowWidth}
+              focus={false}
             />
           </Hammer>
         </div >

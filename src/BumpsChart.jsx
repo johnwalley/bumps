@@ -1,16 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-const bumpsChart = require('./bumpsChart.js');
+import {bumpsChart} from 'd3-bumps-chart';
 
 export default class BumpsChart extends React.Component {
   componentDidMount() {
-    this.svg = bumpsChart.setup(this.refs.bumpsChart);
-    bumpsChart.update(this.props, this.svg);
+    console.log(bumpsChart());
+    this.svg = bumpsChart().setup(this.refs.bumpsChart);
+    bumpsChart().update(this.props, this.svg);
   }
 
   componentDidUpdate() {
-    bumpsChart.update(this.props, this.svg);
+    bumpsChart().update(this.props, this.svg);
   }
 
   render() {

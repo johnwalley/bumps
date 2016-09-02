@@ -341,11 +341,10 @@ export default class BumpsChartApp extends React.Component {
             open={this.state.open}
             onRequestChange={(open) => this.setState({ open })}
           >
-            <MenuItem onTouchTap={this.handleClose}><a href="/town/women">Live women's results</a></MenuItem>
-            <MenuItem onTouchTap={this.handleClose}><a href="/town/men">Live men's results</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="http://www.cucbc.org/bumps/how_bumps_work">How bumps work</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20spotted%20an%20error%20in%20your%20bumpscharts">Spotted an error?</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20got%20a%20great%20idea">Suggest a feature</a></MenuItem>
+            <MenuItem onTouchTap={this.handleClose}><a href="https://github.com/johnwalley/bumps/">Source code</a></MenuItem>
           </Drawer>
           <Hammer onSwipe={this.handleSwipe}>
             <BumpsChart

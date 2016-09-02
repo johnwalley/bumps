@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import {joinEvents, transformEvents, calculateYearRange} from 'd3-bumps-chart';
+
 import BumpsChart from './BumpsChart.jsx';
 import results from '../results/generated.json';
 
 require('./bumps.css');
-const bumps = require('./bumps.js');
 
 injectTapEventPlugin();
 
@@ -21,9 +22,9 @@ function pickEvents(events, gender, set) {
     .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
     .filter(e => e.set === set)
     .sort((a, b) => a.year - b.year)
-    .map(event => bumps.transformData(event));
+    .map(event => transformData(event));
 
-  return bumps.joinEvents(transformedEvents, set, gender);
+  return joinEvents(transformedEvents, set, gender);
 }
 
 export default class BumpsChartWidget extends React.Component {

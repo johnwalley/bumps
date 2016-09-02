@@ -10,12 +10,13 @@ import Drawer from 'material-ui/Drawer';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
+import {joinEvents, transformData, calculateYearRange} from 'd3-bumps-chart';
+
 import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
 import results from '../results/generated.json';
 
 require('./bumps.css');
-const bumps = require('./bumps.js');
 
 injectTapEventPlugin();
 
@@ -74,9 +75,9 @@ function pickEvents(events, gender, set) {
     .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
     .filter(e => e.set === set)
     .sort((a, b) => a.year - b.year)
-    .map(event => bumps.transformData(event));
+    .map(event => transformData(event));
 
-  return bumps.joinEvents(transformedEvents, set, gender);
+  return joinEvents(transformedEvents, set, gender);
 }
 
 export default class BumpsChartApp extends React.Component {
@@ -180,7 +181,7 @@ export default class BumpsChartApp extends React.Component {
 
     this.setState({ windowWidth: window.innerWidth });
 
-    const yearRange = bumps.calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview());
+    const yearRange = calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview());
 
     this.setState({ year: yearRange });
   }
@@ -240,7 +241,7 @@ export default class BumpsChartApp extends React.Component {
     }
 
     const data = pickEvents(this.state.events, gender, this.state.set);
-    const yearRange = bumps.calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
+    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
 
     this.setState({ gender: gender, selectedCrews: selectedCrews, data: data, year: yearRange });
 
@@ -267,7 +268,7 @@ export default class BumpsChartApp extends React.Component {
 
     const data = pickEvents(this.state.events, this.state.gender, set);
 
-    const yearRange = bumps.calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
+    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
 
     this.setState({ set: set, selectedCrews: selectedCrews, data: data, year: yearRange });
 

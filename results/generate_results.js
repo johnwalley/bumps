@@ -1,5 +1,6 @@
+import {read_tg} from 'd3-bumps-chart';
+
 var fs = require('fs');
-var bumps = require('../src/bumps.js');
 
 const events = [];
 
@@ -8,7 +9,7 @@ fs.readdir('./results/tg_format/', function (err, files) {
     var numFiles = 0;
     files.forEach(function (file) {
         const contents = fs.readFileSync('./results/tg_format/' + file, 'utf8');
-        const event = bumps.read_tg(contents);
+        const event = read_tg(contents);
         numFiles++;
         events.push(event);
     });

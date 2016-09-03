@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {joinEvents, transformEvents, calculateYearRange} from 'd3-bumps-chart';
+import {joinEvents, transformData, calculateYearRange} from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
 import results from '../results/generated.json';

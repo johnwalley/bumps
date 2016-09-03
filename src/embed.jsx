@@ -97,7 +97,7 @@ export default class BumpsChartWidget extends React.Component {
 
     const data = pickEvents(this.state.events, gender, set);
 
-    const yearRange = bumps.calculateYearRange(year,
+    const yearRange = calculateYearRange(year,
     { start: data.startYear, end: data.endYear },
     calculateNumYearsToview(el.scrollWidth, this.state.focus));
 

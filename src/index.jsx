@@ -36,7 +36,7 @@ const styles = {
     textColor: '#FFFFFF',
   },
   setSelectStyle: {
-    width: 140,
+    width: 150,
     fontSize: '14px',
   },
   genderSelectStyle: {
@@ -49,12 +49,14 @@ const setMap = {
   mays: 'May Bumps',
   lents: 'Lent Bumps',
   town: 'Town Bumps',
+  eights: 'Summer Eights',
 };
 
 const setMapInverse = {
   'May Bumps': 'mays',
   'Lent Bumps': 'lents',
   'Town Bumps': 'town',
+  'Summer Eights': 'eights',
 };
 
 const genderMap = {
@@ -322,7 +324,7 @@ export default class BumpsChartApp extends React.Component {
           <MenuItem value="Town Bumps" primaryText="Town Bumps" />
           <MenuItem value="Lent Bumps" primaryText="Lent Bumps" />
           <MenuItem value="Torpids" primaryText="Torpids" disabled />
-          <MenuItem value="Summer Eights" primaryText="Summer Eights" disabled />
+          <MenuItem value="Summer Eights" primaryText="Summer Eights" />
         </SelectField>
         <SelectField value={this.state.gender} onChange={this.updateGender} style={styles.genderSelectStyle}>
           <MenuItem value="Women" primaryText="Women" />

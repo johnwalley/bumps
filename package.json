@@ -1,6 +1,6 @@
 {
   "name": "bumps",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Draw bumps results",
   "keywords": [
     "d3",
@@ -45,7 +45,7 @@
     "babel-loader": "^6.2.5",
     "babel-preset-react": "^6.11.1",
     "d3": "^4.2.4",
-    "d3-bumps-chart": "^0.0.6",
+    "d3-bumps-chart": "^0.0.7",
     "material-ui": "^0.15.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

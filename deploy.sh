@@ -28,7 +28,7 @@ find . -maxdepth 1 ! -name '.git' ! -path . -exec rm -rf {} \;
 cd ..
 
 # Run our compile script
-npm run publish
+npm run build
 
 # Now let's go have some fun with the cloned repo
 cd out

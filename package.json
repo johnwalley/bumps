@@ -1,6 +1,6 @@
 {
   "name": "bumps",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Draw bumps results",
   "keywords": [
     "d3",
@@ -15,7 +15,7 @@
     "url": "https://github.com/johnwalley/bumps.git"
   },
   "scripts": {
-    "publish": "babel-node results/generate_results.js && webpack -p --progress",
+    "build": "babel-node results/generate_results.js && webpack -p --progress",
     "start": "webpack-dev-server -d --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
     "test": "babel-tape-runner test/**/*-test.js"
   },

@@ -7,7 +7,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var BUILD_DIR = path.resolve(__dirname, 'out');
 var APP_DIR = path.resolve(__dirname, 'src');
 
-var config = {  
+var config = {
   entry: {
     main: APP_DIR + '/index.jsx',
     embed: APP_DIR + '/embed.jsx',
@@ -40,6 +40,11 @@ var config = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       chunks: ['main'],
@@ -51,9 +56,9 @@ var config = {
       template: 'embed.ejs',
     }),
     new CopyWebpackPlugin([
-            { from: 'CNAME' },
-            { from: '404.html' },
-            { from: 'images/facebook4.png', to: 'images/facebook4.png' }
+      { from: 'CNAME' },
+      { from: '404.html' },
+      { from: 'images/facebook4.png', to: 'images/facebook4.png' }
     ]),
   ],
 };

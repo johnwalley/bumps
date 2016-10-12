@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "d3": "^4.2.7",
-    "d3-bumps-chart": "^0.2.1",
+    "d3-bumps-chart": "^0.2.2",
     "material-ui": "^0.16.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

@@ -9,7 +9,7 @@
   "license": "BSD-3-Clause",
   "main": "build/d3-bumps.js",
   "jsnext:main": "index",
-  "homepage": "https://github.com/johnwalley/bumps",
+  "homepage": "http://www.cambridgebumps.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/johnwalley/bumps.git"

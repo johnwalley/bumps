@@ -1,15 +1,15 @@
 import React from 'react';
-import {bumpsChart} from 'd3-bumps-chart';
+import { chart } from 'd3-bumps-chart';
 
 export default class BumpsChart extends React.Component {
   componentDidMount() {
-    this.chart = bumpsChart();
-    this.svg = this.chart.setup(this.refs.bumpsChart);
-    this.chart.update(this.props, this.svg);
+    this.chart = chart();
+    this.chart.setup(this.refs.bumpsChart);
+    this.chart.render(this.props);
   }
 
   componentDidUpdate() {
-    this.chart.update(this.props, this.svg);
+    this.chart.render(this.props);
   }
 
   render() {

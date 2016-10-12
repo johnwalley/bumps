@@ -1,6 +1,6 @@
 {
   "name": "bumps",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Draw bumps results",
   "keywords": [
     "d3",
@@ -44,8 +44,8 @@
     "webpack-dev-server": "^1.16.1"
   },
   "dependencies": {
-    "d3": "^4.2.6",
-    "d3-bumps-chart": "0.1.0",
+    "d3": "^4.2.7",
+    "d3-bumps-chart": "^0.2.0",
     "material-ui": "^0.16.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

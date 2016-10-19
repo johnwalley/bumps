@@ -1,16 +1,16 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-var BUILD_DIR = path.resolve(__dirname, 'out');
-var APP_DIR = path.resolve(__dirname, 'src');
+const BUILD_DIR = path.resolve(__dirname, 'out');
+const APP_DIR = path.resolve(__dirname, 'src');
 
-var config = {
+const config = {
   entry: {
-    main: APP_DIR + '/index.jsx',
-    embed: APP_DIR + '/embed.jsx',
+    main: `${APP_DIR}/index.jsx`,
+    embed: `${APP_DIR}/embed.jsx`,
   },
   output: {
     path: BUILD_DIR,
@@ -42,8 +42,8 @@ var config = {
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
-      }
+        warnings: false,
+      },
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -58,7 +58,7 @@ var config = {
     new CopyWebpackPlugin([
       { from: 'CNAME' },
       { from: '404.html' },
-      { from: 'images/facebook4.png', to: 'images/facebook4.png' }
+      { from: 'images/facebook4.png', to: 'images/facebook4.png' },
     ]),
   ],
 };

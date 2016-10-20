@@ -60,6 +60,7 @@ export default class BumpsChartWidget extends React.Component {
     const set = el.getAttribute('data-set');
     const maxWidth = +el.getAttribute('data-width');
     const maxHeight = +el.getAttribute('data-height');
+    const title = el.getAttribute('data-title');
 
     const chrome = el.getAttribute('data-chrome') ? el.getAttribute('data-chrome') : '';
 
@@ -83,6 +84,7 @@ export default class BumpsChartWidget extends React.Component {
 
     this.setState({
       container: ReactDOM.findDOMNode(this).parentNode,
+      title,
       year,
       set,
       gender,
@@ -132,7 +134,7 @@ export default class BumpsChartWidget extends React.Component {
       fontSize: 12,
     };
 
-    const header = this.state.header ? <p>City M2</p> : null;
+    const header = this.state.header ? (<p>{this.state.title}</p>) : null;
     const footer = this.state.footer ? (
   <a className="widget" href={'http://www.cambridgebumps.com/' + setMapInverse[this.state.set] + '/' + this.state.gender + '/' + [...this.state.selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')} style={linkStyle}>
     View on cambridgebumps.com

@@ -337,7 +337,7 @@ export default class BumpsChartApp extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="bumpsContainer">
           <AppBar iconElementRight={controls} onLeftIconButtonTouchTap={this.handleHamburger} style={styles.customToolbar} />
-          <BumpsChartControls incrementYear={this.incrementYear} decrementYear={this.decrementYear} />
+          <BumpsChartControls incrementYear={this.incrementYear} decrementYear={this.decrementYear} url={window.location.toString()} />
           <Drawer
             docked={false}
             width={200}

@@ -21,20 +21,17 @@ const styles = {
   },
 };
 
-const facebookShareUrl = window.location.toString();
-const twitterShareUrl = window.location.toString();
-
 const facebookTitle = 'Share these results';
 const twitterTitle = 'Check out these Cambridge Bumps results!';
 
-const BumpsChartControls = ({ incrementYear, decrementYear }) =>
+const BumpsChartControls = ({ incrementYear, decrementYear, url }) =>
   <div className="bumpsControls" style={styles.customButtons}>
     <IconButton onClick={decrementYear}>
       <AVFastRewind color="#91B9A4" />
     </IconButton>
     <div className="share">
       <FacebookShareButton
-        url={facebookShareUrl}
+        url={url}
         title={facebookTitle}
         className="facebook-share-button"
       >
@@ -44,7 +41,7 @@ const BumpsChartControls = ({ incrementYear, decrementYear }) =>
         />
       </FacebookShareButton>
       <TwitterShareButton
-        url={twitterShareUrl}
+        url={url}
         title={twitterTitle}
         className="twitter-share-button"
       >

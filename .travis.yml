@@ -15,6 +15,7 @@ env:
     - secure: pFUuaPsZIN76p95OPoYGnk5iVLmUQSXmCXSmMuNV3i1WXC8A9GGXhFbg+CinjGWy7t9nHEIXOt6orrtp05zPSuJ42UX5U8e2utZ1yQPaZUDW6QPzptQtxqHoOTHrUpqWhH6ViyaOiHTIxJcBi7CMXKYid90/3+r6KQhKqNuwOWznJhJG5sJhT7wC9T37xWMXKwsP6PbvNx2Sm+8lAezm9UwoS2bwfS3iHY5RzAp3CkhR8EWyf6r3G4N2UW8FRktL6g+QPcM7qab76Vtm4ldxxprPc1uaBzjTJM9Z5U8ETraLPqLgyBJ/LbmMgw/25aammKkIMipcNuIs2f8vasAntjXy5p6/A5IxlCURwn9fRskIHdVTee8ZLSUdRf7+nI36LF3wTxxPPq43+5kbkdm57LPwacEzsw3PJcFXqot76/0PoIJ950qQgPBi+4pTOdlRzQPi3BKzfUYPGtiCzL+HVJjQ5y61HjVq5T6q3vqbJn0eMw0yTdQmoUvolgqDup7JXAYz4ZJzjhrR+iqgbxQUlofINqEuO7rVuC1NU/1pm2WmKiMU6A6kogA16H4Vy34+C80cgokJS0N52XTjOaAiidrVI7v5yyWz2kgXgagiBTW8uGYOxeoYXEGt7X6w8KaqqbnQKTYqRPQBBmQsl5TGBAewgQ8clmqeDWA3O7vs6tI=
 
 after_success:
+    - ls -al
     - tar -czf package.tgz out
     - export SSHPASS=$DEPLOY_PASS
     - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH

@@ -17,6 +17,9 @@ env:
 script:
     - yarn run build
 
+deploy:
+  skip_cleanup: true
+
 after_success:
     - ls -al
     - tar -czf package.tgz out

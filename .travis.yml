@@ -17,14 +17,9 @@ env:
 script:
     - yarn run build
 
-
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: true
-
 after_success:
     - tar -czf package.tgz out
     - export SSHPASS=$DEPLOY_PASS
+    - echo $DEPLOY_USER
     - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
     - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh

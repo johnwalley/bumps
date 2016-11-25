@@ -56,8 +56,7 @@ const config = {
       template: 'embed.ejs',
     }),
     new CopyWebpackPlugin([
-      { from: 'CNAME' },
-      { from: '404.html' },
+      { from: '.htaccess' },
       { from: 'images/facebook4.png', to: 'images/facebook4.png' },
     ]),
   ],

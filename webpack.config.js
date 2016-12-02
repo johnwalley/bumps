@@ -57,7 +57,7 @@ const config = {
     }),
     new CopyWebpackPlugin([
       { from: '.htaccess' },
-      { from: 'images/facebook4.png', to: 'images/facebook4.png' },
+      { from: 'images/facebook.png', to: 'images/facebook.png' },
     ]),
   ],
 };

@@ -11,6 +11,7 @@ const config = {
   entry: {
     main: `${APP_DIR}/index.jsx`,
     embed: `${APP_DIR}/embed.jsx`,
+    edit: `${APP_DIR}/edit.jsx`,
   },
   output: {
     path: BUILD_DIR,
@@ -55,6 +56,11 @@ const config = {
       chunks: ['embed'],
       template: 'embed.ejs',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'edit.html',
+      chunks: ['edit'],
+      template: 'edit.ejs',
+    }),    
     new CopyWebpackPlugin([
       { from: '.htaccess' },
       { from: 'images/facebook.png', to: 'images/facebook.png' },

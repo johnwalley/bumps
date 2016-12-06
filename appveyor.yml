@@ -1,7 +1,7 @@
 # Install scripts. (runs after repo cloning)
 install:
   # install modules
-  - npm install --force
+  - yarn install
 
 # Post-install test scripts.
 test_script:
@@ -9,8 +9,8 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - npm build
-  - npm test
+  - yarn run build
+  - yarn run test
 
 # Don't actually build.
 build: off

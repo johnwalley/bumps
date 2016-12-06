@@ -18,19 +18,19 @@ const config = {
     filename: '[name].bundle.js',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?/,
         include: APP_DIR,
-        loader: 'babel',
+        use: 'babel-loader',
       },
       {
         test: /\.json$/,
-        loader: 'json',
+        use: 'json-loader',
       },
       {
         test: /\.css$/,
-        loader: 'style!css',
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
@@ -38,11 +38,6 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
       },
     }),
     new HtmlWebpackPlugin({

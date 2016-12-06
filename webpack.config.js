@@ -20,6 +20,11 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.js?/,
+        exclude: /node_modules\/(?!d3-bumps-chart)/,
+        use: 'babel-loader',
+      },
+      {
         test: /\.jsx?/,
         include: APP_DIR,
         use: 'babel-loader',

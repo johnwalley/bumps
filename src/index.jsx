@@ -323,7 +323,7 @@ export default class BumpsChartApp extends React.Component {
           <MenuItem value="May Bumps" primaryText="May Bumps" />
           <MenuItem value="Town Bumps" primaryText="Town Bumps" />
           <MenuItem value="Lent Bumps" primaryText="Lent Bumps" />
-          <MenuItem value="Torpids" primaryText="Torpids" disabled />
+          <MenuItem value="Torpids" primaryText="Torpids" />
           <MenuItem value="Summer Eights" primaryText="Summer Eights" />
         </SelectField>
         <SelectField value={this.state.gender} onChange={this.updateGender} style={styles.genderSelectStyle}>

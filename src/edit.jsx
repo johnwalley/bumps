@@ -48,9 +48,10 @@ const styles = {
     fontSize: '14px',
   },
   customTextFieldStyle: {
-    width: '60%',
+    width: '100%',
   },
   customTextareaStyle: {
+    fontSize: '12px',
     color: '#000000',
   },
 };
@@ -234,7 +235,7 @@ export default class BumpsChartEdit extends React.Component {
       console.log(e);
     }
 
-    const event = joinEvents([transformData(d)], d.set, d.gender);
+    const event = joinEvents([transformData(d)], d.set, Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));
 
     const selectedCrews = this.state.selectedCrews;
 
@@ -322,7 +323,7 @@ export default class BumpsChartEdit extends React.Component {
               addSelectedCrew={this.addSelectedCrew}
               removeSelectedCrew={this.removeSelectedCrew}
               highlightCrew={this.highlightCrew}
-              windowWidth={this.state.windowWidth}
+              windowWidth="300px"
               focus={false}
               />
           </div>

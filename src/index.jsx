@@ -10,7 +10,7 @@ import Drawer from 'material-ui/Drawer';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
-import {joinEvents, transformData, calculateYearRange} from 'd3-bumps-chart';
+import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
@@ -41,6 +41,10 @@ const styles = {
   },
   genderSelectStyle: {
     width: 100,
+    fontSize: '14px',
+  },
+  clubSelectStyle: {
+    width: 200,
     fontSize: '14px',
   },
 };
@@ -82,6 +86,15 @@ function pickEvents(events, gender, set) {
   return joinEvents(transformedEvents, set, gender);
 }
 
+function extractClubs(data) {
+  const clubs = new Set(data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
+  return [...clubs].sort((a, b) => {
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  })
+}
+
 export default class BumpsChartApp extends React.Component {
   constructor(props) {
     super(props);
@@ -109,13 +122,15 @@ export default class BumpsChartApp extends React.Component {
     let selectedCrews = new Set();
 
     if (this.props.params.crewId !== undefined) {
-      selectedCrews = new Set(this.props.params.crewId.split(',').map(crew => crew.replace(/_/g,' ')));
+      selectedCrews = new Set(this.props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ')));
     }
 
     this.state = {
       year: null,
-      set: set,
       gender: gender,
+      set: set,
+      selectedClub: null,
+      clubs: null,
       selectedCrews,
       highlightedCrew: null,
       events: results,
@@ -130,6 +145,7 @@ export default class BumpsChartApp extends React.Component {
     this.highlightCrew = this.highlightCrew.bind(this);
     this.updateGender = this.updateGender.bind(this);
     this.updateSet = this.updateSet.bind(this);
+    this.updateClub = this.updateClub.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -244,8 +260,9 @@ export default class BumpsChartApp extends React.Component {
 
     const data = pickEvents(this.state.events, gender, this.state.set);
     const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
+    const clubs = extractClubs(data);
 
-    this.setState({ gender: gender, selectedCrews: selectedCrews, data: data, year: yearRange });
+    this.setState({ gender: gender, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, data: data, year: yearRange });
 
     if (selectedCrews.size > 0) {
       browserHistory.push(`/${setMapInverse[this.state.set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
@@ -269,16 +286,24 @@ export default class BumpsChartApp extends React.Component {
     }
 
     const data = pickEvents(this.state.events, this.state.gender, set);
-
     const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
+    const clubs = extractClubs(data);
 
-    this.setState({ set: set, selectedCrews: selectedCrews, data: data, year: yearRange });
+    this.setState({ set: set, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, data: data, year: yearRange });
 
     if (selectedCrews.size > 0) {
       browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
     } else {
       browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}`);
     }
+  }
+
+  updateClub(event, index, club) {
+    const selectedCrews = new Set(this.state.data.crews.filter(crew => (crew.name.indexOf(club) != -1)).map(crew => crew.name));
+
+    this.setState({ selectedClub: club, selectedCrews: selectedCrews });
+
+    browserHistory.push(`/${setMapInverse[this.state.set]}/${this.state.gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
   }
 
   handleSwipe(event) {
@@ -330,6 +355,11 @@ export default class BumpsChartApp extends React.Component {
           <MenuItem value="Women" primaryText="Women" />
           <MenuItem value="Men" primaryText="Men" />
         </SelectField>
+        <SelectField value={this.state.selectedClub} onChange={this.updateClub} style={styles.clubSelectStyle}>
+          {this.state.clubs !== null ? this.state.clubs.map(club => (
+            <MenuItem value={club} primaryText={club} />
+          )) : null}
+        </SelectField>
       </div>
     );
 
@@ -343,7 +373,7 @@ export default class BumpsChartApp extends React.Component {
             width={200}
             open={this.state.open}
             onRequestChange={(open) => this.setState({ open })}
-          >
+            >
             <MenuItem onTouchTap={this.handleClose}><a href="http://www.cucbc.org/bumps/how_bumps_work">How bumps work</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20spotted%20an%20error%20in%20your%20bumpscharts">Spotted an error?</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20got%20a%20great%20idea">Suggest a feature</a></MenuItem>
@@ -360,7 +390,7 @@ export default class BumpsChartApp extends React.Component {
               highlightCrew={this.highlightCrew}
               windowWidth={this.state.windowWidth}
               focus={false}
-            />
+              />
           </Hammer>
         </div >
       </MuiThemeProvider>

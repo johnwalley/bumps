@@ -1370,9 +1370,9 @@ d3-brush@1.0.3:
     d3-selection "1"
     d3-transition "1"
 
-d3-bumps-chart@^0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/d3-bumps-chart/-/d3-bumps-chart-0.2.5.tgz#ee9a26336b1855012dd5f51e4b161f804077174b"
+d3-bumps-chart@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/d3-bumps-chart/-/d3-bumps-chart-0.3.1.tgz#15451faa3cc57249245a7c987b9e8af177188403"
   dependencies:
     d3-array "^1.0.1"
     d3-dsv "^1.0.1"

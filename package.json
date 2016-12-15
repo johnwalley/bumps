@@ -39,7 +39,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "d3": "^4.4.0",
-    "d3-bumps-chart": "^0.2.5",
+    "d3-bumps-chart": "^0.3.1",
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
     "json2module": "0.0.3",

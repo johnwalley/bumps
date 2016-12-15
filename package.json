@@ -39,10 +39,11 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "d3": "^4.4.0",
-    "d3-bumps-chart": "^0.2.5",
+    "d3-bumps-chart": "^0.3.0",
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
     "json2module": "0.0.3",
+    "jspdf-yworks": "^1.2.68",
     "material-ui": "^0.16.4",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
@@ -51,6 +52,7 @@
     "react-share": "^1.11.0",
     "react-tap-event-plugin": "^2.0.1",
     "style-loader": "^0.13.1",
+    "svg2pdf.js": "^0.11.4",
     "uglify-js": "^2.7.5",
     "webpack": "2.1.0-beta.27"
   }

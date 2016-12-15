@@ -10,8 +10,9 @@ import Drawer from 'material-ui/Drawer';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
-import {joinEvents, transformData, calculateYearRange} from 'd3-bumps-chart';
-
+import jsPDF from 'jspdf-yworks';
+import svg2pdf from './svg2pdf.js';
+import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
 import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
 import results from '../results/generated.json';
@@ -109,7 +110,7 @@ export default class BumpsChartApp extends React.Component {
     let selectedCrews = new Set();
 
     if (this.props.params.crewId !== undefined) {
-      selectedCrews = new Set(this.props.params.crewId.split(',').map(crew => crew.replace(/_/g,' ')));
+      selectedCrews = new Set(this.props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ')));
     }
 
     this.state = {
@@ -125,6 +126,7 @@ export default class BumpsChartApp extends React.Component {
 
     this.incrementYear = this.incrementYear.bind(this);
     this.decrementYear = this.decrementYear.bind(this);
+    this.generatePdf = this.generatePdf.bind(this);
     this.addSelectedCrew = this.addSelectedCrew.bind(this);
     this.removeSelectedCrew = this.removeSelectedCrew.bind(this);
     this.highlightCrew = this.highlightCrew.bind(this);
@@ -198,6 +200,32 @@ export default class BumpsChartApp extends React.Component {
     if (this.state.year.start > this.state.data.startYear) {
       this.setState({ year: { start: this.state.year.start - 1, end: this.state.year.end - 1 } });
     }
+  }
+
+  generatePdf() {
+    console.log('Generate PDF');
+    var svg = document.querySelectorAll('svg')[8];
+
+    // create a new jsPDF instance
+    var pdf = new jsPDF('l', 'pt', [300, 600]);
+
+    // render the svg element
+    svg2pdf(svg, pdf, {
+      xOffset: 0,
+      yOffset: 0,
+      scale: 1
+    });
+
+    // get the data URI
+    var uri = pdf.output('datauristring');
+
+    var aElement = document.createElement("a");
+    aElement.setAttribute("href", uri);
+    aElement.setAttribute("download", "bumps.pdf");
+    aElement.style.setProperty("display", "none", "");
+    document.body.appendChild(aElement);
+    aElement.click();
+    document.body.removeChild(aElement);
   }
 
   addSelectedCrew(crewName) {
@@ -337,13 +365,13 @@ export default class BumpsChartApp extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="bumpsContainer">
           <AppBar iconElementRight={controls} onLeftIconButtonTouchTap={this.handleHamburger} style={styles.customToolbar} />
-          <BumpsChartControls incrementYear={this.incrementYear} decrementYear={this.decrementYear} url={window.location.toString()} />
+          <BumpsChartControls incrementYear={this.incrementYear} decrementYear={this.decrementYear} url={window.location.toString()} generatePdf={this.generatePdf} />
           <Drawer
             docked={false}
             width={200}
             open={this.state.open}
             onRequestChange={(open) => this.setState({ open })}
-          >
+            >
             <MenuItem onTouchTap={this.handleClose}><a href="http://www.cucbc.org/bumps/how_bumps_work">How bumps work</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20spotted%20an%20error%20in%20your%20bumpscharts">Spotted an error?</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20got%20a%20great%20idea">Suggest a feature</a></MenuItem>
@@ -360,7 +388,7 @@ export default class BumpsChartApp extends React.Component {
               highlightCrew={this.highlightCrew}
               windowWidth={this.state.windowWidth}
               focus={false}
-            />
+              />
           </Hammer>
         </div >
       </MuiThemeProvider>

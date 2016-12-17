@@ -119,7 +119,7 @@ export default class BumpsChartApp extends React.Component {
       selectedCrews,
       highlightedCrew: null,
       events: results,
-      windowWidth: window.innerWidth,
+      windowWidth: window.document.body.clientWidth,
       open: false,
     };
 

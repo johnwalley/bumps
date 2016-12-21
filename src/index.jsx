@@ -98,7 +98,7 @@ function extractClubs(events, fullData, gender, set, numClubs = 8) {
   const uniqueClubs = new Set(data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
   const histogram = [...uniqueClubs.values()].map(club => ({ club: club, count: rawClubs.filter(c => c === club).length }));
   const sortedHistogram = histogram.sort((a, b) => b.count - a.count);
-  const topNClubs = sortedHistogram.slice(0, 8).map(c => c.club);
+  const topNClubs = sortedHistogram.slice(0, numClubs).map(c => c.club);
 
   return topNClubs.sort((a, b) => {
     if (a < b) return -1;
@@ -277,7 +277,7 @@ export default class BumpsChartApp extends React.Component {
 
     const data = pickEvents(this.state.events, gender, this.state.set);
     const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
-    const clubs = extractClubs(this, this.state.events, data, gender, this.state.set);
+    const clubs = extractClubs(this.state.events, data, gender, this.state.set);
 
     this.setState({ gender: gender, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, data: data, year: yearRange });
 
@@ -304,7 +304,7 @@ export default class BumpsChartApp extends React.Component {
 
     const data = pickEvents(this.state.events, this.state.gender, set);
     const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
-    const clubs = extractClubs(this, this.state.events, data, this.state.gender, set);
+    const clubs = extractClubs(this.state.events, data, this.state.gender, set);
 
     this.setState({ set: set, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, data: data, year: yearRange });
 

@@ -143,7 +143,6 @@ export default class BumpsChartApp extends React.Component {
       selectedCrews,
       highlightedCrew: null,
       events: results,
-      windowWidth: window.document.body.clientWidth,
       open: false,
       buttonOpen: false,
     };
@@ -179,6 +178,11 @@ export default class BumpsChartApp extends React.Component {
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
   handleKeyDown(event) {
     if (event.keyCode === 37) {
       ga('send', {
@@ -206,10 +210,8 @@ export default class BumpsChartApp extends React.Component {
       hitType: 'event',
       eventCategory: 'Platform',
       eventAction: 'resize',
-      eventLabel: window.innerWidth,
+      eventLabel: window.document.body.clientWidth,
     });
-
-    this.setState({ windowWidth: window.innerWidth });
 
     const yearRange = calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview());
 
@@ -430,7 +432,6 @@ export default class BumpsChartApp extends React.Component {
               addSelectedCrew={this.addSelectedCrew}
               removeSelectedCrew={this.removeSelectedCrew}
               highlightCrew={this.highlightCrew}
-              windowWidth={this.state.windowWidth}
               focus={false}
               />
           </Hammer>

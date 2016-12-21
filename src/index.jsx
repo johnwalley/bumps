@@ -178,10 +178,10 @@ export default class BumpsChartApp extends React.Component {
       hitType: 'event',
       eventCategory: 'Platform',
       eventAction: 'resize',
-      eventLabel: window.innerWidth,
+      eventLabel: window.document.body.clientWidth,
     });
 
-    this.setState({ windowWidth: window.innerWidth });
+    this.setState({ windowWidth: window.document.body.clientWidth });
 
     const yearRange = calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview());
 

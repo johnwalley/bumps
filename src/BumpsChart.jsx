@@ -14,7 +14,7 @@ export default class BumpsChart extends React.Component {
 
   render() {
     const divStyle = {
-      width: this.props.windowWidth,
+      width: this.props.windowWidth > 0 ? this.props.windowWidth : '100%',
       height: this.props.maxHeight > 0 ? this.props.maxHeight : '100%',
       border: this.props.border ? '1px solid rgba(15,70,100,.12)' : '',
       overflowY: 'auto',

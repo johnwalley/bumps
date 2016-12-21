@@ -10,7 +10,7 @@ import Drawer from 'material-ui/Drawer';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
-import {joinEvents, transformData, calculateYearRange} from 'd3-bumps-chart';
+import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
@@ -109,7 +109,7 @@ export default class BumpsChartApp extends React.Component {
     let selectedCrews = new Set();
 
     if (this.props.params.crewId !== undefined) {
-      selectedCrews = new Set(this.props.params.crewId.split(',').map(crew => crew.replace(/_/g,' ')));
+      selectedCrews = new Set(this.props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ')));
     }
 
     this.state = {
@@ -119,7 +119,6 @@ export default class BumpsChartApp extends React.Component {
       selectedCrews,
       highlightedCrew: null,
       events: results,
-      windowWidth: window.document.body.clientWidth,
       open: false,
     };
 
@@ -151,6 +150,11 @@ export default class BumpsChartApp extends React.Component {
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
   handleKeyDown(event) {
     if (event.keyCode === 37) {
       ga('send', {
@@ -180,8 +184,6 @@ export default class BumpsChartApp extends React.Component {
       eventAction: 'resize',
       eventLabel: window.document.body.clientWidth,
     });
-
-    this.setState({ windowWidth: window.document.body.clientWidth });
 
     const yearRange = calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview());
 
@@ -343,7 +345,7 @@ export default class BumpsChartApp extends React.Component {
             width={200}
             open={this.state.open}
             onRequestChange={(open) => this.setState({ open })}
-          >
+            >
             <MenuItem onTouchTap={this.handleClose}><a href="http://www.cucbc.org/bumps/how_bumps_work">How bumps work</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20spotted%20an%20error%20in%20your%20bumpscharts">Spotted an error?</a></MenuItem>
             <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20got%20a%20great%20idea">Suggest a feature</a></MenuItem>
@@ -358,9 +360,8 @@ export default class BumpsChartApp extends React.Component {
               addSelectedCrew={this.addSelectedCrew}
               removeSelectedCrew={this.removeSelectedCrew}
               highlightCrew={this.highlightCrew}
-              windowWidth={this.state.windowWidth}
               focus={false}
-            />
+              />
           </Hammer>
         </div >
       </MuiThemeProvider>

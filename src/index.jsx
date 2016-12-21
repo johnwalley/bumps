@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import SelectField from 'material-ui/SelectField';
 import Drawer from 'material-ui/Drawer';
@@ -30,6 +30,9 @@ const muiTheme = getMuiTheme(darkBaseTheme, {
   appBar: {
     color: '#FFFFFF',
     textColor: '#FFFFFF',
+  },
+  button: {
+    textTransform: 'capitalize'
   },
 });
 
@@ -390,9 +393,9 @@ export default class BumpsChartApp extends React.Component {
           <MenuItem value="Women" primaryText="Women" />
           <MenuItem value="Men" primaryText="Men" />
         </SelectField>
-        <RaisedButton
+        <FlatButton
           onTouchTap={this.handleButtonTouchTap}
-          label="Show Club"
+          label="Highlight Club"
           backgroundColor="#91B9A4"
           />
         <Popover

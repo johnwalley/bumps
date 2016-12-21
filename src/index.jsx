@@ -13,7 +13,7 @@ import Drawer from 'material-ui/Drawer';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
-import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
+import { joinEvents, transformData, calculateYearRange, expandCrew } from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
@@ -79,25 +79,28 @@ function calculateNumYearsToview() {
   return Math.max(0, Math.ceil((width - widthWithoutLines) / widthOfOneYear));
 }
 
-function pickEvents(events, gender, set) {
+function pickEvents(events, gender, set, yearRange = [-Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]) {
   const transformedEvents = events
     .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
     .filter(e => e.set === set)
+    .filter(e => e.year >= yearRange[0] && e.year <= yearRange[1])
     .sort((a, b) => a.year - b.year)
     .map(event => transformData(event));
 
   return joinEvents(transformedEvents, set, gender);
 }
 
-function extractClubs(data) {
-  // TODO: Restrict to visible clubs
+function extractClubs(events, fullData, gender, set, numClubs = 8) {
+  const numYears = calculateNumYearsToview();
+  const data = pickEvents(events, gender, set, [fullData.endYear - numYears, fullData.endYear]);
+
   const rawClubs = data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim());
   const uniqueClubs = new Set(data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
   const histogram = [...uniqueClubs.values()].map(club => ({ club: club, count: rawClubs.filter(c => c === club).length }));
   const sortedHistogram = histogram.sort((a, b) => b.count - a.count);
-  const top8Clubs = sortedHistogram.slice(0, 8).map(c => c.club);
+  const topNClubs = sortedHistogram.slice(0, 8).map(c => c.club);
 
-  return top8Clubs.sort((a, b) => {
+  return topNClubs.sort((a, b) => {
     if (a < b) return -1;
     if (a > b) return 1;
     return 0;
@@ -274,7 +277,7 @@ export default class BumpsChartApp extends React.Component {
 
     const data = pickEvents(this.state.events, gender, this.state.set);
     const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
-    const clubs = extractClubs(data);
+    const clubs = extractClubs(this, this.state.events, data, gender, this.state.set);
 
     this.setState({ gender: gender, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, data: data, year: yearRange });
 
@@ -301,7 +304,7 @@ export default class BumpsChartApp extends React.Component {
 
     const data = pickEvents(this.state.events, this.state.gender, set);
     const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
-    const clubs = extractClubs(data);
+    const clubs = extractClubs(this, this.state.events, data, this.state.gender, set);
 
     this.setState({ set: set, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, data: data, year: yearRange });
 
@@ -311,9 +314,10 @@ export default class BumpsChartApp extends React.Component {
       browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}`);
     }
   }
+
   updateClub(event, menuItem, index) {
-    const club = this.state.clubs[index];
-    const selectedCrews = new Set(this.state.data.crews.filter(crew => (crew.name.indexOf(club) != -1)).map(crew => crew.name));
+    const club = expandCrew(this.state.clubs[index], this.state.set);
+    const selectedCrews = new Set(this.state.data.crews.filter(crew => (expandCrew(crew.name, this.state.set).indexOf(club) != -1)).map(crew => crew.name));
 
     this.setState({ selectedClub: club, selectedCrews: selectedCrews });
 
@@ -400,7 +404,7 @@ export default class BumpsChartApp extends React.Component {
           >
           <Menu onItemTouchTap onItemTouchTap={this.updateClub} >
             {this.state.clubs !== null ? this.state.clubs.map(club => (
-              <MenuItem primaryText={club} />
+              <MenuItem primaryText={expandCrew(club, this.state.set)} />
             )) : null}
           </Menu>
         </Popover>

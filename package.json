@@ -15,7 +15,7 @@
     "url": "https://github.com/johnwalley/bumps.git"
   },
   "scripts": {
-    "build": "babel-node results/generate_results.js --presets es2015 && rm -r out/* && webpack -p --progress",
+    "build": "babel-node results/generate_results.js --presets es2015 && rm -rf out/* && webpack -p --progress",
     "start": "webpack-dev-server -d --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
     "test": "babel-tape-runner test/**/*-test.js"
   },

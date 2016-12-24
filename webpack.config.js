@@ -3,6 +3,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, 'out');
 const APP_DIR = path.resolve(__dirname, 'src');
@@ -35,10 +36,14 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        exclude: /node_modules/,
+        loader: ExtractTextPlugin.extract({
+          loader: 'css-loader?sourceMap'
+        })
       },
     ],
   },
+  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -59,6 +64,11 @@ const config = {
       { from: '.htaccess' },
       { from: 'images/facebook.png', to: 'images/facebook.png' },
     ]),
+    new ExtractTextPlugin({
+      filename: 'bundle.css',
+      disable: false,
+      allChunks: true
+    }),
   ],
 };
 

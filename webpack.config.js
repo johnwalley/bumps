@@ -56,12 +56,12 @@ const config = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      chunks: ['main'],
+      chunks: ['main', 'vendor', 'manifest'],
       template: 'index.ejs',
     }),
     new HtmlWebpackPlugin({
       filename: 'embed.html',
-      chunks: ['embed'],
+      chunks: ['embed', 'vendor', 'manifest'],
       template: 'embed.ejs',
     }),
     new CopyWebpackPlugin([

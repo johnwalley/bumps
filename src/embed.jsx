@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import {joinEvents, transformData, calculateYearRange} from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
-import results from '../results/generated.json';
+import events from '../results/generated.json';
 
 require('./bumps.css');
 
@@ -39,7 +39,7 @@ export default class BumpsChartWidget extends React.Component {
       gender: null,
       selectedCrews: new Set(),
       highlightedCrew: null,
-      events: results,
+      events: events,
       windowWidth: 0,
       focus,
       container: '',

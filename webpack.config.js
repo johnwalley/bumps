@@ -67,6 +67,7 @@ const config = {
     new CopyWebpackPlugin([
       { from: '.htaccess' },
       { from: 'images/facebook.png', to: 'images/facebook.png' },
+      { from: 'images/favicons' },
     ]),
     new ExtractTextPlugin({
       filename: 'bundle.css',

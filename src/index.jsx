@@ -23,6 +23,8 @@ import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
 import events from '../results/generated.json';
 
+import About from './about.jsx';
+
 require('./bumps.css');
 
 injectTapEventPlugin();
@@ -370,6 +372,7 @@ BumpsChartApp.propTypes = { params: React.PropTypes.object };
 
 ReactDOM.render((
   <Router history={browserHistory}>
+    <Route path="about" component={About} />
     <Route path="/" component={BumpsChartApp} />
     <Route path=":eventId" component={BumpsChartApp} />
     <Route path=":eventId/:genderId" component={BumpsChartApp} />

@@ -67,7 +67,7 @@ const config = {
     }),
     new HtmlWebpackPlugin({
       filename: 'edit.html',
-      chunks: ['edit'],
+      chunks: ['edit', 'vendor', 'manifest'],
       template: 'edit.ejs',
     }),    
     new CopyWebpackPlugin([

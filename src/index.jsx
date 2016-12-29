@@ -1,21 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import Divider from 'material-ui/Divider';
+import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import Drawer from 'material-ui/Drawer';
+
+import Help from 'material-ui/svg-icons/action/help';
+import Error from 'material-ui/svg-icons/alert/error';
+import Create from 'material-ui/svg-icons/content/create';
+
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
 import jsPDF from 'jspdf-yworks';
 import svg2pdf from './svg2pdf.js';
 import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
+
 import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
-import results from '../results/generated.json';
+import events from '../results/generated.json';
 
 require('./bumps.css');
 
@@ -114,14 +122,14 @@ export default class BumpsChartApp extends React.Component {
     }
 
     this.state = {
+      results: null,
       year: null,
       set: set,
       gender: gender,
       selectedCrews,
       highlightedCrew: null,
-      events: results,
-      windowWidth: window.innerWidth,
-      open: false,
+      events: events,
+      drawerOpen: false,
     };
 
     this.incrementYear = this.incrementYear.bind(this);
@@ -132,11 +140,12 @@ export default class BumpsChartApp extends React.Component {
     this.highlightCrew = this.highlightCrew.bind(this);
     this.updateGender = this.updateGender.bind(this);
     this.updateSet = this.updateSet.bind(this);
+    this.updateResults = this.updateResults.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleHamburger = this.handleHamburger.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
+    this.handleDrawerClose = this.handleDrawerClose.bind(this);
   }
 
   componentDidMount() {
@@ -151,6 +160,11 @@ export default class BumpsChartApp extends React.Component {
 
     window.addEventListener('resize', this.handleResize);
     window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('keydown', this.handleKeyDown);
   }
 
   handleKeyDown(event) {
@@ -180,24 +194,21 @@ export default class BumpsChartApp extends React.Component {
       hitType: 'event',
       eventCategory: 'Platform',
       eventAction: 'resize',
-      eventLabel: window.innerWidth,
+      eventLabel: window.document.body.clientWidth,
     });
 
-    this.setState({ windowWidth: window.innerWidth });
-
-    const yearRange = calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview());
-
+    const yearRange = calculateYearRange(this.state.year, { start: this.state.results.startYear, end: this.state.results.endYear }, calculateNumYearsToview());
     this.setState({ year: yearRange });
   }
 
   incrementYear() {
-    if (this.state.year.end < this.state.data.endYear) {
+    if (this.state.year.end < this.state.results.endYear) {
       this.setState({ year: { start: this.state.year.start + 1, end: this.state.year.end + 1 } });
     }
   }
 
   decrementYear() {
-    if (this.state.year.start > this.state.data.startYear) {
+    if (this.state.year.start > this.state.results.startYear) {
       this.setState({ year: { start: this.state.year.start - 1, end: this.state.year.end - 1 } });
     }
   }
@@ -264,22 +275,7 @@ export default class BumpsChartApp extends React.Component {
       eventLabel: gender,
     });
 
-    const selectedCrews = this.state.selectedCrews;
-
-    if (gender !== this.state.gender) {
-      selectedCrews.clear();
-    }
-
-    const data = pickEvents(this.state.events, gender, this.state.set);
-    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
-
-    this.setState({ gender: gender, selectedCrews: selectedCrews, data: data, year: yearRange });
-
-    if (selectedCrews.size > 0) {
-      browserHistory.push(`/${setMapInverse[this.state.set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
-    } else {
-      browserHistory.push(`/${setMapInverse[this.state.set]}/${gender.toLowerCase()}`);
-    }
+    this.updateResults(this.state.set, gender);
   }
 
   updateSet(event, index, set) {
@@ -290,22 +286,25 @@ export default class BumpsChartApp extends React.Component {
       eventLabel: set,
     });
 
+    this.updateResults(set, this.state.gender);
+  }
+
+  updateResults(set, gender) {
     const selectedCrews = this.state.selectedCrews;
 
     if (set !== this.state.set) {
       selectedCrews.clear();
     }
 
-    const data = pickEvents(this.state.events, this.state.gender, set);
+    const results = pickEvents(this.state.events, gender, set);
+    const yearRange = calculateYearRange(this.state.year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview());
 
-    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
-
-    this.setState({ set: set, selectedCrews: selectedCrews, data: data, year: yearRange });
+    this.setState({ set: set, selectedCrews: selectedCrews, results: results, year: yearRange });
 
     if (selectedCrews.size > 0) {
-      browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
+      browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
     } else {
-      browserHistory.push(`/${setMapInverse[set]}/${this.state.gender.toLowerCase()}`);
+      browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}`);
     }
   }
 
@@ -324,24 +323,24 @@ export default class BumpsChartApp extends React.Component {
     }
   }
 
-  handleHamburger() {
+  handleDrawerToggle() {
     ga('send', {
       hitType: 'event',
       eventCategory: 'Interaction',
       eventAction: 'hamburger',
     });
 
-    this.setState({ open: !this.state.open });
+    this.setState({ drawerOpen: !this.state.drawerOpen });
   }
 
-  handleClose() {
+  handleDrawerClose() {
     ga('send', {
       hitType: 'event',
       eventCategory: 'Interaction',
       eventAction: 'hamburger',
     });
 
-    this.setState({ open: false });
+    this.setState({ drawerOpen: false });
   }
 
   render() {
@@ -364,29 +363,29 @@ export default class BumpsChartApp extends React.Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="bumpsContainer">
-          <AppBar iconElementRight={controls} onLeftIconButtonTouchTap={this.handleHamburger} style={styles.customToolbar} />
-          <BumpsChartControls incrementYear={this.incrementYear} decrementYear={this.decrementYear} url={window.location.toString()} generatePdf={this.generatePdf} />
+          <AppBar iconElementRight={controls} onLeftIconButtonTouchTap={this.handleDrawerToggle} style={styles.customToolbar} />
+          <BumpsChartControls incrementYear={this.incrementYear} decrementYear={this.decrementYear} url={window.location.toString()} />
           <Drawer
             docked={false}
-            width={200}
-            open={this.state.open}
-            onRequestChange={(open) => this.setState({ open })}
+            width={240}
+            open={this.state.drawerOpen}
+            onRequestChange={open => this.setState({ drawerOpen: open })}
             >
-            <MenuItem onTouchTap={this.handleClose}><a href="http://www.cucbc.org/bumps/how_bumps_work">How bumps work</a></MenuItem>
-            <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20spotted%20an%20error%20in%20your%20bumpscharts">Spotted an error?</a></MenuItem>
-            <MenuItem onTouchTap={this.handleClose}><a href="mailto:john@walley.org.uk?subject=I've%20got%20a%20great%20idea">Suggest a feature</a></MenuItem>
-            <MenuItem onTouchTap={this.handleClose}><a href="https://github.com/johnwalley/bumps/">Source code</a></MenuItem>
+            <h2 style={{ paddingLeft: '12px' }}>Cambridge Bumps</h2>
+            <MenuItem leftIcon={<Help />} onTouchTap={this.handleDrawerClose}><a href="http://www.cucbc.org/bumps/how_bumps_work">How bumps work</a></MenuItem>
+            <Divider />
+            <MenuItem leftIcon={<Error />} onTouchTap={this.handleDrawerClose}><a href="mailto:john@walley.org.uk?subject=I've%20spotted%20an%20error%20on%20Cambridge%20Bumps">Spotted an error?</a></MenuItem>
+            <MenuItem leftIcon={<Create />} onTouchTap={this.handleDrawerClose}><a href="mailto:john@walley.org.uk?subject=I've%20got%20a%20great%20idea">Suggest a feature!</a></MenuItem>
           </Drawer>
           <Hammer onSwipe={this.handleSwipe}>
             <BumpsChart
-              data={this.state.data}
+              data={this.state.results}
               year={this.state.year}
               selectedCrews={this.state.selectedCrews}
               highlightedCrew={this.state.highlightedCrew}
               addSelectedCrew={this.addSelectedCrew}
               removeSelectedCrew={this.removeSelectedCrew}
               highlightCrew={this.highlightCrew}
-              windowWidth={this.state.windowWidth}
               focus={false}
               />
           </Hammer>

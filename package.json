@@ -15,7 +15,7 @@
     "url": "https://github.com/johnwalley/bumps.git"
   },
   "scripts": {
-    "build": "babel-node results/generate_results.js && webpack -p --progress",
+    "build": "babel-node results/generate_results.js --presets es2015 && rm -rf out/* && webpack -p --progress",
     "start": "webpack-dev-server -d --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
     "test": "babel-tape-runner test/**/*-test.js"
   },
@@ -26,7 +26,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1",
     "tape": "^4.6.3",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "2.1.0-beta.12"
   },
   "dependencies": {
     "babel": "^6.5.2",
@@ -39,7 +39,8 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "d3": "^4.4.0",
-    "d3-bumps-chart": "^0.2.5",
+    "d3-bumps-chart": "^0.3.1",
+    "extract-text-webpack-plugin": "v2.0.0-beta.4",
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
     "json2module": "0.0.3",
@@ -48,11 +49,10 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-hammerjs": "^0.5.0",
-    "react-router": "^2.8.1",
+    "react-router": "^3.0.0",
     "react-share": "^1.11.0",
     "react-tap-event-plugin": "^2.0.1",
-    "style-loader": "^0.13.1",
     "uglify-js": "^2.7.5",
-    "webpack": "^1.13.3"
+    "webpack": "2.2.0-rc.2"
   }
 }

@@ -10,7 +10,6 @@ import TextField from 'material-ui/TextField';
 import Drawer from 'material-ui/Drawer';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
-import { range } from 'lodash';
 import { joinEvents, transformData, calculateYearRange, write_tg, read_tg } from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
@@ -74,6 +73,10 @@ const genderMap = {
   women: 'Women',
   men: 'Men',
 };
+
+function range(start, end) {
+  return [...Array(1 + end - start).keys()].map(v => start + v)
+}
 
 function calculateNumYearsToview() {
   const width = window.innerWidth;

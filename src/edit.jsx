@@ -229,11 +229,7 @@ export default class BumpsChartEdit extends React.Component {
   updateResultsText(e, text) {
     let d = null;
 
-    try {
-      d = read_tg(text)
-    } catch (e) {
-      console.log(e);
-    }
+    d = read_tg(text);
 
     const event = joinEvents([transformData(d)], d.set, Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));
 
@@ -245,10 +241,8 @@ export default class BumpsChartEdit extends React.Component {
 
     const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
 
-    this.setState({ selectedCrews: selectedCrews, data: data, year: yearRange, resultsText: text });
+    this.setState({ selectedCrews: selectedCrews, data: data, currentYear: yearRange.start, year: yearRange, resultsText: text });
   }
-
-
 
   handleSwipe(event) {
     if (event.deltaX > 0) {

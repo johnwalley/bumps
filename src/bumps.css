@@ -17,6 +17,7 @@ a {
 .editContainer {
     display: flex;
     flex-direction: row;
+    padding-left: 16px;
 }
 
 .controls {

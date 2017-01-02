@@ -5,19 +5,23 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import Menu from 'material-ui/Menu';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+import Popover from 'material-ui/Popover';
 import SelectField from 'material-ui/SelectField';
 
 import Help from 'material-ui/svg-icons/action/help';
 import Error from 'material-ui/svg-icons/alert/error';
 import Create from 'material-ui/svg-icons/content/create';
 
+import MediaQuery from 'react-responsive';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
-import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
+import { joinEvents, transformData, calculateYearRange, expandCrew } from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
@@ -35,6 +39,9 @@ const muiTheme = getMuiTheme(darkBaseTheme, {
     color: '#FFFFFF',
     textColor: '#FFFFFF',
   },
+  button: {
+    textTransform: 'capitalize'
+  },
 });
 
 const styles = {
@@ -43,11 +50,14 @@ const styles = {
     textColor: '#FFFFFF',
   },
   setSelectStyle: {
-    width: 150,
+    width: 146,
     fontSize: '14px',
   },
   genderSelectStyle: {
     width: 100,
+    fontSize: '14px',
+  },
+  clubSelectStyle: {
     fontSize: '14px',
   },
 };
@@ -79,14 +89,37 @@ function calculateNumYearsToview() {
   return Math.max(0, Math.ceil((width - widthWithoutLines) / widthOfOneYear));
 }
 
-function pickEvents(events, gender, set) {
+function pickEvents(events, gender, set, yearRange = [-Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]) {
   const transformedEvents = events
     .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
     .filter(e => e.set === set)
+    .filter(e => e.year >= yearRange[0] && e.year <= yearRange[1])
     .sort((a, b) => a.year - b.year)
     .map(event => transformData(event));
 
   return joinEvents(transformedEvents, set, gender);
+}
+
+function extractClubs(events, fullData, gender, set, numClubs = 8) {
+  const numYears = calculateNumYearsToview();
+  const data = pickEvents(events, gender, set, [fullData.endYear - numYears, fullData.endYear]);
+
+  const rawClubs = data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim());
+  const uniqueClubs = new Set(data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
+  const histogram = [...uniqueClubs.values()].map(club => ({ club: club, count: rawClubs.filter(c => c === club).length }));
+  const sortedHistogram = histogram.sort((a, b) => b.count - a.count);
+
+  if (set != 'Town Bumps') {
+    numClubs = sortedHistogram.length;
+  }
+
+  const topNClubs = sortedHistogram.slice(0, numClubs).map(c => c.club);
+
+  return topNClubs.sort((a, b) => {
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  })
 }
 
 export default class BumpsChartApp extends React.Component {
@@ -122,12 +155,15 @@ export default class BumpsChartApp extends React.Component {
     this.state = {
       results: null,
       year: null,
-      set: set,
       gender: gender,
+      set: set,
+      selectedClub: null,
+      clubs: null,
       selectedCrews,
       highlightedCrew: null,
       events: events,
       drawerOpen: false,
+      buttonOpen: false,
     };
 
     this.incrementYear = this.incrementYear.bind(this);
@@ -138,11 +174,14 @@ export default class BumpsChartApp extends React.Component {
     this.updateGender = this.updateGender.bind(this);
     this.updateSet = this.updateSet.bind(this);
     this.updateResults = this.updateResults.bind(this);
+    this.updateClub = this.updateClub.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleButtonTouchTap = this.handleButtonTouchTap.bind(this);
     this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.handleButtonRequestClose = this.handleButtonRequestClose.bind(this);
   }
 
   componentDidMount() {
@@ -267,16 +306,29 @@ export default class BumpsChartApp extends React.Component {
       selectedCrews.clear();
     }
 
-    const results = pickEvents(this.state.events, this.state.gender, set);
+    const results = pickEvents(this.state.events, gender, set);
     const yearRange = calculateYearRange(this.state.year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview());
 
-    this.setState({ set: set, selectedCrews: selectedCrews, results: results, year: yearRange });
+    const clubs = extractClubs(this.state.events, results, this.state.gender, set);
+
+    this.setState({ set: set, gender: gender, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, results: results, year: yearRange });
 
     if (selectedCrews.size > 0) {
       browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
     } else {
       browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}`);
     }
+  }
+
+  updateClub(event, menuItem, index) {
+    const club = expandCrew(this.state.clubs[index], this.state.set);
+    const selectedCrews = new Set(this.state.results.crews.filter(crew => (expandCrew(crew.name, this.state.set).indexOf(club) != -1)).map(crew => crew.name));
+
+    this.setState({ selectedClub: club, selectedCrews: selectedCrews });
+
+    this.handleButtonRequestClose();
+
+    browserHistory.push(`/${setMapInverse[this.state.set]}/${this.state.gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
   }
 
   handleSwipe(event) {
@@ -304,6 +356,16 @@ export default class BumpsChartApp extends React.Component {
     this.setState({ drawerOpen: !this.state.drawerOpen });
   }
 
+  handleButtonTouchTap(event) {
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      buttonOpen: true,
+      anchorEl: event.currentTarget,
+    });
+  };
+
   handleDrawerClose() {
     ga('send', {
       hitType: 'event',
@@ -314,9 +376,13 @@ export default class BumpsChartApp extends React.Component {
     this.setState({ drawerOpen: false });
   }
 
+  handleButtonRequestClose() {
+    this.setState({ buttonOpen: false });
+  }
+
   render() {
     const controls = (
-      <div>
+      <div style={{ display: 'flex' }}>
         <SelectField value={this.state.set} onChange={this.updateSet} style={styles.setSelectStyle}>
           <MenuItem value="May Bumps" primaryText="May Bumps" />
           <MenuItem value="Town Bumps" primaryText="Town Bumps" />
@@ -328,6 +394,28 @@ export default class BumpsChartApp extends React.Component {
           <MenuItem value="Women" primaryText="Women" />
           <MenuItem value="Men" primaryText="Men" />
         </SelectField>
+        <MediaQuery minWidth={780}>
+          <FlatButton
+            onTouchTap={this.handleButtonTouchTap}
+            label="Highlight Club"
+            backgroundColor="#91B9A4"
+            labelStyle={styles.clubSelectStyle}
+            style={{ padding: '6px 0px 0px 0px' }}
+            />
+          <Popover
+            open={this.state.buttonOpen}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            onRequestClose={this.handleButtonRequestClose}
+            >
+            <Menu onItemTouchTap={this.updateClub} >
+              {this.state.clubs !== null ? this.state.clubs.map(club => (
+                <MenuItem primaryText={expandCrew(club, this.state.set)} />
+              )) : null}
+            </Menu>
+          </Popover>
+        </MediaQuery>
       </div>
     );
 

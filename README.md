@@ -8,4 +8,6 @@ The website for www.cambridgebumps.com.
 
 Built using [React](https://facebook.github.io/react/) and [d3](https://d3js.org/).
 
-Raw results can be found at https://github.com/johnwalley/bumps-results
+Raw results can be found at [bumps-results](https://github.com/johnwalley/bumps-results).
+
+Bumps charts implemented by [d3-bumps-chart](https://github.com/johnwalley/d3-bumps-chart).

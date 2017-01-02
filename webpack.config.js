@@ -11,6 +11,7 @@ const APP_DIR = path.resolve(__dirname, 'src');
 const config = {
   entry: {
     main: `${APP_DIR}/index.jsx`,
+    edit: `${APP_DIR}/edit.jsx`,
     vendor: ['react', 'react-dom', 'react-router', 'react-hammerjs', 'react-share', 'material-ui'],
   },
   output: {
@@ -63,6 +64,11 @@ const config = {
       chunks: ['embed', 'vendor', 'manifest'],
       template: 'embed.ejs',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'edit.html',
+      chunks: ['edit', 'vendor', 'manifest'],
+      template: 'edit.ejs',
+    }),    
     new CopyWebpackPlugin([
       { from: '.htaccess' },
       { from: 'images/facebook.png', to: 'images/facebook.png' },

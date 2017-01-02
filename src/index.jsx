@@ -17,6 +17,8 @@ import Create from 'material-ui/svg-icons/content/create';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
+import jsPDF from 'jspdf-yworks';
+import svg2pdf from './svg2pdf.js';
 import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
 
 import BumpsChart from './BumpsChart.jsx';
@@ -132,6 +134,7 @@ export default class BumpsChartApp extends React.Component {
 
     this.incrementYear = this.incrementYear.bind(this);
     this.decrementYear = this.decrementYear.bind(this);
+    this.generatePdf = this.generatePdf.bind(this);
     this.addSelectedCrew = this.addSelectedCrew.bind(this);
     this.removeSelectedCrew = this.removeSelectedCrew.bind(this);
     this.highlightCrew = this.highlightCrew.bind(this);
@@ -210,6 +213,32 @@ export default class BumpsChartApp extends React.Component {
     }
   }
 
+  generatePdf() {
+    console.log('Generate PDF');
+    var svg = document.querySelectorAll('svg')[8];
+
+    // create a new jsPDF instance
+    var pdf = new jsPDF('l', 'pt', [300, 600]);
+
+    // render the svg element
+    svg2pdf(svg, pdf, {
+      xOffset: 0,
+      yOffset: 0,
+      scale: 1
+    });
+
+    // get the data URI
+    var uri = pdf.output('datauristring');
+
+    var aElement = document.createElement("a");
+    aElement.setAttribute("href", uri);
+    aElement.setAttribute("download", "bumps.pdf");
+    aElement.style.setProperty("display", "none", "");
+    document.body.appendChild(aElement);
+    aElement.click();
+    document.body.removeChild(aElement);
+  }
+
   addSelectedCrew(crewName) {
     const selectedCrews = this.state.selectedCrews.add(crewName);
     this.setState({ selectedCrews: selectedCrews });
@@ -267,7 +296,7 @@ export default class BumpsChartApp extends React.Component {
       selectedCrews.clear();
     }
 
-    const results = pickEvents(this.state.events, this.state.gender, set);
+    const results = pickEvents(this.state.events, gender, set);
     const yearRange = calculateYearRange(this.state.year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview());
 
     this.setState({ set: set, selectedCrews: selectedCrews, results: results, year: yearRange });

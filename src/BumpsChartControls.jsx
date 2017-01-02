@@ -2,6 +2,7 @@ import React from 'react';
 import IconButton from 'material-ui/IconButton';
 import AVFastForward from 'material-ui/svg-icons/av/fast-forward';
 import AVFastRewind from 'material-ui/svg-icons/av/fast-rewind';
+import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf';
 
 import { ShareButtons, generateShareIcon } from 'react-share';
 
@@ -24,7 +25,7 @@ const styles = {
 const facebookTitle = 'Share these results';
 const twitterTitle = 'Check out these Cambridge Bumps results!';
 
-const BumpsChartControls = ({ incrementYear, decrementYear, url }) =>
+const BumpsChartControls = ({ incrementYear, decrementYear, url, generatePdf }) =>
   <div className="bumpsControls" style={styles.customButtons}>
     <IconButton onClick={decrementYear}>
       <AVFastRewind color="#91B9A4" />
@@ -34,22 +35,25 @@ const BumpsChartControls = ({ incrementYear, decrementYear, url }) =>
         url={url}
         title={facebookTitle}
         className="facebook-share-button"
-      >
+        >
         <FacebookIcon
           size={24}
           round
-        />
+          />
       </FacebookShareButton>
       <TwitterShareButton
         url={url}
         title={twitterTitle}
         className="twitter-share-button"
-      >
+        >
         <TwitterIcon
           size={24}
           round
-        />
+          />
       </TwitterShareButton>
+      <IconButton onClick={generatePdf}>
+        <ImagePictureAsPdf color="#91B9A4" />
+      </IconButton>
     </div>
     <IconButton onClick={incrementYear}>
       <AVFastForward color="#91B9A4" />
@@ -59,6 +63,7 @@ const BumpsChartControls = ({ incrementYear, decrementYear, url }) =>
 BumpsChartControls.propTypes = {
   incrementYear: React.PropTypes.func,
   decrementYear: React.PropTypes.func,
+  generatePdf: React.PropTypes.func,
 };
 
 export default BumpsChartControls;

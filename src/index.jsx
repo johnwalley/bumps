@@ -17,6 +17,7 @@ import Help from 'material-ui/svg-icons/action/help';
 import Error from 'material-ui/svg-icons/alert/error';
 import Create from 'material-ui/svg-icons/content/create';
 
+import MediaQuery from 'react-responsive';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
@@ -49,7 +50,7 @@ const styles = {
     textColor: '#FFFFFF',
   },
   setSelectStyle: {
-    width: 150,
+    width: 146,
     fontSize: '14px',
   },
   genderSelectStyle: {
@@ -57,7 +58,6 @@ const styles = {
     fontSize: '14px',
   },
   clubSelectStyle: {
-    width: 200,
     fontSize: '14px',
   },
 };
@@ -108,6 +108,11 @@ function extractClubs(events, fullData, gender, set, numClubs = 8) {
   const uniqueClubs = new Set(data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
   const histogram = [...uniqueClubs.values()].map(club => ({ club: club, count: rawClubs.filter(c => c === club).length }));
   const sortedHistogram = histogram.sort((a, b) => b.count - a.count);
+
+  if (set != 'Town Bumps') {
+    numClubs = sortedHistogram.length;
+  }
+
   const topNClubs = sortedHistogram.slice(0, numClubs).map(c => c.club);
 
   return topNClubs.sort((a, b) => {
@@ -306,7 +311,7 @@ export default class BumpsChartApp extends React.Component {
 
     const clubs = extractClubs(this.state.events, results, this.state.gender, set);
 
-    this.setState({ set: set, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, results: results, year: yearRange });
+    this.setState({ set: set, gender: gender, clubs: clubs, selectedClub: clubs[0], selectedCrews: selectedCrews, results: results, year: yearRange });
 
     if (selectedCrews.size > 0) {
       browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
@@ -377,7 +382,7 @@ export default class BumpsChartApp extends React.Component {
 
   render() {
     const controls = (
-      <div style={{ flex: 1 }}>
+      <div style={{ display: 'flex' }}>
         <SelectField value={this.state.set} onChange={this.updateSet} style={styles.setSelectStyle}>
           <MenuItem value="May Bumps" primaryText="May Bumps" />
           <MenuItem value="Town Bumps" primaryText="Town Bumps" />
@@ -389,24 +394,28 @@ export default class BumpsChartApp extends React.Component {
           <MenuItem value="Women" primaryText="Women" />
           <MenuItem value="Men" primaryText="Men" />
         </SelectField>
-        <FlatButton
-          onTouchTap={this.handleButtonTouchTap}
-          label="Highlight Club"
-          backgroundColor="#91B9A4"
-          />
-        <Popover
-          open={this.state.buttonOpen}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.handleButtonRequestClose}
-          >
-          <Menu onItemTouchTap onItemTouchTap={this.updateClub} >
-            {this.state.clubs !== null ? this.state.clubs.map(club => (
-              <MenuItem primaryText={expandCrew(club, this.state.set)} />
-            )) : null}
-          </Menu>
-        </Popover>
+        <MediaQuery minWidth={780}>
+          <FlatButton
+            onTouchTap={this.handleButtonTouchTap}
+            label="Highlight Club"
+            backgroundColor="#91B9A4"
+            labelStyle={styles.clubSelectStyle}
+            style={{ padding: '6px 0px 0px 0px' }}
+            />
+          <Popover
+            open={this.state.buttonOpen}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            onRequestClose={this.handleButtonRequestClose}
+            >
+            <Menu onItemTouchTap={this.updateClub} >
+              {this.state.clubs !== null ? this.state.clubs.map(club => (
+                <MenuItem primaryText={expandCrew(club, this.state.set)} />
+              )) : null}
+            </Menu>
+          </Popover>
+        </MediaQuery>
       </div>
     );
 

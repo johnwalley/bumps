@@ -12,7 +12,7 @@ const config = {
   entry: {
     main: `${APP_DIR}/index.jsx`,
     embed: `${APP_DIR}/embed.jsx`,
-    vendor: ['react', 'react-dom', 'react-router', 'react-hammerjs', 'react-share', 'material-ui', 'd3'],
+    vendor: ['react', 'react-dom', 'react-router', 'react-hammerjs', 'react-share', 'material-ui'],
   },
   output: {
     path: BUILD_DIR,

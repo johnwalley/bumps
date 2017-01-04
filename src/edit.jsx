@@ -12,7 +12,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
 import { joinEvents, transformData, calculateYearRange, write_tg, read_tg } from 'd3-bumps-chart';
 
-import BumpsChart from './BumpsChart.jsx';
+import BumpsChart from './components/BumpsChart.jsx';
 import results from '../results/generated.json';
 
 require('./bumps.css');

@@ -11,7 +11,7 @@ import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { calculateYearRange, expandCrew } from 'd3-bumps-chart';
 
-import { setUrl } from '../util';
+import { setUrl, calculateNumYearsToview } from '../util';
 import BumpsChartContainer from '../containers/BumpsChartContainer';
 import EventControls from './EventControls.jsx';
 import BumpsDrawer from './BumpsDrawer.jsx';
@@ -85,9 +85,18 @@ function toggleSelectedCrew(crew, set, gender, selectedCrews) {
   setUrl(set, gender, selectedCrews);
 }
 
-const App = ({set, gender, selectedCrews, results, year, clubs, clubSelectMenuOpen, clubSelectMenuAnchorElement,
-  onSwipe, onIncrementYearClick, onDecrementYearClick,
+const App = ({set, gender, selectedCrews, results, year, clubs, width, clubSelectMenuOpen, clubSelectMenuAnchorElement,
+  onSetYear, onSwipe, onIncrementYearClick, onDecrementYearClick,
   onDrawerToggleClick, drawerOpen, onSetDrawerClick, onDrawerCloseClick, onClubSelectOpenClick, onClubSelectRequestClose}) => {
+
+  const currentYear = calculateYearRange(year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview(width));
+
+  // Think of this as clamping to valid values
+  if (currentYear.start !== year.start || currentYear.end !== year.end) {
+    onSetYear(currentYear.start, currentYear.end);
+    year = currentYear;
+  }
+
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       <div className="bumpsContainer">
@@ -110,7 +119,7 @@ const App = ({set, gender, selectedCrews, results, year, clubs, clubSelectMenuOp
           onSetDrawerClick={onSetDrawerClick}
           onDrawerCloseClick={onDrawerCloseClick} />
         <BumpsChartControls incrementYear={() => onIncrementYearClick(results.endYear)} decrementYear={() => onDecrementYearClick(results.startYear)} url={window.location.toString()} />
-        <Hammer onSwipe={(event) => onSwipe(event.deltaX, results.endYear, results.startYear)}>
+        <Hammer onSwipe={(event) => onSwipe(event.deltaX)}>
           <BumpsChartContainer
             data={results}
             year={year}

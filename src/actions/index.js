@@ -1,3 +1,9 @@
+export const setYear = (start, end) => ({
+  type: 'SET_YEAR',
+  start,
+  end
+});
+
 export const resize = width => ({
   type: 'RESIZE',
   width
@@ -8,21 +14,17 @@ export const keydown = keyCode => ({
   keyCode
 });
 
-export const swipe = (deltaX, max, min) => ({
+export const swipe = deltaX => ({
   type: 'SWIPE',
-  deltaX,
-  max,
-  min
+  deltaX
 });
 
 export const incrementYear = max => ({
-  type: 'INCREMENT_YEAR',
-  max
+  type: 'INCREMENT_YEAR'
 });
 
 export const decrementYear = min => ({
-  type: 'DECREMENT_YEAR',
-  min
+  type: 'DECREMENT_YEAR'
 });
 
 export const setHighlightedCrew = crew => ({

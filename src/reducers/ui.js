@@ -1,6 +1,11 @@
 const ui = (state = { events: null, width: null, year: null, highlightedCrew: null, drawerOpen: false, clubSelectMeuOpen: false, clubSelectMenuAnchorElement: null }, action) => {
   let year;
   switch (action.type) {
+    case 'SET_YEAR':
+      return {
+        ...state,
+        year: { start: action.start, end: action.end }
+      };
     case 'RESIZE':
       return {
         ...state,
@@ -11,13 +16,9 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       year = state.year;
 
       if (action.keyCode === 39) {
-        if (state.year.end < action.max) {
-          year = { start: state.year.start + 1, end: state.year.end + 1 };
-        }
+        year = { start: state.year.start + 1, end: state.year.end + 1 };
       } else if (action.keyCode === 37) {
-        if (state.year.start > action.min) {
-          year = { start: state.year.start - 1, end: state.year.end - 1 };
-        }
+        year = { start: state.year.start - 1, end: state.year.end - 1 };
       }
 
       return {
@@ -28,13 +29,9 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       year = state.year;
 
       if (action.deltaX < 0) {
-        if (state.year.end < action.max) {
-          year = { start: state.year.start + 1, end: state.year.end + 1 };
-        }
+        year = { start: state.year.start + 1, end: state.year.end + 1 };
       } else {
-        if (state.year.start > action.min) {
-          year = { start: state.year.start - 1, end: state.year.end - 1 };
-        }
+        year = { start: state.year.start - 1, end: state.year.end - 1 };
       }
 
       return {

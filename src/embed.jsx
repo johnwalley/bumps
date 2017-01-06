@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {joinEvents, transformData, calculateYearRange} from 'd3-bumps-chart';
+import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
 
 import BumpsChart from './components/BumpsChart.jsx';
 import events from '../results/generated.json';
@@ -45,8 +45,7 @@ export default class BumpsChartWidget extends React.Component {
       container: '',
     };
 
-    this.addSelectedCrew = this.addSelectedCrew.bind(this);
-    this.removeSelectedCrew = this.removeSelectedCrew.bind(this);
+    this.toggleSelectedCrew = this.toggleSelectedCrew.bind(this);
     this.highlightCrew = this.highlightCrew.bind(this);
   }
 
@@ -100,20 +99,20 @@ export default class BumpsChartWidget extends React.Component {
     const data = pickEvents(this.state.events, gender, set);
 
     const yearRange = calculateYearRange(year,
-    { start: data.startYear, end: data.endYear },
-    calculateNumYearsToview(el.scrollWidth, this.state.focus));
+      { start: data.startYear, end: data.endYear },
+      calculateNumYearsToview(el.scrollWidth, this.state.focus));
 
     this.setState({ set, selectedCrews, data, year: yearRange });
   }
 
-  addSelectedCrew(crewName) {
-    const selectedCrews = this.state.selectedCrews.add(crewName);
-    this.setState({ selectedCrews });
-  }
+  toggleSelectedCrew(crewName) {
+    const selectedCrews = new Set(this.state.selectedCrews);
 
-  removeSelectedCrew(crewName) {
-    const selectedCrews = this.state.selectedCrews;
-    selectedCrews.delete(crewName);
+    if (selectedCrews.has(crewName)) {
+      selectedCrews.delete(crewName);
+    } else {
+      selectedCrews.add(crewName);
+    }
 
     this.setState({ selectedCrews });
   }
@@ -136,8 +135,8 @@ export default class BumpsChartWidget extends React.Component {
 
     const header = this.state.header ? (<p>{this.state.title}</p>) : null;
     const footer = this.state.footer ? (
-  <a className="widget" href={'http://www.cambridgebumps.com/' + setMapInverse[this.state.set] + '/' + this.state.gender + '/' + [...this.state.selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')} style={linkStyle}>
-    View on cambridgebumps.com
+      <a className="widget" href={'http://www.cambridgebumps.com/' + setMapInverse[this.state.set] + '/' + this.state.gender + '/' + [...this.state.selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')} style={linkStyle}>
+        View on cambridgebumps.com
   </a>
     ) : null;
 
@@ -149,15 +148,14 @@ export default class BumpsChartWidget extends React.Component {
           year={this.state.year}
           selectedCrews={this.state.selectedCrews}
           highlightedCrew={this.state.highlightedCrew}
-          addSelectedCrew={this.addSelectedCrew}
-          removeSelectedCrew={this.removeSelectedCrew}
+          toggleSelectedCrew={this.toggleSelectedCrew}
           highlightCrew={this.highlightCrew}
           maxWidth={this.state.maxWidth}
           maxHeight={this.state.maxHeight}
           border={this.state.border}
           windowWidth={this.state.windowWidth}
           focus
-        />
+          />
         {footer}
       </div >
     );

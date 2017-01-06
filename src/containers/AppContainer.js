@@ -9,7 +9,6 @@ import { getSet, getGender, getSelectedCrews, getResults, getClubs } from '../se
 const getYear = (year, width, results) =>
   calculateYearRange(year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview(width));
 
-
 const mapStateToProps = (state, ownProps) => {
   const set = getSet(state, ownProps);
   const gender = getGender(state, ownProps);

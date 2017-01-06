@@ -5,7 +5,7 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       return {
         ...state,
         width: action.width
-      }
+      };
     // FIXME: Needs a strategy for handling year extent as state
     case 'KEYDOWN':
       year = state.year;
@@ -23,7 +23,7 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       return {
         ...state,
         year
-      }
+      };
     case 'SWIPE':
       year = state.year;
 
@@ -40,7 +40,7 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       return {
         ...state,
         year
-      }
+      };
     case 'INCREMENT_YEAR':
       year = state.year;
 
@@ -51,7 +51,7 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       return {
         ...state,
         year
-      }
+      };
     case 'DECREMENT_YEAR':
       year = state.year;
 
@@ -62,27 +62,27 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       return {
         ...state,
         year
-      }
+      };
     case 'SET_HIGHLIGHTED_CREW':
       return {
         ...state,
         highlightedCrew: action.crew
-      }
+      };
     case 'TOGGLE_DRAWER':
       return {
         ...state,
         drawerOpen: !state.drawerOpen
-      }
+      };
     case 'CLOSE_DRAWER':
       return {
         ...state,
         drawerOpen: false
-      }
+      };
     case 'SET_DRAWER':
       return {
         ...state,
         drawerOpen: action.open
-      }
+      };
     case 'OPEN_CLUB_SELECT_MENU':
       action.event.preventDefault();
 
@@ -90,15 +90,15 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
         ...state,
         clubSelectMenuOpen: true,
         clubSelectMenuAnchorElement: action.event.currentTarget
-      }
+      };
     case 'CLOSE_CLUB_SELECT_MENU':
       return {
         ...state,
         clubSelectMenuOpen: false
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default ui;

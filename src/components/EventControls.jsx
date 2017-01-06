@@ -5,7 +5,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import SelectField from 'material-ui/SelectField';
-
 import { expandCrew } from 'd3-bumps-chart';
 
 const styles = {

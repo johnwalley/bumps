@@ -1,5 +1,4 @@
 import React from 'react';
-
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -7,13 +6,12 @@ import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-
 import MediaQuery from 'react-responsive';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { calculateYearRange, expandCrew } from 'd3-bumps-chart';
-import { setUrl } from '../util';
 
+import { setUrl } from '../util';
 import BumpsChartContainer from '../containers/BumpsChartContainer';
 import EventControls from './EventControls.jsx';
 import BumpsDrawer from './BumpsDrawer.jsx';
@@ -90,7 +88,6 @@ function toggleSelectedCrew(crew, set, gender, selectedCrews) {
 const App = ({set, gender, selectedCrews, results, year, clubs, clubSelectMenuOpen, clubSelectMenuAnchorElement,
   onSwipe, onIncrementYearClick, onDecrementYearClick,
   onDrawerToggleClick, drawerOpen, onSetDrawerClick, onDrawerCloseClick, onClubSelectOpenClick, onClubSelectRequestClose}) => {
-
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       <div className="bumpsContainer">

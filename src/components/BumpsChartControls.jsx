@@ -2,7 +2,6 @@ import React from 'react';
 import IconButton from 'material-ui/IconButton';
 import AVFastForward from 'material-ui/svg-icons/av/fast-forward';
 import AVFastRewind from 'material-ui/svg-icons/av/fast-rewind';
-
 import { ShareButtons, generateShareIcon } from 'react-share';
 
 const { FacebookShareButton, TwitterShareButton } = ShareButtons;

@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { joinEvents, transformData } from 'd3-bumps-chart';
+
 import { calculateNumYearsToview } from '../util';
 
 const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]) => {
@@ -11,7 +12,7 @@ const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_INFINITY,
     .map(event => transformData(event));
 
   return joinEvents(transformedEvents, set, gender);
-}
+};
 
 const getEvents = (state, props) =>
   state.ui.events;
@@ -36,7 +37,7 @@ export const getSet = (state, props) => {
   }
 
   return set;
-}
+};
 
 export const getGender = (state, props) => {
   const genderMap = {
@@ -55,7 +56,7 @@ export const getGender = (state, props) => {
   }
 
   return gender;
-}
+};
 
 export const getSelectedCrews = (state, props) => {
   let selectedCrews = new Set();
@@ -65,7 +66,12 @@ export const getSelectedCrews = (state, props) => {
   }
 
   return selectedCrews;
-}
+};
+
+export const getResults = createSelector(
+  [getEvents, getSet, getGender],
+  (events, set, gender) => pickEvents(events, gender, set)
+);
 
 export const getClubs = (state, props) => {
   let numClubs = 8;
@@ -76,10 +82,10 @@ export const getClubs = (state, props) => {
 
   const rawClubs = restrictedData.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim());
   const uniqueClubs = new Set(restrictedData.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
-  const histogram = [...uniqueClubs.values()].map(club => ({ club: club, count: rawClubs.filter(c => c === club).length }));
+  const histogram = [...uniqueClubs.values()].map(club => ({ club, count: rawClubs.filter(c => c === club).length }));
   const sortedHistogram = histogram.sort((a, b) => b.count - a.count);
 
-  if (props.params.set != 'Town Bumps') {
+  if (props.params.set !== 'Town Bumps') {
     numClubs = sortedHistogram.length;
   }
 
@@ -90,11 +96,4 @@ export const getClubs = (state, props) => {
     if (a > b) return 1;
     return 0;
   });
-}
-
-export const getResults = createSelector(
-  [getEvents, getSet, getGender],
-  (events, set, gender) => {
-    return pickEvents(events, gender, set);
-  }
-);
+};

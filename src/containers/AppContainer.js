@@ -1,17 +1,14 @@
 import { connect } from 'react-redux';
-import { swipe, incrementYear, decrementYear, toggleDrawer, closeDrawer, setDrawer, clubSelectMenuOpen, clubSelectMenuClose } from '../actions';
-import App from '../components/App.jsx';
-import { calculateNumYearsToview } from '../util';
-
-import { browserHistory } from 'react-router';
-import { getSet, getGender, getSelectedCrews, getResults, getClubs } from '../selectors';
-import { setUrl } from '../util';
-
 import { calculateYearRange } from 'd3-bumps-chart';
 
-const getYear = (year, width, results) => {
-  return calculateYearRange(year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview(width));
-}
+import { swipe, incrementYear, decrementYear, toggleDrawer, closeDrawer, setDrawer, clubSelectMenuOpen, clubSelectMenuClose } from '../actions';
+import App from '../components/App.jsx';
+import { calculateNumYearsToview, setUrl } from '../util';
+import { getSet, getGender, getSelectedCrews, getResults, getClubs } from '../selectors';
+
+const getYear = (year, width, results) =>
+  calculateYearRange(year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview(width));
+
 
 const mapStateToProps = (state, ownProps) => {
   const set = getSet(state, ownProps);
@@ -35,7 +32,7 @@ const mapStateToProps = (state, ownProps) => {
     drawerOpen: state.ui.drawerOpen,
     clubSelectMenuOpen: state.ui.clubSelectMenuOpen,
     clubSelectMenuAnchorElement: state.ui.clubSelectMenuAnchorElement
-  }
+  };
 };
 
 const mapDispatchToProps = ({

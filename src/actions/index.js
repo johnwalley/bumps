@@ -1,9 +1,9 @@
-export const resize = (width) => ({
+export const resize = width => ({
   type: 'RESIZE',
   width
 });
 
-export const keydown = (keyCode) => ({
+export const keydown = keyCode => ({
   type: 'KEYDOWN',
   keyCode
 });
@@ -15,17 +15,17 @@ export const swipe = (deltaX, max, min) => ({
   min
 });
 
-export const incrementYear = (max) => ({
+export const incrementYear = max => ({
   type: 'INCREMENT_YEAR',
   max
 });
 
-export const decrementYear = (min) => ({
+export const decrementYear = min => ({
   type: 'DECREMENT_YEAR',
   min
 });
 
-export const setHighlightedCrew = (crew) => ({
+export const setHighlightedCrew = crew => ({
   type: 'SET_HIGHLIGHTED_CREW',
   crew
 });
@@ -38,12 +38,12 @@ export const closeDrawer = () => ({
   type: 'CLOSE_DRAWER'
 });
 
-export const setDrawer = (open) => ({
+export const setDrawer = open => ({
   type: 'SET_DRAWER',
   open
 });
 
-export const clubSelectMenuOpen = (event) => ({
+export const clubSelectMenuOpen = event => ({
   type: 'OPEN_CLUB_SELECT_MENU',
   event
 });

@@ -1,9 +1,7 @@
 import React from 'react';
-
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-
 import Help from 'material-ui/svg-icons/action/help';
 import Error from 'material-ui/svg-icons/alert/error';
 import Create from 'material-ui/svg-icons/content/create';

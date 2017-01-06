@@ -5,7 +5,7 @@ export const calculateNumYearsToview = (width) => {
   const widthWithoutLines = 310;
 
   return Math.max(0, Math.ceil((width - widthWithoutLines) / widthOfOneYear));
-}
+};
 
 export const setUrl = (set, gender, selectedCrews) => {
   const setMapInverse = {
@@ -21,4 +21,4 @@ export const setUrl = (set, gender, selectedCrews) => {
   } else {
     browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}`);
   }
-}
+};

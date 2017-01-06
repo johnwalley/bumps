@@ -1,7 +1,12 @@
 import React from 'react';
-
+import MediaQuery from 'react-responsive';
+import FlatButton from 'material-ui/FlatButton';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import Popover from 'material-ui/Popover';
 import SelectField from 'material-ui/SelectField';
+
+import { expandCrew } from 'd3-bumps-chart';
 
 const styles = {
   setSelectStyle: {
@@ -17,7 +22,8 @@ const styles = {
   },
 };
 
-const EventControls = ({set, gender, onSetClick, onGenderClick}) =>
+const EventControls = ({set, gender, clubs, clubSelectMenuOpen, clubSelectMenuAnchorElement,
+  onSetClick, onGenderClick, onUpdateClub, onClubSelectOpenClick, onClubSelectRequestClose}) =>
   <div style={{ display: 'flex' }}>
     <SelectField value={set} onChange={(event, index, set) => onSetClick(set)} style={styles.setSelectStyle}>
       <MenuItem value="May Bumps" primaryText="May Bumps" />
@@ -30,6 +36,28 @@ const EventControls = ({set, gender, onSetClick, onGenderClick}) =>
       <MenuItem value="Women" primaryText="Women" />
       <MenuItem value="Men" primaryText="Men" />
     </SelectField>
+    <MediaQuery minWidth={780}>
+      <FlatButton
+        onTouchTap={(event) => onClubSelectOpenClick(event)}
+        label="Highlight Club"
+        backgroundColor="#91B9A4"
+        labelStyle={styles.clubSelectStyle}
+        style={{ padding: '6px 0px 0px 0px' }}
+        />
+      <Popover
+        open={clubSelectMenuOpen}
+        anchorEl={clubSelectMenuAnchorElement}
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+        onRequestClose={() => onClubSelectRequestClose()}
+        >
+        <Menu onItemTouchTap={(event, menuItem, index) => onUpdateClub(index)} >
+          {clubs !== null ? clubs.map(club => (
+            <MenuItem primaryText={expandCrew(club, set)} />
+          )) : null}
+        </Menu>
+      </Popover>
+    </MediaQuery>
   </div>;
 
 EventControls.propTypes = {

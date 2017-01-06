@@ -11,11 +11,10 @@ import SelectField from 'material-ui/SelectField';
 import MediaQuery from 'react-responsive';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { Router, Route, browserHistory } from 'react-router';
 import { calculateYearRange, expandCrew } from 'd3-bumps-chart';
+import { setUrl } from '../util';
 
 import BumpsChartContainer from '../containers/BumpsChartContainer';
-
 import EventControls from './EventControls.jsx';
 import BumpsDrawer from './BumpsDrawer.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
@@ -52,28 +51,6 @@ const setMapInverse = {
   'Summer Eights': 'eights',
 };
 
-function extractClubs(events, fullData, gender, set, numClubs = 8) {
-  const numYears = calculateNumYearsToview();
-  const data = pickEvents(events, gender, set, [fullData.endYear - numYears, fullData.endYear]);
-
-  const rawClubs = data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim());
-  const uniqueClubs = new Set(data.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
-  const histogram = [...uniqueClubs.values()].map(club => ({ club: club, count: rawClubs.filter(c => c === club).length }));
-  const sortedHistogram = histogram.sort((a, b) => b.count - a.count);
-
-  if (set != 'Town Bumps') {
-    numClubs = sortedHistogram.length;
-  }
-
-  const topNClubs = sortedHistogram.slice(0, numClubs).map(c => c.club);
-
-  return topNClubs.sort((a, b) => {
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
-  })
-}
-
 function setSet(newSet, set, gender, selectedCrews) {
   if (newSet !== set) {
     selectedCrews.clear();
@@ -90,6 +67,15 @@ function setGender(newGender, set, gender, selectedCrews) {
   setUrl(set, newGender, selectedCrews);
 }
 
+function setClub(index, clubs, set, gender, results, closeMenu) {
+  const club = expandCrew(clubs[index], set);
+  const selectedCrews = new Set(results.crews.filter(crew => (expandCrew(crew.name, set).indexOf(club) != -1)).map(crew => crew.name));
+
+  closeMenu();
+
+  setUrl(set, gender, selectedCrews);
+}
+
 function toggleSelectedCrew(crew, set, gender, selectedCrews) {
   // FIXME: This mutates state!
   if (selectedCrews.has(crew)) {
@@ -101,27 +87,25 @@ function toggleSelectedCrew(crew, set, gender, selectedCrews) {
   setUrl(set, gender, selectedCrews);
 }
 
-function setUrl(set, gender, selectedCrews) {
-  if (selectedCrews.size > 0) {
-    browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
-  } else {
-    browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}`);
-  }
-}
-
-const App = ({set, gender, selectedCrews, results, year,
-  onIncrementYearClick, onDecrementYearClick,
-  onDrawerToggleClick, drawerOpen, onSetDrawerClick, onDrawerCloseClick}) => {
+const App = ({set, gender, selectedCrews, results, year, clubs, clubSelectMenuOpen, clubSelectMenuAnchorElement,
+  onSwipe, onIncrementYearClick, onDecrementYearClick,
+  onDrawerToggleClick, drawerOpen, onSetDrawerClick, onDrawerCloseClick, onClubSelectOpenClick, onClubSelectRequestClose}) => {
 
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
-      <div className="bumpsContainer" onKeyDown={(keyCode) => { console.log(keyCode); } }>
+      <div className="bumpsContainer">
         <AppBar
           iconElementRight={<EventControls
             set={set}
             gender={gender}
+            clubs={clubs}
+            clubSelectMenuOpen={clubSelectMenuOpen}
+            clubSelectMenuAnchorElement={clubSelectMenuAnchorElement}
             onSetClick={(newSet) => setSet(newSet, set, gender, selectedCrews)}
-            onGenderClick={(newGender) => setGender(newGender, set, gender, selectedCrews)} />}
+            onGenderClick={(newGender) => setGender(newGender, set, gender, selectedCrews)}
+            onUpdateClub={(index) => setClub(index, clubs, set, gender, results, onClubSelectRequestClose)}
+            onClubSelectOpenClick={(event) => onClubSelectOpenClick(event)}
+            onClubSelectRequestClose={() => onClubSelectRequestClose()} />}
           onLeftIconButtonTouchTap={() => onDrawerToggleClick()}
           style={styles.customToolbar} />
         <BumpsDrawer
@@ -129,13 +113,15 @@ const App = ({set, gender, selectedCrews, results, year,
           onSetDrawerClick={onSetDrawerClick}
           onDrawerCloseClick={onDrawerCloseClick} />
         <BumpsChartControls incrementYear={() => onIncrementYearClick(results.endYear)} decrementYear={() => onDecrementYearClick(results.startYear)} url={window.location.toString()} />
-        <BumpsChartContainer
-          data={results}
-          year={year}
-          selectedCrews={selectedCrews}
-          toggleSelectedCrew={(crew) => toggleSelectedCrew(crew, set, gender, selectedCrews)}
-          focus={false}
-          />
+        <Hammer onSwipe={(event) => onSwipe(event.deltaX, results.endYear, results.startYear)}>
+          <BumpsChartContainer
+            data={results}
+            year={year}
+            selectedCrews={selectedCrews}
+            toggleSelectedCrew={(crew) => toggleSelectedCrew(crew, set, gender, selectedCrews)}
+            focus={false}
+            />
+        </Hammer>
       </div >
     </MuiThemeProvider >
   );

@@ -19,11 +19,11 @@ export const swipe = deltaX => ({
   deltaX
 });
 
-export const incrementYear = max => ({
+export const incrementYear = () => ({
   type: 'INCREMENT_YEAR'
 });
 
-export const decrementYear = min => ({
+export const decrementYear = () => ({
   type: 'DECREMENT_YEAR'
 });
 

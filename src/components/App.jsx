@@ -118,7 +118,7 @@ const App = ({set, gender, selectedCrews, results, year, clubs, width, clubSelec
           drawerOpen={drawerOpen}
           onSetDrawerClick={onSetDrawerClick}
           onDrawerCloseClick={onDrawerCloseClick} />
-        <BumpsChartControls incrementYear={() => onIncrementYearClick(results.endYear)} decrementYear={() => onDecrementYearClick(results.startYear)} url={window.location.toString()} />
+        <BumpsChartControls incrementYear={() => onIncrementYearClick()} decrementYear={() => onDecrementYearClick()} url={window.location.toString()} />
         <Hammer onSwipe={(event) => onSwipe(event.deltaX)}>
           <BumpsChartContainer
             data={results}

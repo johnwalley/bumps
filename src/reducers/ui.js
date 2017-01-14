@@ -11,7 +11,6 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
         ...state,
         width: action.width
       };
-    // FIXME: Needs a strategy for handling year extent as state
     case 'KEYDOWN':
       if (action.keyCode === 39) {
         year = { start: state.year.start + 1, end: state.year.end + 1 };

@@ -12,6 +12,7 @@ const config = {
   entry: {
     main: `${APP_DIR}/index.jsx`,
     edit: `${APP_DIR}/edit.jsx`,
+    embed: `${APP_DIR}/embed.jsx`,
     vendor: ['react', 'react-dom', 'react-router', 'react-hammerjs', 'react-share', 'material-ui'],
   },
   output: {
@@ -45,6 +46,7 @@ const config = {
     ],
   },
   devtool: 'source-map',
+  performance: { hints: false },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {

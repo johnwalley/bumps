@@ -54,7 +54,8 @@ const config = {
       },
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest']
+      names: ['vendor', 'manifest'],
+      minChunks: Infinity,
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',

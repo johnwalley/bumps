@@ -93,7 +93,7 @@ const App = ({set, gender, selectedCrews, results, year, clubs, width, clubSelec
 
   // Think of this as clamping to valid values
   if (currentYear.start !== year.start || currentYear.end !== year.end) {
-    onSetYear(currentYear.start, currentYear.end);
+    setTimeout(() => onSetYear(currentYear.start, currentYear.end));
     year = currentYear;
   }
 
@@ -135,16 +135,27 @@ const App = ({set, gender, selectedCrews, results, year, clubs, width, clubSelec
 
 App.propTypes = {
   set: React.PropTypes.string,
-  gender: React.PropTypes.string,
+  gender: React.PropTypes.oneOf(['Women', 'Men']),
   selectedCrews: React.PropTypes.object,
+  results: React.PropTypes.object,
+  year: React.PropTypes.shape({
+    start: React.PropTypes.number,
+    end: React.PropTypes.number
+  }),
+  clubs: React.PropTypes.array,
+  width: React.PropTypes.number,
+  clubSelectMenuOpen: React.PropTypes.bool,
+  clubSelectMenuAnchorElement: React.PropTypes.object,
+  onSetYear: React.PropTypes.func,
+  swipe: React.PropTypes.func,
   onIncrementYearClick: React.PropTypes.func,
   onDecrementYearClick: React.PropTypes.func,
   onDrawerToggleClick: React.PropTypes.func,
   drawerOpen: React.PropTypes.bool,
   onSetDrawerClick: React.PropTypes.func,
   onDrawerCloseClick: React.PropTypes.func,
-  highlightedCrew: React.PropTypes.string,
-  onHighlightCrew: React.PropTypes.func
+  onClubSelectOpenClick: React.PropTypes.func,
+  onClubSelectRequestClose: React.PropTypes.func
 };
 
 export default App;

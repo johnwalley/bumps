@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { joinEvents, transformData, calculateYearRange } from 'd3-bumps-chart';
+import { joinEvents, transformData } from 'd3-bumps-chart';
 
 import { calculateNumYearsToview } from '../util';
 
@@ -14,8 +14,7 @@ const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_INFINITY,
   return joinEvents(transformedEvents, set, gender);
 };
 
-const getEvents = (state, props) =>
-  state.ui.events;
+const getEvents = state => state.ui.events;
 
 export const getSet = (state, props) => {
   const setMap = {
@@ -98,6 +97,4 @@ export const getClubs = (state, props) => {
   });
 };
 
-export const getYear = (state, props) => {
-  return state.ui.year;
-}
+export const getYear = state => state.ui.year;

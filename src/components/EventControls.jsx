@@ -52,7 +52,7 @@ const EventControls = ({set, gender, clubs, clubSelectMenuOpen, clubSelectMenuAn
         >
         <Menu onItemTouchTap={(event, menuItem, index) => onUpdateClub(index)} >
           {clubs !== null ? clubs.map(club => (
-            <MenuItem primaryText={expandCrew(club, set)} />
+            <MenuItem primaryText={expandCrew(club, set)} key={expandCrew(club, set)} />
           )) : null}
         </Menu>
       </Popover>
@@ -62,8 +62,14 @@ const EventControls = ({set, gender, clubs, clubSelectMenuOpen, clubSelectMenuAn
 EventControls.propTypes = {
   set: React.PropTypes.string,
   gender: React.PropTypes.string,
+  clubs: React.PropTypes.array,
+  clubSelectMenuOpen: React.PropTypes.bool,
+  clubSelectMenuAnchorElement: React.PropTypes.object,
   onSetClick: React.PropTypes.func,
   onGenderClick: React.PropTypes.func,
+  onUpdateClub: React.PropTypes.func,
+  onClubSelectOpenClick: React.PropTypes.func,
+  onClubSelectRequestClose: React.PropTypes.func
 };
 
 export default EventControls;

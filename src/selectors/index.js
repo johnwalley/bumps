@@ -61,7 +61,7 @@ export const getSelectedCrews = (state, props) => {
   let selectedCrews = new Set();
 
   if (props.params.crewId !== undefined) {
-    selectedCrews = new Set(props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ')));
+    selectedCrews = new Set(props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ').replace(/-/g, '/')));
   }
 
   return selectedCrews;

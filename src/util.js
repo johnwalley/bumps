@@ -17,7 +17,7 @@ export const setUrl = (set, gender, selectedCrews) => {
   };
 
   if (selectedCrews.size > 0) {
-    browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_')).join(',')}`);
+    browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_').replace(/\//g, '-')).join(',')}`);
   } else {
     browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}`);
   }

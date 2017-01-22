@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
   const clubs = getClubs(state, ownProps);
 
   if (ownProps.params.eventId === undefined || ownProps.params.genderId === undefined) {
-    setUrl(set, gender, selectedCrews);
+    setTimeout(() => setUrl(set, gender, selectedCrews));
   }
 
   return {

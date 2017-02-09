@@ -13,7 +13,7 @@ const styles = {
     fontSize: '14px',
   },
   genderSelectStyle: {
-    width: 100,
+    width: 104,
     fontSize: '14px',
   },
   clubSelectStyle: {

@@ -25,7 +25,7 @@ export const getSet = (state, props) => {
     eights: 'Summer Eights',
   };
 
-  let set = 'Town Bumps';
+  let set = 'Lent Bumps';
 
   if (props.params.eventId !== undefined) {
     const paramSet = props.params.eventId.toLowerCase();

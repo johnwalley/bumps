@@ -14,7 +14,7 @@ import events from '../results/generated.json';
 const initialState = {
   ui: {
     events,
-    year: { start: 2016, end: 2016 },
+    year: { start: 2017, end: 2017 },
     width: window.document.body.clientWidth
   }
 };

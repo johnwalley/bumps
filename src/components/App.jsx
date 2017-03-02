@@ -126,6 +126,7 @@ const App = ({set, gender, selectedCrews, results, year, clubs, width, clubSelec
             selectedCrews={selectedCrews}
             toggleSelectedCrew={(crew) => toggleSelectedCrew(crew, set, gender, selectedCrews)}
             focus={false}
+            windowWidth={width}
             />
         </Hammer>
       </div >

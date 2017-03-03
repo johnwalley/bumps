@@ -21,15 +21,15 @@ const styles = {
   },
 };
 
-const EventControls = ({set, gender, clubs, clubSelectMenuOpen, clubSelectMenuAnchorElement,
-  onSetClick, onGenderClick, onUpdateClub, onClubSelectOpenClick, onClubSelectRequestClose}) =>
+const EventControls = ({ set, gender, clubs, clubSelectMenuOpen, clubSelectMenuAnchorElement,
+  onSetClick, onGenderClick, onUpdateClub, onClubSelectOpenClick, onClubSelectRequestClose }) =>
   <div style={{ display: 'flex' }}>
     <SelectField value={set} onChange={(event, index, set) => onSetClick(set)} style={styles.setSelectStyle}>
-      <MenuItem value="May Bumps" primaryText="May Bumps" />
-      <MenuItem value="Town Bumps" primaryText="Town Bumps" />
       <MenuItem value="Lent Bumps" primaryText="Lent Bumps" />
-      <MenuItem value="Torpids" primaryText="Torpids" />
+      <MenuItem value="May Bumps" primaryText="May Bumps" />
       <MenuItem value="Summer Eights" primaryText="Summer Eights" />
+      <MenuItem value="Torpids" primaryText="Torpids" />
+      <MenuItem value="Town Bumps" primaryText="Town Bumps" />
     </SelectField>
     <SelectField value={gender} onChange={(event, index, gender) => onGenderClick(gender)} style={styles.genderSelectStyle}>
       <MenuItem value="Women" primaryText="Women" />
@@ -42,14 +42,14 @@ const EventControls = ({set, gender, clubs, clubSelectMenuOpen, clubSelectMenuAn
         backgroundColor="#91B9A4"
         labelStyle={styles.clubSelectStyle}
         style={{ padding: '6px 0px 0px 0px' }}
-        />
+      />
       <Popover
         open={clubSelectMenuOpen}
         anchorEl={clubSelectMenuAnchorElement}
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         targetOrigin={{ horizontal: 'left', vertical: 'top' }}
         onRequestClose={() => onClubSelectRequestClose()}
-        >
+      >
         <Menu onItemTouchTap={(event, menuItem, index) => onUpdateClub(index)} >
           {clubs !== null ? clubs.map(club => (
             <MenuItem primaryText={expandCrew(club, set)} key={expandCrew(club, set)} />

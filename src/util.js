@@ -1,12 +1,5 @@
 import { browserHistory } from 'react-router';
 
-export const calculateNumYearsToview = (width) => {
-  const widthOfOneYear = 80;
-  const widthWithoutLines = 310;
-
-  return Math.max(0, Math.ceil((width - widthWithoutLines) / widthOfOneYear));
-};
-
 export const setUrl = (set, gender, selectedCrews) => {
   const setMapInverse = {
     'May Bumps': 'mays',

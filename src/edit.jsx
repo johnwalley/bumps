@@ -10,7 +10,7 @@ import TextField from 'material-ui/TextField';
 import Drawer from 'material-ui/Drawer';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, browserHistory } from 'react-router';
-import { joinEvents, transformData, calculateYearRange, write_tg, read_tg } from 'd3-bumps-chart';
+import { joinEvents, transformData, calculateYearRange, write_tg, read_tg, calculateNumYearsToview } from 'd3-bumps-chart';
 
 import BumpsChart from './components/BumpsChart.jsx';
 import results from '../results/generated.json';
@@ -78,14 +78,6 @@ function range(start, end) {
   return [...Array(1 + end - start).keys()].map(v => start + v)
 }
 
-function calculateNumYearsToview() {
-  const width = window.innerWidth;
-  const widthOfOneYear = 80;
-  const widthWithoutLines = 310;
-
-  return Math.max(0, Math.ceil((width - widthWithoutLines) / widthOfOneYear));
-}
-
 function pickEvents(events, gender, set) {
   const transformedEvents = events
     .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
@@ -151,7 +143,7 @@ export default class BumpsChartEdit extends React.Component {
   handleResize() {
     this.setState({ windowWidth: window.innerWidth });
 
-    const yearRange = calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview());
+    const yearRange = calculateYearRange(this.state.year, { start: this.state.data.startYear, end: this.state.data.endYear }, calculateNumYearsToview(window.innerWidth));
 
     this.setState({ year: yearRange });
   }
@@ -201,7 +193,7 @@ export default class BumpsChartEdit extends React.Component {
     }
 
     const data = pickEvents(this.state.events, gender, this.state.set);
-    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
+    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview(window.innerWidth));
 
     const text = write_tg(this.state.events
       .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
@@ -219,7 +211,7 @@ export default class BumpsChartEdit extends React.Component {
     }
 
     const data = pickEvents(this.state.events, this.state.gender, set);
-    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
+    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview(window.innerWidth));
 
     const text = write_tg(this.state.events
       .filter(e => e.gender.toLowerCase() === this.state.gender.toLowerCase())
@@ -242,7 +234,7 @@ export default class BumpsChartEdit extends React.Component {
 
     const data = event;
 
-    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview());
+    const yearRange = calculateYearRange(this.state.year, { start: data.startYear, end: data.endYear }, calculateNumYearsToview(window.innerWidth));
 
     this.setState({ selectedCrews: selectedCrews, data: data, currentYear: yearRange.start, year: yearRange, resultsText: text });
   }

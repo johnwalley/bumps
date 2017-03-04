@@ -9,9 +9,9 @@ import SelectField from 'material-ui/SelectField';
 import MediaQuery from 'react-responsive';
 import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { calculateYearRange, expandCrew } from 'd3-bumps-chart';
+import { calculateNumYearsToview, calculateYearRange, expandCrew } from 'd3-bumps-chart';
 
-import { setUrl, calculateNumYearsToview } from '../util';
+import { setUrl } from '../util';
 import BumpsChartContainer from '../containers/BumpsChartContainer';
 import EventControls from './EventControls.jsx';
 import BumpsDrawer from './BumpsDrawer.jsx';

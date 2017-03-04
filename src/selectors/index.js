@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect';
-import { joinEvents, transformData } from 'd3-bumps-chart';
-
-import { calculateNumYearsToview } from '../util';
+import { joinEvents, transformData, calculateNumYearsToview } from 'd3-bumps-chart';
 
 const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]) => {
   const transformedEvents = events

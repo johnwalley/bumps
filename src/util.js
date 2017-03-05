@@ -1,4 +1,16 @@
 import { browserHistory } from 'react-router';
+import { joinEvents, transformData } from 'd3-bumps-chart';
+
+export const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]) => {
+  const transformedEvents = events
+    .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
+    .filter(e => e.set === set)
+    .filter(e => e.year >= yearRange[0] && e.year <= yearRange[1])
+    .sort((a, b) => a.year - b.year)
+    .map(event => transformData(event));
+
+  return joinEvents(transformedEvents, set, gender);
+}
 
 export const setUrl = (set, gender, selectedCrews) => {
   const setMapInverse = {

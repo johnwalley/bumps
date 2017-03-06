@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import SelectField from 'material-ui/SelectField';
 import { expandCrew } from 'd3-bumps-chart';
+import { color } from '../util';
 
 const styles = {
   setSelectStyle: {
@@ -39,7 +40,7 @@ const EventControls = ({ set, gender, clubs, clubSelectMenuOpen, clubSelectMenuA
       <FlatButton
         onTouchTap={(event) => onClubSelectOpenClick(event)}
         label="Highlight Club"
-        backgroundColor="#91B9A4"
+        backgroundColor={color.cambridgeBlue}
         labelStyle={styles.clubSelectStyle}
         style={{ padding: '6px 0px 0px 0px' }}
       />

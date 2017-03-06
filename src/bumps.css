@@ -50,23 +50,3 @@ a {
     flex-direction: row;
     justify-content: center;
 }
-
-.year {
-    font-size: 22px;
-}
-
-.label {
-    font-size: 16px;
-}
-
-.label.highlighted {
-    font-weight: bold;
-}
-
-.position-label-left {
-    font-size: 16px;
-}
-
-.position-label-right {
-    font-size: 16px;
-}

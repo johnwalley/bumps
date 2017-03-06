@@ -11,7 +11,7 @@ import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { calculateNumYearsToview, calculateYearRange, expandCrew } from 'd3-bumps-chart';
 
-import { setUrl } from '../util';
+import { setUrl, setMapInverse, color } from '../util';
 import BumpsChartContainer from '../containers/BumpsChartContainer';
 import EventControls from './EventControls.jsx';
 import BumpsDrawer from './BumpsDrawer.jsx';
@@ -23,7 +23,7 @@ injectTapEventPlugin();
 
 const muiTheme = getMuiTheme(darkBaseTheme, {
   palette: {
-    accent1Color: '#91B9A4',
+    accent1Color: color.cambridgeBlue,
   },
   appBar: {
     color: '#FFFFFF',
@@ -36,17 +36,9 @@ const muiTheme = getMuiTheme(darkBaseTheme, {
 
 const styles = {
   customToolbar: {
-    backgroundColor: '#91B9A4', // Oxford Blue: #002147, Cambridge Blue: #91B9A4
+    backgroundColor: color.cambridgeBlue,
     textColor: '#FFFFFF',
   },
-};
-
-const setMapInverse = {
-  'May Bumps': 'mays',
-  'Lent Bumps': 'lents',
-  'Town Bumps': 'town',
-  'Torpids': 'torpids',
-  'Summer Eights': 'eights',
 };
 
 function setSet(newSet, set, gender, selectedCrews) {

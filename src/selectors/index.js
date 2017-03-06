@@ -1,18 +1,10 @@
 import { createSelector } from 'reselect';
-import { pickEvents } from '../util';
+import { pickEvents, setMap } from '../util';
 import { calculateNumYearsToview } from 'd3-bumps-chart';
 
 const getEvents = state => state.ui.events;
 
 export const getSet = (state, props) => {
-  const setMap = {
-    mays: 'May Bumps',
-    lents: 'Lent Bumps',
-    town: 'Town Bumps',
-    torpids: 'Torpids',
-    eights: 'Summer Eights',
-  };
-
   let set = 'Lent Bumps';
 
   if (props.params.eventId !== undefined) {

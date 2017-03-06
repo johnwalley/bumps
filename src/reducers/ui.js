@@ -1,3 +1,6 @@
+const leftArrowKeyCode = 37;
+const rightArrowKeyCode = 39;
+
 const ui = (state = { events: null, width: null, year: null, highlightedCrew: null, drawerOpen: false, clubSelectMeuOpen: false, clubSelectMenuAnchorElement: null }, action) => {
   let year;
   switch (action.type) {
@@ -12,9 +15,9 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
         width: action.width
       };
     case 'KEYDOWN':
-      if (action.keyCode === 39) {
+      if (action.keyCode === rightArrowKeyCode) {
         year = { start: state.year.start + 1, end: state.year.end + 1 };
-      } else if (action.keyCode === 37) {
+      } else if (action.keyCode === leftArrowKeyCode) {
         year = { start: state.year.start - 1, end: state.year.end - 1 };
       } else {
         year = { start: state.year.start, end: state.year.end };

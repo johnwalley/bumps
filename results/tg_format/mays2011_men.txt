@@ -11,8 +11,7 @@ Division,J4,M3,SS2,Cr4,T5,Cu3,H2,Ca4,Pb4,J5,HH2,R3,F3,SS3,Pb5,K3,A
 Division,L5,G3,L6,Q4,Cr5,D4,G4,Cl4,E4,M4,D5,K4,Cu4,CC3,HH3,Q5,S4,SS4
 
 Results
-rrurrurrurrut   rruuruuurut  uuururuuut    rrrrruuuurrrut rurrururruut   rrururrrruuut
-rurruo3uuurut   ruuruuuurut  ruururuuuut   rruuuuuurut    uuuurrruuut    ruururrrruuut
-rruuuro3urrut   uuruuuuuut   uuruuruut     rurruuuuut     ruuurrrrruut   uururrrrrruut
-rrruururrrrrrut o3uuuuurruut rururrururuut uurruuuuut     rruurrrrruurut rrrrrurrrrrrrut
-
+rrurrurrurrut rruuruuurut uuururuuut rrrrruuuurrrut rurrururruut rrururrrruuut
+rurruo3uuurut ruuruuuurut ruururuuuut rruuuuuurut uuuurrruuut ruururrrruuut
+rruuuro3urrut uuruuuuuut uuruuruut rurruuuuut ruuurrrrruut uururrrrrruut
+rrruururrrrrrut o3uuuuurruut rururrururuut uurruuuuut rruurrrrruurut rrrrrurrrrrrrut

@@ -10,30 +10,13 @@ export default class About extends React.Component {
     return (
       <div>
         <h1>How do Bumps work?</h1>
-        <p>The River Cam is an awful place to hold a rowing event. It is narrow and winding.</p>
-        <p>Bumps racing began in the 1820s as a way to allow large numbers of boats to compete against one another.</p>
-
-        
-        <p>
-        Bumps racing evolved in the 1820s
-        </p>
-        They allow a large number of colleges to compete on a river not suitable for more conventional regattas
-        The races take place tweice a year in the form of Lent Bumps and May Bumps
-        In the Lent Bumps, the boats are split into 7 divisions; in May Bumps, 10 divisions
-        Each division has 17-18 boats
-        The object of the race is to catchup with and bump the crew in front of you
-        Crews start 90 feeet apart
-        Crews that bump each other pull over to allow the rest of the division to continue
-        Willow branches are given to the boats who have bumped other boats
-        The winner of the race is largely based on the starting order of the boats
-        The finishing order for crews for one race decides the order for the next race
-        A crew that bumps another boat gains their starting spot in the next race, rising in their division
-        Crews that win their division get to race at the bottom of the next divsion
-        The goal is to finish as the first boat in the first division
-        However, if a crew manages to bumps a boat each day, they are awarded a special blade
-        ...painted in their college colors with their crew's names and the boats they bumped
-        Spectators can watch from the pub or the towpath
-        
+        <p>The River Cam is an awful place to hold a rowing event. Narrow and winding, it's simply not possible to stage a conventional side-by-side regatta; so Bumps racing evolved in the 1820s to let large numbers of boats to compete against one another.</p>
+        <p>Men and women race separately. Boats are split into multiple divisions. Each division has 17-18 boats and crews start 90 feet apart.</p>
+        <p>The aim of the race is to catch and 'bump' the crew in front of you. A bump is awarded if the crew in front concedes. And yes, this can require you to actually hit the boat in front! Crews that bumps one another must pull over to the side to allow the crews behind to continue.</p>
+        <p>Racing takes place over four days with the finishing order at the end of a day determining the starting order for the following day. This means that a crew which bumps the crew in front will gain their starting position for the next day.</p>
+        <p>A crew which ends up at the top of their division gets to race again at the bottom of the next division on the same day. This crew is known as the sandwich boat due to the fact that they are sandwiched between two divisions. The honour is double-edged because while you get the opportunity to go up a division you also must race twice in one day!</p>
+        <p>The crew which ends the week at the top if the first division is awarded the headship, or head of the river. Due to the nature of Bumps this might not necessarily be the fastest crew but it is always a mighty achievement and well deserved.</p>
+        <p>Crews which achieve a bump are given willow branches to 'wear' as they row back to their boathouses</p>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/hYwnppXx7Q0" frameborder="0" allowfullscreen></iframe>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/mkt5wEEI-zw" frameborder="0" allowfullscreen></iframe>
       </div>

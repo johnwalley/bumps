@@ -6,6 +6,7 @@ export default class BumpsChart extends React.Component {
     this.chart = chart();
     this.chart.setup(this.refs.bumpsChart);
     this.chart.render(this.props);
+    this.props.resize(window.document.body.clientWidth);
   }
 
   componentDidUpdate() {
@@ -35,6 +36,7 @@ BumpsChart.propTypes = {
   selectedCrews: React.PropTypes.object,
   highlightedCrew: React.PropTypes.string,
   toggleSelectedCrew: React.PropTypes.func,
+  resize: React.PropTypes.func,
   highlightCrew: React.PropTypes.func,
   maxWidth: React.PropTypes.number,
   maxHeight: React.PropTypes.number,

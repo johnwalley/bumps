@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setHighlightedCrew } from '../actions';
+import { resize, setHighlightedCrew } from '../actions';
 
 import BumpsChart from '../components/BumpsChart.jsx';
 
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = ({
-  highlightCrew: setHighlightedCrew
+  highlightCrew: setHighlightedCrew,
+  resize: resize
 });
 
 const BumpsChartContainer = connect(

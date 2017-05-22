@@ -1,5 +1,5 @@
 // stage-0 and add-module-exports are present to enable react-responsive to build on Windows
 {
   "presets": [["es2015", { "modules": false }], "react", "stage-0"],
-  "plugins": ["transform-object-rest-spread", "add-module-exports"]
+  "plugins": ["transform-object-rest-spread"]
 }

@@ -8,7 +8,7 @@ export default class About extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginLeft: '20px' }}>
         <h1>How do Bumps work?</h1>
         <p>The River Cam is an awful place to hold a rowing event. Narrow and winding, it's simply not possible to stage a conventional side-by-side regatta; so Bumps racing evolved in the 1820s to let large numbers of boats to compete against one another.</p>
         <p>Men and women race separately. Boats are split into multiple divisions. Each division has 17-18 boats and crews start 90 feet apart.</p>

@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 
 import AppContainer from './containers/AppContainer';
 import About from './about.jsx';
-import About from './about.jsx';
 import { resize, keydown } from './actions';
 import reducer from './reducers'
 import events from '../results/generated.json';

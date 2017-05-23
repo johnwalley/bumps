@@ -39,8 +39,8 @@ const config = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract({
-          loader: 'css-loader?sourceMap'
+        use: ExtractTextPlugin.extract({
+          use: "css-loader?sourceMap"
         })
       },
     ],

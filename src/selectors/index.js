@@ -5,7 +5,7 @@ import { calculateNumYearsToview } from 'd3-bumps-chart';
 const getEvents = state => state.ui.events;
 
 export const getSet = (state, props) => {
-  let set = 'Lent Bumps';
+  let set = 'May Bumps';
 
   if (props.params.eventId !== undefined) {
     const paramSet = props.params.eventId.toLowerCase();

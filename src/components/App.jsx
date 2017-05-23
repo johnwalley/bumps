@@ -57,9 +57,17 @@ function setGender(newGender, set, gender, selectedCrews) {
   setUrl(set, newGender, selectedCrews);
 }
 
+function matchCrew(club, crew, set) {
+  const expandedCrew = expandCrew(crew.name, set);
+  const reducedCrew = expandedCrew.replace(/[0-9]+$/, '').replace(/\s+/g, '');
+
+  return club === reducedCrew;
+}
+
 function setClub(index, clubs, set, gender, results, closeMenu) {
   const club = expandCrew(clubs[index], set);
-  const selectedCrews = new Set(results.crews.filter(crew => (expandCrew(crew.name, set).indexOf(club) != -1)).map(crew => crew.name));
+
+  const selectedCrews = new Set(results.crews.filter(crew => matchCrew(club.replace(/\s+/g, ''), crew, set)).map(crew => crew.name));
 
   closeMenu();
 

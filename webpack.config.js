@@ -73,6 +73,7 @@ const config = {
       template: 'edit.ejs',
     }),    
     new CopyWebpackPlugin([
+      { from: 'sitemap.xml' },
       { from: '.htaccess' },
       { from: 'images/facebook.png', to: 'images/facebook.png' },
       { from: 'images/favicons' },

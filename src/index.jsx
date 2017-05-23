@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 
 import AppContainer from './containers/AppContainer';
 import About from './about.jsx';
+import Statistics from './statistics.jsx';
 import { resize, keydown } from './actions';
 import reducer from './reducers'
 import events from '../results/generated.json';
@@ -34,6 +35,7 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="about" component={About} />
+      <Route path="statistics" component={Statistics} />
       <Route path="/" component={AppContainer} />
       <Route path=":eventId" component={AppContainer} />
       <Route path=":eventId/:genderId" component={AppContainer} />

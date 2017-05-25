@@ -1,6 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const styles = {
+  about: {
+    margin: '20px',
+  },
+  video: {
+    position: 'relative',
+    height: 0,
+    maxWidth: '100%',
+    paddingBottom: '56.25%',
+  },
+};
+
 export default class About extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +20,7 @@ export default class About extends React.Component {
 
   render() {
     return (
-      <div style={{ marginLeft: '20px' }}>
+      <div style={styles.about}>
         <h1>How do Bumps work?</h1>
         <p>The River Cam is an awful place to hold a rowing event. Narrow and winding, it's simply not possible to stage a conventional side-by-side regatta; so Bumps racing evolved in the 1820s to let large numbers of boats to compete against one another.</p>
         <p>Men and women race separately. Boats are split into multiple divisions. Each division has 17-18 boats and crews start 90 feet apart.</p>
@@ -18,8 +30,13 @@ export default class About extends React.Component {
         <p>A crew which ends up at the top of their division gets to race again at the bottom of the next division on the same day. This crew is known as the sandwich boat due to the fact that they are sandwiched between two divisions. The honour is double-edged because while you get the opportunity to go up a division you also must race twice in one day!</p>
         <p>The crew which ends the week at the top if the first division is awarded the headship, or head of the river. Due to the nature of Bumps this might not necessarily be the fastest crew but it is always a mighty achievement and well deserved.</p>
         <p>Crews which achieve a bump are given willow branches to 'wear' as they row back to their boathouses</p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/hYwnppXx7Q0" frameborder="0" allowfullscreen></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/mkt5wEEI-zw" frameborder="0" allowfullscreen></iframe>
+        <div style={styles.video}>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/hYwnppXx7Q0" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div style={styles.video}>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/mkt5wEEI-zw" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     )
   }

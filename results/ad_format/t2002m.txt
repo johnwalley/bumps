@@ -1,0 +1,76 @@
+TORPIDS 2002                   0 days                                           
+STARTING ORDER - NO RACING     6 divisions                                      
+  MEN'S DIV I                 12 crews                                          
+Oriel                                                                           
+Pembroke                                                                        
+Exeter                                                                          
+Christ Church                                                                   
+New College                                                                     
+St Catherine's                                                                  
+Magdalen                                                                        
+Worcester                                                                       
+Lincoln                                                                         
+Wadham                                                                          
+Brasenose                                                                       
+L.M.H.                                                                          
+  MEN'S DIV II                12 crews                                          
+Queen's                                                                         
+St John's                                                                       
+St Peter's                                                                      
+Oriel II                                                                        
+Trinity                                                                         
+University                                                                      
+Jesus                                                                           
+S.E.H.                                                                          
+Merton                                                                          
+Hertford                                                                        
+Keble                                                                           
+St Anne's                                                                       
+  MEN'S DIV III               12 crews                                          
+Mansfield                                                                       
+Pembroke II                                                                     
+Balliol                                                                         
+Somerville                                                                      
+Wolfson                                                                         
+Christ Church II                                                                
+Brasenose II                                                                    
+Lincoln II                                                                      
+Corpus Christi                                                                  
+Exeter II                                                                       
+Oriel III                                                                       
+Linacre                                                                         
+  MEN'S DIV IV                12 crews                                          
+Balliol II                                                                      
+Osler-Green                                                                     
+Magdalen II                                                                     
+New College II                                                                  
+St Hugh's                                                                       
+Wadham II                                                                       
+St John's II                                                                    
+S.E.H. II                                                                       
+St Anne's II                                                                    
+L.M.H. II                                                                       
+St Catherine's II                                                               
+University II                                                                   
+  MEN'S DIV V                 12 crews                                          
+Jesus II                                                                        
+Hertford II                                                                     
+Keble II                                                                        
+Trinity II                                                                      
+Pembroke III                                                                    
+Worcester II                                                                    
+Queen's II                                                                      
+St Benet's Hall                                                                 
+Wolfson II                                                                      
+St Peter's II                                                                   
+University III                                                                  
+Regent's Park                                                                   
+  MEN'S DIV VI                 8 crews                                          
+University IV                                                                   
+Merton II                                                                       
+Linacre II                                                                      
+Balliol III                                                                     
+Magdalen III                                                                    
+Christ Church III                                                               
+Somerville II                                                                   
+Christ Church IV                                                                

@@ -1,0 +1,69 @@
+TORPIDS 2007                   0 days                                           
+STARTING ORDER - NO RACING     5 divisions                                      
+  WOMEN'S DIV I               12 crews                                          
+Oriel                                                                           
+Queen's                                                                         
+St Catherine's                                                                  
+Osler-Green                                                                     
+St Hilda's                                                                      
+Christ Church                                                                   
+S.E.H.                                                                          
+Merton                                                                          
+Worcester                                                                       
+Magdalen                                                                        
+Hertford                                                                        
+Pembroke                                                                        
+  WOMEN'S DIV II              12 crews                                          
+New College                                                                     
+Wadham                                                                          
+Somerville                                                                      
+Exeter                                                                          
+St Hugh's                                                                       
+Wolfson                                                                         
+Balliol                                                                         
+Keble                                                                           
+University                                                                      
+St John's                                                                       
+Linacre                                                                         
+L.M.H.                                                                          
+  WOMEN'S DIV III             12 crews                                          
+Trinity                                                                         
+St Anne's                                                                       
+Mansfield                                                                       
+Brasenose                                                                       
+Jesus                                                                           
+St Peter's                                                                      
+St Antony's                                                                     
+Lincoln                                                                         
+St Hilda's II                                                                   
+Corpus Christi                                                                  
+New College II                                                                  
+Hertford II                                                                     
+  WOMEN'S DIV IV              12 crews                                          
+Wadham II                                                                       
+Wolfson II                                                                      
+Worcester II                                                                    
+Queen's II                                                                      
+Pembroke II                                                                     
+S.E.H. II                                                                       
+St John's II                                                                    
+Linacre II                                                                      
+Keble II                                                                        
+St Anne's II                                                                    
+Oriel II                                                                        
+Merton II                                                                       
+  WOMEN'S DIV V               14 crews                                          
+Balliol II                                                                      
+Osler-Green II                                                                  
+Mansfield II                                                                    
+Jesus II                                                                        
+Worcester III                                                                   
+Exeter II                                                                       
+Pembroke III                                                                    
+St Hugh's II                                                                    
+Regent's Park                                                                   
+Christ Church II                                                                
+Trinity II                                                                      
+Wadham III                                                                      
+St Catherine's II                                                               
+University II                                                                   

@@ -1,0 +1,82 @@
+TORPIDS 2007                   0 days                                           
+STARTING ORDER - NO RACING     6 divisions                                      
+  MEN'S DIV I                 12 crews                                          
+Oriel                                                                           
+Magdalen                                                                        
+New College                                                                     
+Pembroke                                                                        
+Worcester                                                                       
+St Catherine's                                                                  
+Exeter                                                                          
+Trinity                                                                         
+Queen's                                                                         
+Christ Church                                                                   
+Wadham                                                                          
+L.M.H.                                                                          
+  MEN'S DIV II                12 crews                                          
+St John's                                                                       
+University                                                                      
+Balliol                                                                         
+Brasenose                                                                       
+Jesus                                                                           
+Lincoln                                                                         
+Hertford                                                                        
+Keble                                                                           
+St Anne's                                                                       
+Magdalen II                                                                     
+Merton                                                                          
+S.E.H.                                                                          
+  MEN'S DIV III               12 crews                                          
+Wolfson                                                                         
+St Peter's                                                                      
+Corpus Christi                                                                  
+Linacre                                                                         
+Pembroke II                                                                     
+St Hugh's                                                                       
+Mansfield                                                                       
+Exeter II                                                                       
+Wadham II                                                                       
+Christ Church II                                                                
+University II                                                                   
+New College II                                                                  
+  MEN'S DIV IV                12 crews                                          
+Oriel II                                                                        
+St John's II                                                                    
+Jesus II                                                                        
+Hertford II                                                                     
+Somerville                                                                      
+Balliol II                                                                      
+Brasenose II                                                                    
+Osler-Green                                                                     
+S.E.H. II                                                                       
+Trinity II                                                                      
+L.M.H. II                                                                       
+Lincoln II                                                                      
+  MEN'S DIV V                 12 crews                                          
+Worcester II                                                                    
+Pembroke III                                                                    
+St Benet's Hall                                                                 
+Linacre II                                                                      
+St Antony's                                                                     
+Merton II                                                                       
+Keble II                                                                        
+Wadham III                                                                      
+St Catherine's II                                                               
+St Anne's II                                                                    
+Hertford III                                                                    
+Keble III                                                                       
+  MEN'S DIV VI                14 crews                                          
+Queen's II                                                                      
+St Peter's II                                                                   
+Trinity III                                                                     
+Hertford IV                                                                     
+St John's III                                                                   
+Regent's Park                                                                   
+St Antony's II                                                                  
+Mansfield II                                                                    
+Wolfson II                                                                      
+University III                                                                  
+Magdalen III                                                                    
+New College III                                                                 
+Oriel III                                                                       
+S.E.H. III                                                                      

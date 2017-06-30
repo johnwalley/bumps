@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>May Bumps Fines</title>
+<style>
+  html {
+    height: 100%;
+  }
+
+  body {
+    font-family: sans-serif;
+    height: 100%;
+    margin: 0px;
+  }
+
+  div#chart {
+    height: 100%;
+  }
+
+  .title {
+    font-family: Helvetica, sans-serif;
+    font-size: 30px;
+    fill: #666;
+  }
+
+  .dropdown {
+    position: absolute;
+  }
+
+  #quantity {
+    display: none;
+  }
+
+  .bar:hover {
+    fill: red;
+  }
+
+  .axis--x path {
+    display: none;
+  }
+
+  .axis--x {
+    shape-rendering: crispEdges;
+  }
+</style>
+<div id="chart"></div>
+<div class="dropdown" id="year"><label>Year</label><select></select></div>
+<div class="dropdown" id="quantity"><label>Quantity</label><select></select></div>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
+  var duration = 1000;
+
+  d3.csv("./data.csv", function (d) {
+    d.amount = +d.amount;
+    return d;
+  }, function (error, data) {
+    if (error) throw error;
+
+    var barChart = chart();
+
+    var nestedData = d3.nest()
+      .key(function (d) { return d.year; }).sortKeys(d3.ascending)
+      .key(function (d) { return d.college; }).sortKeys(d3.ascending)
+      .rollup(function (leaves) { return { "number": leaves.length, "total_amount": d3.sum(leaves, function (d) { return +d.amount; }) } })
+      .entries(data);
+
+    var menuYear = d3.select("#year select")
+      .on("change", () => change());
+
+    menuYear.selectAll("option")
+      .data(nestedData)
+      .enter().append("option")
+      .text(function (d) { return d.key; });
+
+    menuYear.property("value", "2017");
+
+    var menuQuantity = d3.select("#quantity select")
+      .on("change", () => change());
+
+    menuQuantity.selectAll("option")
+      .data(["Amount", "Number"])
+      .enter().append("option")
+      .text(function (d) { return d; });
+
+    menuQuantity.property("value", "Amount");
+
+    var change = function () {
+      var year = menuYear.property("value");
+      var quantity = menuQuantity.property("value");
+
+      var quantityMap = {
+        Amount: "total_amount",
+        Number: "number",
+      }
+
+      var key = quantityMap[quantity];
+
+      var currentData = nestedData.find(function (d) { return d.key === year }).values
+        .map(function (d) { return { key: d.key, value: d.value[key] }; })
+        .sort(function (a, b) { return b.value - a.value; });
+
+      var selection = d3.select("#chart");
+
+      selection.datum(currentData).call(barChart);
+    }
+
+    window.onresize = function () { change(); }
+
+    change();
+  });
+
+  var chart = function () {
+    var svg = null;
+    var width = 1000;
+    var height = 300;
+    var chartWidth;
+    var chartHeight;
+    var x;
+    var y;
+    var color;
+
+    function chart(selection) {
+      selection.each(function (data) {
+        width = selection.node().getBoundingClientRect().width;
+        height = selection.node().getBoundingClientRect().height;
+
+        var margin = { top: 40, right: 10, bottom: 90, left: 40 };
+        chartWidth = width - margin.left - margin.right;
+        chartHeight = height - margin.top - margin.bottom;
+
+        if (!svg) {
+          svg = selection.append("svg");
+
+          var g = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          g.append("g")
+            .attr("class", "axis axis--x");
+
+          g.append("g")
+            .attr("class", "axis axis--y")
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("£");
+
+          svg.append("text")
+            .attr("class", "title")
+            .attr("dy", "1.2em")
+            .attr("text-anchor", "end")
+            .text("May Bumps Fines");
+        }
+
+        svg.attr("width", width)
+          .attr("height", height);
+
+        svg.select(".title")
+          .attr("x", width - margin.right)
+
+        d3.select("#year")
+          .style("right", margin.right + "px")
+          .style("top", (margin.top + 30) + "px");
+
+        d3.select("#quantity")
+          .style("right", margin.right + "px")
+          .style("top", (margin.top + 50) + "px");
+
+        x = d3.scaleBand().range([0, chartWidth]).padding(0.1);
+        y = d3.scaleLinear().rangeRound([chartHeight, 0]);
+        color = d3.scaleSequential().interpolator(d3.interpolateRdYlGn);
+
+        x.domain(data.map(function (d) { return d.key; }));
+        y.domain([0, d3.max(data, function (d) { return d.value; })]).nice();
+        color.domain([d3.max(data, function (d) { return d.value; }), 0]);
+
+        var t = d3.transition()
+          .duration(duration);
+
+        var xAxis = svg.select(".axis--x")
+          .attr("transform", "translate(0," + chartHeight + ")");
+
+        xAxis.transition()
+          .duration(duration)
+          .call(d3.axisBottom(x))
+          .selectAll("text")
+          .attr("y", 0);
+
+        xAxis.selectAll("text")
+          .attr("y", 0)
+          .attr("x", -9)
+          .attr("dy", ".35em")
+          .attr("transform", "rotate(-90)")
+          .style("text-anchor", "end");
+
+        svg.select(".axis--y")
+          .transition(t)
+          .call(d3.axisLeft(y));
+
+        var bars = svg.select('g')
+          .selectAll(".bar")
+          .data(data, function (d) { return d.key; });
+
+        bars
+          .transition(t)
+          .attr("x", function (d) { return x(d.key); })
+          .attr("width", x.bandwidth())
+          .transition(t)
+          .attr("y", function (d) { return y(d.value); })
+          .attr("height", function (d) { return chartHeight - y(d.value); })
+          .style("fill", function (d) { return color(d.value); });
+
+        bars.enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("x", function (d) { return x(d.key); })
+          .attr("y", function (d) { return y(0); })
+          .attr("width", x.bandwidth())
+          .style("fill", function (d) { return color(d.value); })
+          .transition(t)
+          .delay(duration)
+          .attr("y", function (d) { return y(d.value); })
+          .attr("height", function (d) { return chartHeight - y(d.value); });
+
+        bars.exit()
+          .attr("opacity", 1)
+          .transition(t)
+          .attr("y", function (d) { return y(0); })
+          .attr("height", function (d) { return 0; })
+          .attr("opacity", 0)
+          .remove();
+      });
+    }
+
+    return chart;
+  }
+
+</script>

@@ -14,11 +14,6 @@ export const keydown = keyCode => ({
   keyCode
 });
 
-export const swipe = deltaX => ({
-  type: 'SWIPE',
-  deltaX
-});
-
 export const incrementYear = () => ({
   type: 'INCREMENT_YEAR'
 });

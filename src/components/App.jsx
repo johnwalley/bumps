@@ -7,7 +7,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import MediaQuery from 'react-responsive';
-import Hammer from 'react-hammerjs';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { calculateNumYearsToview, calculateYearRange, expandCrew } from 'd3-bumps-chart';
 
@@ -85,9 +84,9 @@ function toggleSelectedCrew(crew, set, gender, selectedCrews) {
   setUrl(set, gender, selectedCrews);
 }
 
-const App = ({set, gender, selectedCrews, results, year, clubs, width, clubSelectMenuOpen, clubSelectMenuAnchorElement,
-  onSetYear, onSwipe, onIncrementYearClick, onDecrementYearClick,
-  onDrawerToggleClick, drawerOpen, onSetDrawerClick, onDrawerCloseClick, onClubSelectOpenClick, onClubSelectRequestClose}) => {
+const App = ({ set, gender, selectedCrews, results, year, clubs, width, clubSelectMenuOpen, clubSelectMenuAnchorElement,
+  onSetYear, onIncrementYearClick, onDecrementYearClick,
+  onDrawerToggleClick, drawerOpen, onSetDrawerClick, onDrawerCloseClick, onClubSelectOpenClick, onClubSelectRequestClose }) => {
 
   const currentYear = calculateYearRange(year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview(width));
 
@@ -119,16 +118,14 @@ const App = ({set, gender, selectedCrews, results, year, clubs, width, clubSelec
           onSetDrawerClick={onSetDrawerClick}
           onDrawerCloseClick={onDrawerCloseClick} />
         <BumpsChartControls incrementYear={() => onIncrementYearClick()} decrementYear={() => onDecrementYearClick()} url={window.location.toString()} />
-        <Hammer onSwipe={(event) => onSwipe(event.deltaX)}>
-          <BumpsChartContainer
-            data={results}
-            year={year}
-            selectedCrews={selectedCrews}
-            toggleSelectedCrew={(crew) => toggleSelectedCrew(crew, set, gender, selectedCrews)}
-            focus={false}
-            windowWidth={width}
-            />
-        </Hammer>
+        <BumpsChartContainer
+          data={results}
+          year={year}
+          selectedCrews={selectedCrews}
+          toggleSelectedCrew={(crew) => toggleSelectedCrew(crew, set, gender, selectedCrews)}
+          focus={false}
+          windowWidth={width}
+        />
       </div >
     </MuiThemeProvider >
   );

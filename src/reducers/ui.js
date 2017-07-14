@@ -27,17 +27,6 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
         ...state,
         year
       };
-    case 'SWIPE':
-      if (action.deltaX < 0) {
-        year = { start: state.year.start + 1, end: state.year.end + 1 };
-      } else {
-        year = { start: state.year.start - 1, end: state.year.end - 1 };
-      }
-
-      return {
-        ...state,
-        year
-      };
     case 'INCREMENT_YEAR':
       year = { start: state.year.start + 1, end: state.year.end + 1 };
 

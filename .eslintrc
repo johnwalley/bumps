@@ -1,9 +1,19 @@
 {
-    "extends": "airbnb",
-    "rules": {
-        "max-len": 0,
-        "no-undef": 0,
-        "quote-props": ["error", "consistent-as-needed"],
-        "comma-dangle": 0
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
     }
+  },
+  "rules": {
+    "max-len": 0,
+    "no-undef": 0,
+    "quote-props": [
+      "error",
+      "consistent-as-needed"
+    ],
+    "comma-dangle": 0
+  }
 }

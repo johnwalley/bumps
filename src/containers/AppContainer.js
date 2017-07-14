@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { setYear, swipe, incrementYear, decrementYear, toggleDrawer, closeDrawer, setDrawer, clubSelectMenuOpen, clubSelectMenuClose } from '../actions';
+import { setYear, incrementYear, decrementYear, toggleDrawer, closeDrawer, setDrawer, clubSelectMenuOpen, clubSelectMenuClose } from '../actions';
 import App from '../components/App.jsx';
 import { setUrl } from '../util';
 import { getSet, getGender, getSelectedCrews, getResults, getClubs, getYear } from '../selectors';
@@ -33,7 +33,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = ({
   onSetYear: setYear,
-  onSwipe: swipe,
   onIncrementYearClick: incrementYear,
   onDecrementYearClick: decrementYear,
   onDrawerToggleClick: toggleDrawer,

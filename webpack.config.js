@@ -11,7 +11,7 @@ const APP_DIR = path.resolve(__dirname, 'src');
 const config = {
   entry: {
     main: `${APP_DIR}/index.jsx`,
-    vendor: ['react', 'react-dom', 'react-router', 'react-hammerjs', 'react-share', 'material-ui'],
+    vendor: ['react', 'react-dom', 'react-router', 'react-share', 'material-ui'],
   },
   output: {
     path: BUILD_DIR,

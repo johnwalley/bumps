@@ -30,8 +30,6 @@ export const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_IN
     .sort((a, b) => a.year - b.year)
     .map(event => transformData(event));
 
-  console.log(events);
-
   return joinEvents(transformedEvents, set, gender);
 };
 

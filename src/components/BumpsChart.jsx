@@ -35,6 +35,7 @@ BumpsChart.propTypes = {
   year: React.PropTypes.object,
   selectedCrews: React.PropTypes.object,
   highlightedCrew: React.PropTypes.string,
+  selectYear: React.PropTypes.func,
   toggleSelectedCrew: React.PropTypes.func,
   resize: React.PropTypes.func,
   highlightCrew: React.PropTypes.func,

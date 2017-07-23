@@ -41,7 +41,8 @@ export const getSelectedCrews = (state, props) => {
   let selectedCrews = new Set();
 
   if (props.params.crewId !== undefined) {
-    selectedCrews = new Set(props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ').replace(/-/g, '/')));
+    selectedCrews = new Set(props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ')
+      .replace(/[^X]-/g, '/'))); // Attempt to convert to correct form for joint club crews but avoid catching X-Press
   }
 
   return selectedCrews;

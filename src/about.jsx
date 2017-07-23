@@ -35,7 +35,8 @@ export default class About extends React.Component {
             frameborder="0" allowfullscreen></iframe>
         </div>
         <div style={styles.video}>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/mkt5wEEI-zw" frameborder="0" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/mkt5wEEI-zw" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     )

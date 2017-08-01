@@ -1,6 +1,6 @@
-import { read_ad, write_tg, abbreviate } from 'd3-bumps-chart';
+const { read_ad, write_tg, abbreviate } = require('d3-bumps-chart');
 
-var fs = require('fs');
+const fs = require('fs');
 
 if (!fs.existsSync('./results/converted_tg_results/')){
     fs.mkdirSync('./results/converted_tg_results/');

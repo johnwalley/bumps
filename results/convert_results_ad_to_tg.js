@@ -8,7 +8,7 @@ if (!fs.existsSync('./results/converted_tg_results/')){
 
 fs.readdir('./results/ad_format/', function (err, files) {
     if (err) throw err;
-    var numFiles = 0;
+    let numFiles = 0;
     files.forEach(function (file) {
         const contents = fs.readFileSync('./results/ad_format/' + file, 'utf8');
         const event = read_ad(contents);

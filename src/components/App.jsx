@@ -16,8 +16,6 @@ import EventControls from './EventControls.jsx';
 import BumpsDrawer from './BumpsDrawer.jsx';
 import BumpsChartControls from './BumpsChartControls.jsx';
 
-require('../bumps.css');
-
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme(darkBaseTheme, {

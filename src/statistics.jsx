@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { joinEvents, transformData, expandCrew } from 'd3-bumps-chart';
-import events from '../results/generated.json';
 
 var set = 'May Bumps';
 

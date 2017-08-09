@@ -4,6 +4,17 @@ const rightArrowKeyCode = 39;
 const ui = (state = { events: null, width: null, year: null, highlightedCrew: null, drawerOpen: false, clubSelectMeuOpen: false, clubSelectMenuAnchorElement: null }, action) => {
   let year;
   switch (action.type) {
+    case 'REQUEST_RESULTS':
+      return {
+        ...state,
+        isFetching: true
+      };
+    case 'RECEIVE_RESULTS':
+      return {
+        ...state,
+        isFetching: false,
+        events: action.results
+      };
     case 'SET_YEAR':
       return {
         ...state,

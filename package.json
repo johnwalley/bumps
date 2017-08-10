@@ -1,6 +1,6 @@
 {
   "name": "bumps",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Website for www.cambridgebumps.com",
   "keywords": [
     "d3",
@@ -15,7 +15,8 @@
     "url": "https://github.com/johnwalley/bumps.git"
   },
   "scripts": {
-    "build": "node results/generate_results.js && rm -rf out/* && webpack -p --progress",
+    "results": "node results/generate_results.js",
+    "build": "rm -rf out/* && webpack -p --progress",
     "start": "webpack-dev-server -d --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
     "test": "babel-tape-runner test/**/*-test.js",
     "lint": "eslint src/"
@@ -55,6 +56,7 @@
     "react-share": "^1.15.0",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.1",
+    "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "webpack": "^3.0.0"
   }

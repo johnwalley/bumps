@@ -1,3 +1,26 @@
+export const requestResults = () => ({
+  type: 'REQUEST_RESULTS'
+});
+
+export const receiveResults = results => ({
+  type: 'RECEIVE_RESULTS',
+  results: results
+});
+
+export function fetchResults(subreddit) {
+  return function (dispatch) {
+    dispatch(requestResults())
+    return fetch(`https://api.cambridgebumps.com/v1/results/`)
+      .then(
+      response => response.json(),
+      error => console.log('An error occured.', error)
+      )
+      .then(json =>
+        dispatch(receiveResults(json))
+      )
+  }
+}
+
 export const setYear = (start, end) => ({
   type: 'SET_YEAR',
   start,

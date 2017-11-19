@@ -1,16 +1,20 @@
 import React from 'react';
-import { chart } from 'd3-bumps-chart';
+import { select } from 'd3-selection';
+import { bumpsChart } from 'd3-bumps-chart';
 
 export default class BumpsChart extends React.Component {
   componentDidMount() {
-    this.chart = chart();
-    this.chart.setup(this.refs.bumpsChart);
-    this.chart.render(this.props);
+    this.chart = bumpsChart();
+    select(this.refs.bumpsChart)
+      .datum(this.props)
+      .call(this.chart);
     this.props.resize(window.document.body.clientWidth);
   }
 
   componentDidUpdate() {
-    this.chart.render(this.props);
+    select(this.refs.bumpsChart)
+      .datum(this.props)
+      .call(this.chart);
   }
 
   render() {
@@ -23,8 +27,7 @@ export default class BumpsChart extends React.Component {
 
     return (
       <div className="bumpsChart" ref="bumpsChart" style={divStyle}>
-        <svg width="100%" preserveAspectRatio="xMidYMin">
-        </svg>
+        <svg width="100%" preserveAspectRatio="xMidYMin" />
       </div>
     );
   }

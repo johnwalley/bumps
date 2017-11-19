@@ -1,11 +1,8 @@
 {
   "name": "bumps",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Website for www.cambridgebumps.com",
-  "keywords": [
-    "d3",
-    "bumps"
-  ],
+  "keywords": ["d3", "bumps"],
   "license": "BSD-3-Clause",
   "main": "build/d3-bumps.js",
   "jsnext:main": "index",
@@ -17,7 +14,8 @@
   "scripts": {
     "results": "node results/generate_results.js",
     "build": "rm -rf out/* && webpack -p --progress",
-    "start": "webpack-dev-server -d --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
+    "start":
+      "webpack-dev-server -d --inline --history-api-fallback --output-public-path http://localhost:8080/ --progress --colors",
     "test": "babel-tape-runner test/**/*-test.js",
     "lint": "eslint src/"
   },
@@ -43,7 +41,8 @@
     "babel-tape-runner": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
-    "d3-bumps-chart": "^0.5.7",
+    "d3-bumps-chart": "^0.8.0",
+    "d3-selection": "^1.1.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "html-webpack-plugin": "^2.29.0",
     "json-loader": "^0.5.4",

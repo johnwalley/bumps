@@ -38,8 +38,8 @@ const config = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
-          use: "css-loader?sourceMap"
-        })
+          use: 'css-loader?sourceMap',
+        }),
       },
     ],
   },
@@ -60,6 +60,11 @@ const config = {
       chunks: ['main', 'vendor', 'manifest'],
       template: 'index.ejs',
     }),
+    new HtmlWebpackPlugin({
+      filename: '200.html',
+      chunks: ['main', 'vendor', 'manifest'],
+      template: 'index.ejs',
+    }),
     new CopyWebpackPlugin([
       { from: 'sitemap.xml' },
       { from: '.htaccess' },
@@ -71,7 +76,7 @@ const config = {
     new ExtractTextPlugin({
       filename: 'bundle.css',
       disable: false,
-      allChunks: true
+      allChunks: true,
     }),
   ],
 };

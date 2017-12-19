@@ -23,7 +23,7 @@ const styles = {
 const facebookTitle = 'Share these results';
 const twitterTitle = 'Check out these Cambridge Bumps results!';
 
-const BumpsChartControls = ({ incrementYear, decrementYear, url }) =>
+const BumpsChartControls = ({ incrementYear, decrementYear, url }) => (
   <div className="bumpsControls" style={styles.customButtons}>
     <IconButton onClick={decrementYear}>
       <AVFastRewind color="#91B9A4" />
@@ -31,34 +31,29 @@ const BumpsChartControls = ({ incrementYear, decrementYear, url }) =>
     <div className="share">
       <FacebookShareButton
         url={url}
-        title={facebookTitle}
+        quote={facebookTitle}
         className="facebook-share-button"
       >
-        <FacebookIcon
-          size={24}
-          round
-        />
+        <FacebookIcon size={24} round />
       </FacebookShareButton>
       <TwitterShareButton
         url={url}
         title={twitterTitle}
         className="twitter-share-button"
       >
-        <TwitterIcon
-          size={24}
-          round
-        />
+        <TwitterIcon size={24} round />
       </TwitterShareButton>
     </div>
     <IconButton onClick={incrementYear}>
       <AVFastForward color="#91B9A4" />
     </IconButton>
-  </div>;
+  </div>
+);
 
 BumpsChartControls.propTypes = {
   incrementYear: React.PropTypes.func,
   decrementYear: React.PropTypes.func,
-  url: React.PropTypes.string
+  url: React.PropTypes.string,
 };
 
 export default BumpsChartControls;

@@ -6,9 +6,12 @@ import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import MediaQuery from 'react-responsive';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { calculateNumYearsToview, calculateYearRange, expandCrew } from 'd3-bumps-chart';
+import {
+  calculateNumYearsToview,
+  calculateYearRange,
+  expandCrew,
+} from 'd3-bumps-chart';
 
 import { setUrl, setMapInverse, color } from '../util';
 import BumpsChartContainer from '../containers/BumpsChartContainer';
@@ -27,7 +30,7 @@ const muiTheme = getMuiTheme(darkBaseTheme, {
     textColor: '#FFFFFF',
   },
   button: {
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
 });
 
@@ -64,7 +67,11 @@ function matchCrew(club, crew, set) {
 function setClub(index, clubs, set, gender, results, closeMenu) {
   const club = expandCrew(clubs[index], set);
 
-  const selectedCrews = new Set(results.crews.filter(crew => matchCrew(club.replace(/\s+/g, ''), crew, set)).map(crew => crew.name));
+  const selectedCrews = new Set(
+    results.crews
+      .filter(crew => matchCrew(club.replace(/\s+/g, ''), crew, set))
+      .map(crew => crew.name)
+  );
 
   closeMenu();
 
@@ -82,11 +89,31 @@ function toggleSelectedCrew(crew, set, gender, selectedCrews) {
   setUrl(set, gender, selectedCrews);
 }
 
-const App = ({ set, gender, selectedCrews, results, year, clubs, width, clubSelectMenuOpen, clubSelectMenuAnchorElement,
-  onSetYear, onIncrementYearClick, onDecrementYearClick,
-  onDrawerToggleClick, drawerOpen, onSetDrawerClick, onDrawerCloseClick, onClubSelectOpenClick, onClubSelectRequestClose }) => {
-
-  const currentYear = calculateYearRange(year, { start: results.startYear, end: results.endYear }, calculateNumYearsToview(width));
+const App = ({
+  set,
+  gender,
+  selectedCrews,
+  results,
+  year,
+  clubs,
+  width,
+  clubSelectMenuOpen,
+  clubSelectMenuAnchorElement,
+  onSetYear,
+  onIncrementYearClick,
+  onDecrementYearClick,
+  onDrawerToggleClick,
+  drawerOpen,
+  onSetDrawerClick,
+  onDrawerCloseClick,
+  onClubSelectOpenClick,
+  onClubSelectRequestClose,
+}) => {
+  const currentYear = calculateYearRange(
+    year,
+    { start: results.startYear, end: results.endYear },
+    calculateNumYearsToview(width)
+  );
 
   // Think of this as clamping to valid values
   if (currentYear.start !== year.start || currentYear.end !== year.end) {
@@ -98,36 +125,58 @@ const App = ({ set, gender, selectedCrews, results, year, clubs, width, clubSele
     <MuiThemeProvider muiTheme={muiTheme}>
       <div className="bumpsContainer">
         <AppBar
-          iconElementRight={<EventControls
-            set={set}
-            gender={gender}
-            clubs={clubs}
-            clubSelectMenuOpen={clubSelectMenuOpen}
-            clubSelectMenuAnchorElement={clubSelectMenuAnchorElement}
-            onSetClick={(newSet) => setSet(newSet, set, gender, selectedCrews)}
-            onGenderClick={(newGender) => setGender(newGender, set, gender, selectedCrews)}
-            onUpdateClub={(index) => setClub(index, clubs, set, gender, results, onClubSelectRequestClose)}
-            onClubSelectOpenClick={(event) => onClubSelectOpenClick(event)}
-            onClubSelectRequestClose={() => onClubSelectRequestClose()} />}
+          iconElementRight={
+            <EventControls
+              set={set}
+              gender={gender}
+              clubs={clubs}
+              clubSelectMenuOpen={clubSelectMenuOpen}
+              clubSelectMenuAnchorElement={clubSelectMenuAnchorElement}
+              onSetClick={newSet => setSet(newSet, set, gender, selectedCrews)}
+              onGenderClick={newGender =>
+                setGender(newGender, set, gender, selectedCrews)
+              }
+              onUpdateClub={index =>
+                setClub(
+                  index,
+                  clubs,
+                  set,
+                  gender,
+                  results,
+                  onClubSelectRequestClose
+                )
+              }
+              onClubSelectOpenClick={event => onClubSelectOpenClick(event)}
+              onClubSelectRequestClose={() => onClubSelectRequestClose()}
+            />
+          }
           onLeftIconButtonTouchTap={() => onDrawerToggleClick()}
-          style={styles.customToolbar} />
+          style={styles.customToolbar}
+        />
         <BumpsDrawer
           drawerOpen={drawerOpen}
           onSetDrawerClick={onSetDrawerClick}
-          onDrawerCloseClick={onDrawerCloseClick} />
-        <BumpsChartControls incrementYear={() => onIncrementYearClick()} decrementYear={() => onDecrementYearClick()} url={window.location.toString()} />
+          onDrawerCloseClick={onDrawerCloseClick}
+        />
+        <BumpsChartControls
+          incrementYear={() => onIncrementYearClick()}
+          decrementYear={() => onDecrementYearClick()}
+          url={window.location.toString()}
+        />
         <BumpsChartContainer
           data={results}
           year={year}
           selectedCrews={selectedCrews}
-          toggleSelectedCrew={(crew) => toggleSelectedCrew(crew, set, gender, selectedCrews)}
+          toggleSelectedCrew={crew =>
+            toggleSelectedCrew(crew, set, gender, selectedCrews)
+          }
           focus={false}
           windowWidth={width}
         />
-      </div >
-    </MuiThemeProvider >
+      </div>
+    </MuiThemeProvider>
   );
-}
+};
 
 App.propTypes = {
   set: React.PropTypes.string,
@@ -136,7 +185,7 @@ App.propTypes = {
   results: React.PropTypes.object,
   year: React.PropTypes.shape({
     start: React.PropTypes.number,
-    end: React.PropTypes.number
+    end: React.PropTypes.number,
   }),
   clubs: React.PropTypes.array,
   width: React.PropTypes.number,
@@ -151,7 +200,7 @@ App.propTypes = {
   onSetDrawerClick: React.PropTypes.func,
   onDrawerCloseClick: React.PropTypes.func,
   onClubSelectOpenClick: React.PropTypes.func,
-  onClubSelectRequestClose: React.PropTypes.func
+  onClubSelectRequestClose: React.PropTypes.func,
 };
 
 export default App;

@@ -32,19 +32,3 @@ export default class BumpsChart extends React.Component {
     );
   }
 }
-
-BumpsChart.propTypes = {
-  data: React.PropTypes.object,
-  year: React.PropTypes.object,
-  selectedCrews: React.PropTypes.object,
-  highlightedCrew: React.PropTypes.string,
-  selectYear: React.PropTypes.func,
-  toggleSelectedCrew: React.PropTypes.func,
-  resize: React.PropTypes.func,
-  highlightCrew: React.PropTypes.func,
-  maxWidth: React.PropTypes.number,
-  maxHeight: React.PropTypes.number,
-  border: React.PropTypes.bool,
-  focus: React.PropTypes.bool,
-  windowWidth: React.PropTypes.number,
-};

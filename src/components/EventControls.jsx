@@ -72,9 +72,7 @@ const EventControls = ({
             targetOrigin={{ horizontal: 'left', vertical: 'top' }}
             onRequestClose={() => onClubSelectRequestClose()}
           >
-            <Menu
-              onItemTouchTap={(event, menuItem, index) => onUpdateClub(index)}
-            >
+            <Menu onItemClick={(event, menuItem, index) => onUpdateClub(index)}>
               {clubs !== null
                 ? clubs.map(club => (
                     <MenuItem
@@ -90,18 +88,5 @@ const EventControls = ({
     />
   </div>
 );
-
-EventControls.propTypes = {
-  set: React.PropTypes.string,
-  gender: React.PropTypes.string,
-  clubs: React.PropTypes.array,
-  clubSelectMenuOpen: React.PropTypes.bool,
-  clubSelectMenuAnchorElement: React.PropTypes.object,
-  onSetClick: React.PropTypes.func,
-  onGenderClick: React.PropTypes.func,
-  onUpdateClub: React.PropTypes.func,
-  onClubSelectOpenClick: React.PropTypes.func,
-  onClubSelectRequestClose: React.PropTypes.func,
-};
 
 export default EventControls;

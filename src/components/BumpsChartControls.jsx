@@ -50,10 +50,4 @@ const BumpsChartControls = ({ incrementYear, decrementYear, url }) => (
   </div>
 );
 
-BumpsChartControls.propTypes = {
-  incrementYear: React.PropTypes.func,
-  decrementYear: React.PropTypes.func,
-  url: React.PropTypes.string,
-};
-
 export default BumpsChartControls;

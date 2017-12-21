@@ -1,5 +1,5 @@
 # Install scripts. (runs after repo cloning)
--install:
+install:
   - npm install --force
 
 # Post-install test scripts.

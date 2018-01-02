@@ -22,7 +22,7 @@ const config = {
     rules: [
       {
         test: /\.js?/,
-        exclude: /node_modules\/(?!d3-bumps-chart)/,
+        exclude: /node_modules/,
         use: 'babel-loader',
       },
       {

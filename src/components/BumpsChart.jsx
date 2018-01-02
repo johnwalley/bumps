@@ -1,5 +1,6 @@
 import React from 'react';
 import { select } from 'd3-selection';
+import 'd3-transition';
 import { bumpsChart } from 'd3-bumps-chart';
 
 export default class BumpsChart extends React.Component {

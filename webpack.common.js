@@ -62,7 +62,6 @@ const config = {
     }),
     new CopyWebpackPlugin([
       { from: 'sitemap.xml' },
-      { from: '.htaccess' },
       { from: 'fines.html' },
       { from: 'data.csv' },
       { from: 'images/facebook.png', to: 'images/facebook.png' },

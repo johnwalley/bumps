@@ -18,11 +18,16 @@ export const setMapInverse = {
   'May Bumps': 'mays',
   'Lent Bumps': 'lents',
   'Town Bumps': 'town',
-  'Torpids': 'torpids',
+  Torpids: 'torpids',
   'Summer Eights': 'eights',
 };
 
-export const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]) => {
+export const pickEvents = (
+  events,
+  gender,
+  set,
+  yearRange = [-Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]
+) => {
   const transformedEvents = events
     .filter(e => e.gender.toLowerCase() === gender.toLowerCase())
     .filter(e => e.set === set)
@@ -35,7 +40,11 @@ export const pickEvents = (events, gender, set, yearRange = [-Number.POSITIVE_IN
 
 export const setUrl = (set, gender, selectedCrews) => {
   if (selectedCrews.size > 0) {
-    browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews].map(crew => crew.replace(/ /g, '_').replace(/\//g, '-')).join(',')}`);
+    browserHistory.push(
+      `/${setMapInverse[set]}/${gender.toLowerCase()}/${[...selectedCrews]
+        .map(crew => crew.replace(/ /g, '_').replace(/\//g, '-'))
+        .join(',')}`
+    );
   } else {
     browserHistory.push(`/${setMapInverse[set]}/${gender.toLowerCase()}`);
   }

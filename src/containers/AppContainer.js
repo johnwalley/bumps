@@ -1,9 +1,25 @@
 import { connect } from 'react-redux';
 
-import { setYear, incrementYear, decrementYear, toggleDrawer, closeDrawer, setDrawer, clubSelectMenuOpen, clubSelectMenuClose } from '../actions';
+import {
+  setYear,
+  incrementYear,
+  decrementYear,
+  toggleDrawer,
+  closeDrawer,
+  setDrawer,
+  clubSelectMenuOpen,
+  clubSelectMenuClose,
+} from '../actions';
 import App from '../components/App.jsx';
 import { setUrl } from '../util';
-import { getSet, getGender, getSelectedCrews, getResults, getClubs, getYear } from '../selectors';
+import {
+  getSet,
+  getGender,
+  getSelectedCrews,
+  getResults,
+  getClubs,
+  getYear,
+} from '../selectors';
 
 const mapStateToProps = (state, ownProps) => {
   const set = getSet(state, ownProps);
@@ -13,7 +29,10 @@ const mapStateToProps = (state, ownProps) => {
   const year = getYear(state, ownProps);
   const clubs = getClubs(state, ownProps);
 
-  if (ownProps.params.eventId === undefined || ownProps.params.genderId === undefined) {
+  if (
+    ownProps.params.eventId === undefined ||
+    ownProps.params.genderId === undefined
+  ) {
     setTimeout(() => setUrl(set, gender, selectedCrews));
   }
 
@@ -27,11 +46,11 @@ const mapStateToProps = (state, ownProps) => {
     width: state.ui.width,
     drawerOpen: state.ui.drawerOpen,
     clubSelectMenuOpen: state.ui.clubSelectMenuOpen,
-    clubSelectMenuAnchorElement: state.ui.clubSelectMenuAnchorElement
+    clubSelectMenuAnchorElement: state.ui.clubSelectMenuAnchorElement,
   };
 };
 
-const mapDispatchToProps = ({
+const mapDispatchToProps = {
   onSetYear: setYear,
   onIncrementYearClick: incrementYear,
   onDecrementYearClick: decrementYear,
@@ -39,12 +58,9 @@ const mapDispatchToProps = ({
   onDrawerCloseClick: closeDrawer,
   onSetDrawerClick: setDrawer,
   onClubSelectOpenClick: clubSelectMenuOpen,
-  onClubSelectRequestClose: clubSelectMenuClose
-});
+  onClubSelectRequestClose: clubSelectMenuClose,
+};
 
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default AppContainer;

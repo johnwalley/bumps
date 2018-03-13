@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import ui from './ui';
 
 const bumpsApp = combineReducers({
-  ui
+  ui,
 });
 
 export default bumpsApp;

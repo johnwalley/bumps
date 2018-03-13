@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk';
 
 import AppContainer from './containers/AppContainer';
 import About from './about.jsx';
@@ -18,11 +18,15 @@ const initialState = {
   ui: {
     events: [],
     year: { start: 2017, end: 2017 },
-    width: window.document.body.clientWidth
-  }
+    width: window.document.body.clientWidth,
+  },
 };
 
-const store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware));
+const store = createStore(
+  reducer,
+  initialState,
+  applyMiddleware(thunkMiddleware)
+);
 
 store.dispatch(fetchResults());
 
@@ -30,7 +34,7 @@ window.addEventListener('resize', () => {
   store.dispatch(resize(window.document.body.clientWidth));
 });
 
-window.addEventListener('keydown', (event) => {
+window.addEventListener('keydown', event => {
   store.dispatch(keydown(event.keyCode));
 });
 

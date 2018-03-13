@@ -1,71 +1,66 @@
 export const requestResults = () => ({
-  type: 'REQUEST_RESULTS'
+  type: 'REQUEST_RESULTS',
 });
 
 export const receiveResults = results => ({
   type: 'RECEIVE_RESULTS',
-  results: results
+  results: results,
 });
 
 export function fetchResults(subreddit) {
-  return function (dispatch) {
-    dispatch(requestResults())
-    return fetch(`https://api.cambridgebumps.com/v1/results/`)
+  return function(dispatch) {
+    dispatch(requestResults());
+    return fetch(
+      `https://3d9t1ahljg.execute-api.eu-west-2.amazonaws.com/test/results`
+    )
       .then(
-      response => response.json(),
-      error => console.log('An error occured.', error)
+        response => response.json(),
+        error => console.log('An error occured.', error)
       )
-      .then(json =>
-        dispatch(receiveResults(json))
-      )
-  }
+      .then(json => dispatch(receiveResults(json)));
+  };
 }
 
 export const setYear = (start, end) => ({
   type: 'SET_YEAR',
   start,
-  end
+  end,
 });
 
 export const resize = width => ({
   type: 'RESIZE',
-  width
+  width,
 });
 
 export const keydown = keyCode => ({
   type: 'KEYDOWN',
-  keyCode
+  keyCode,
 });
 
 export const incrementYear = () => ({
-  type: 'INCREMENT_YEAR'
+  type: 'INCREMENT_YEAR',
 });
 
 export const decrementYear = () => ({
-  type: 'DECREMENT_YEAR'
-});
-
-export const setHighlightedCrew = crew => ({
-  type: 'SET_HIGHLIGHTED_CREW',
-  crew
+  type: 'DECREMENT_YEAR',
 });
 
 export const toggleDrawer = () => ({
-  type: 'TOGGLE_DRAWER'
+  type: 'TOGGLE_DRAWER',
 });
 
 export const closeDrawer = () => ({
-  type: 'CLOSE_DRAWER'
+  type: 'CLOSE_DRAWER',
 });
 
 export const setDrawer = open => ({
   type: 'SET_DRAWER',
-  open
+  open,
 });
 
 export const clubSelectMenuOpen = event => ({
   type: 'OPEN_CLUB_SELECT_MENU',
-  event
+  event,
 });
 
 export const clubSelectMenuClose = () => ({

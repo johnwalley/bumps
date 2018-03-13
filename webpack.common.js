@@ -63,6 +63,7 @@ const config = {
     new CopyWebpackPlugin([
       { from: 'sitemap.xml' },
       { from: 'fines.html' },
+      { from: '_redirects' },
       { from: 'data.csv' },
       { from: 'images/facebook.png', to: 'images/facebook.png' },
       { from: 'images/favicons' },

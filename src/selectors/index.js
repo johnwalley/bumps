@@ -41,8 +41,11 @@ export const getSelectedCrews = (state, props) => {
   let selectedCrews = new Set();
 
   if (props.params.crewId !== undefined) {
-    selectedCrews = new Set(props.params.crewId.split(',').map(crew => crew.replace(/_/g, ' ')
-      .replace(/[^X]-/g, '/'))); // Attempt to convert to correct form for joint club crews but avoid catching X-Press
+    selectedCrews = new Set(
+      props.params.crewId
+        .split(',')
+        .map(crew => crew.replace(/_/g, ' ').replace(/[^X]-/g, '/'))
+    ); // Attempt to convert to correct form for joint club crews but avoid catching X-Press
   }
 
   return selectedCrews;
@@ -58,11 +61,23 @@ export const getClubs = (state, props) => {
   const numYears = calculateNumYearsToview(state.ui.width);
 
   const fullData = getResults(state, props);
-  const restrictedData = pickEvents(state.ui.events, getGender(state, props), getSet(state, props), [fullData.endYear - numYears, fullData.endYear]);
+  const restrictedData = pickEvents(
+    state.ui.events,
+    getGender(state, props),
+    getSet(state, props),
+    [fullData.endYear - numYears, fullData.endYear]
+  );
 
-  const rawClubs = restrictedData.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim());
-  const uniqueClubs = new Set(restrictedData.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim()));
-  const histogram = [...uniqueClubs.values()].map(club => ({ club, count: rawClubs.filter(c => c === club).length }));
+  const rawClubs = restrictedData.crews.map(crew =>
+    crew.name.replace(/[0-9]+$/, '').trim()
+  );
+  const uniqueClubs = new Set(
+    restrictedData.crews.map(crew => crew.name.replace(/[0-9]+$/, '').trim())
+  );
+  const histogram = [...uniqueClubs.values()].map(club => ({
+    club,
+    count: rawClubs.filter(c => c === club).length,
+  }));
   const sortedHistogram = histogram.sort((a, b) => b.count - a.count);
 
   if (props.params.set !== 'Town Bumps') {

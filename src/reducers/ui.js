@@ -1,29 +1,39 @@
 const leftArrowKeyCode = 37;
 const rightArrowKeyCode = 39;
 
-const ui = (state = { events: null, width: null, year: null, highlightedCrew: null, drawerOpen: false, clubSelectMeuOpen: false, clubSelectMenuAnchorElement: null }, action) => {
+const ui = (
+  state = {
+    events: null,
+    width: null,
+    year: null,
+    drawerOpen: false,
+    clubSelectMeuOpen: false,
+    clubSelectMenuAnchorElement: null,
+  },
+  action
+) => {
   let year;
   switch (action.type) {
     case 'REQUEST_RESULTS':
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case 'RECEIVE_RESULTS':
       return {
         ...state,
         isFetching: false,
-        events: action.results
+        events: action.results,
       };
     case 'SET_YEAR':
       return {
         ...state,
-        year: { start: action.start, end: action.end }
+        year: { start: action.start, end: action.end },
       };
     case 'RESIZE':
       return {
         ...state,
-        width: action.width
+        width: action.width,
       };
     case 'KEYDOWN':
       if (action.keyCode === rightArrowKeyCode) {
@@ -36,41 +46,36 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
 
       return {
         ...state,
-        year
+        year,
       };
     case 'INCREMENT_YEAR':
       year = { start: state.year.start + 1, end: state.year.end + 1 };
 
       return {
         ...state,
-        year
+        year,
       };
     case 'DECREMENT_YEAR':
       year = { start: state.year.start - 1, end: state.year.end - 1 };
 
       return {
         ...state,
-        year
-      };
-    case 'SET_HIGHLIGHTED_CREW':
-      return {
-        ...state,
-        highlightedCrew: action.crew
+        year,
       };
     case 'TOGGLE_DRAWER':
       return {
         ...state,
-        drawerOpen: !state.drawerOpen
+        drawerOpen: !state.drawerOpen,
       };
     case 'CLOSE_DRAWER':
       return {
         ...state,
-        drawerOpen: false
+        drawerOpen: false,
       };
     case 'SET_DRAWER':
       return {
         ...state,
-        drawerOpen: action.open
+        drawerOpen: action.open,
       };
     case 'OPEN_CLUB_SELECT_MENU':
       action.event.preventDefault();
@@ -78,12 +83,12 @@ const ui = (state = { events: null, width: null, year: null, highlightedCrew: nu
       return {
         ...state,
         clubSelectMenuOpen: true,
-        clubSelectMenuAnchorElement: action.event.currentTarget
+        clubSelectMenuAnchorElement: action.event.currentTarget,
       };
     case 'CLOSE_CLUB_SELECT_MENU':
       return {
         ...state,
-        clubSelectMenuOpen: false
+        clubSelectMenuOpen: false,
       };
     default:
       return state;

@@ -1,0 +1,19 @@
+EIGHTS 1861 9-17 May
+ 8  1  16   = NDay, NDiv, NCrew
+ 16  Division I
+Balliol                     0   0   0  -1   0   0   0   0
+Exeter                      0   0  -1   0   0   0   0   0
+Brasenose                   0  -1   0   0   0   0   0   0
+University                 -1  -1  -1  -1   0  -1  -1  -1
+Trinity                     1   1   1   1   0   0   0   0
+Magdalen                    0   1   0   0   0   0   0   0
+Christ Church               0   0   1   0  -1   0   0   0
+Pembroke                   -1   0   0   0   0   1   0   0
+Wadham                      1   0   0   1   1   0   0   0
+Merton                      0   0   0   0   0   0   1   0
+Oriel                      -1   0   0   0   0   0   0   0
+Corpus Christi              1   0   0   0   0   0   0   1
+Queen's                     0  -1   0   0   0   0   0   0
+Worcester                  -1   0   0   0 -99 -99 -99 -99
+Jesus                       1   1   0   0   0   0   0   0
+S.E.H.                      0   0   0   0   1   0   0   0

@@ -1,0 +1,16 @@
+TORPIDS 1843 10-24 June
+  7  1 13   = NDay, NDiv, NCrew
+ 13  Division I
+Brasenose                   0  -1  -1  -1 -99 -99 -99
+Exeter                     -1   0   1   0 -99 -99 -99
+University                  1   1   0   0   0   0   0
+Christ Church              -1   0   1   1   1  -1 -99
+Pembroke                    1   0  -1  -1   2   0 -99
+Trinity                     0  -1 -99 -99 -99 -99 -99
+Wadham                     -1   0   1   0   2   0 -99
+Oriel                       1   1   0   1   2   1   0
+St John's                   0   0  -2   2   3   0 -99
+Worcester                   0   0   2 -99 -99 -99 -99
+Balliol                     0   0   2   1 -99 -99 -99
+Worcester II                0   0   2 -99 -99 -99 -99
+Oriel II                    0   0 -99 -99 -99 -99 -99

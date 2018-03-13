@@ -1,0 +1,13 @@
+TORPIDS 1856 25 Feb - 1 Mar
+  6  1 10   = NDay, NDiv, NCrew
+ 10  Division I
+Exeter                      0   0   0   0   0   0
+University                 -1   0   0   0   0  -1
+Christ Church               1   0   0   0   0   0
+Brasenose                  -1  -1   0   0   0  -1
+Pembroke                    1   0   0   0   0   1
+Balliol                     0   1   0   0   0   0
+Worcester                   0   0  -1   0  -1 -99
+Wadham                      0   0   1   0   0   1
+St John's                   0  -1   0   1   1   0
+Trinity                     0   1   0  -1   0   1

@@ -1,0 +1,21 @@
+EIGHTS 1844 4 Mar - 24 May
+10  1  18   = NDay, NDiv, NCrew
+ 18  Division I
+University                 -1  -1   0  -1   0   0  -1  -1  -2   0
+Oriel                       1   0  -1   0   0   0   0   0  -1  -1
+Christ Church               0   1   1   0   0   0   0   0   0   0
+Trinity                     0  -1  -1   0  -1  -1   0   0   2   0
+Pembroke                   -1  -1   0  -1   0  -1   0   0   0   0
+Balliol                     1   1  -1   0   0  -1  -1   0   0   0
+St John's                  -1   0   0  -1  -1 -99 -99 -99 -99 -99
+Brasenose                   1   1   2   1   0   0   0  -1   0   1
+Exeter                      0   0  -1  -1   0   1   0   0   0   0
+Worcester                   0  -1  -1 -99 -99 -99 -99 -99 -99 -99
+Wadham                     -1   0   1   1   1   2   1   1   0   0
+Lincoln                    -1   0   0   1   0   1   0   0   0   0
+Merton                      2   1   1   2   1   1   1   1   1   0
+Christ Church II            0 -99 -99 -99 -99 -99 -99 -99 -99 -99
+Brasenose II                0   1  -1 -99 -99 -99 -99 -99 -99 -99
+Worcester II                0   1   1   1 -99 -99 -99 -99 -99 -99
+Magdalen Hall               0   1   0   2   1   1   0   0 -99 -99
+Jesus                       0   1   0   2   1   1   0   0   1 -99

@@ -1,0 +1,9 @@
+TORPIDS 1840 13 - 24 June
+  4  1  6   = NDay, NDiv, NCrew
+  6  Division I
+Oriel                       0   0 -99 -99
+Brasenose                  -1  -1   1 -99
+Exeter                      1   0   1 -99
+Trinity                    -1   0 -99 -99
+Wadham                      1   1   1   1
+St John's                   0   0   2 -99

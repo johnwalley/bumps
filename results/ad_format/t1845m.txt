@@ -1,0 +1,13 @@
+TORPIDS 1845 16-26 June
+  6  1 10   = NDay, NDiv, NCrew
+ 10  Division I
+Oriel                       0  -1   0   0  -1  -1
+Wadham                      0   1   0   0   0  -1
+Worcester                   0   0   0  -1  -1 -99
+Exeter                      0   0  -1 -99 -99 -99
+Brasenose                   0   0   1   1   1   1
+Trinity                    -1  -1  -1   1 -99 -99
+Christ Church               1   0  -1   0 -99 -99
+Pembroke                    0   1   1   1   1   1
+Merton                     -1   0 -99 -99 -99 -99
+Queen's                     1   0   1   2   0   1

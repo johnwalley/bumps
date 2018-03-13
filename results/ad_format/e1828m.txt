@@ -1,0 +1,9 @@
+EIGHTS 1828 1-16 June
+ 6  1   6   = NDay, NDiv, NCrew
+  6  Division I
+Brasenose                   0  -1  -1   0   0   1
+Balliol                     0   1   0   0  -1  -1
+University                 -1   0   0   0   0   0
+Christ Church               1   0   1   0   1   0
+Trinity                    -1   0   0 -99 -99 -99
+Oriel                       1   0   0   0   0   0
